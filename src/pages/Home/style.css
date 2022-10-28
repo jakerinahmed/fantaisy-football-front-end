@@ -1,0 +1,78 @@
+:root {
+    --background: #0D1821;
+    --text: #41EAD4;
+    --border: #F71735;
+    --font: 'Kanit', sans-serif;
+  }
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: var(--font);
+    background-color: var(--background);
+    color: var(--text);
+}
+
+h2 {
+    padding: 10px;
+}
+
+.intro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    min-height: 50vh;
+    max-height: 50vh;
+}
+
+.dream-main-div {
+    min-height: 30vh;
+    max-height: 30vh;
+    border-top: solid 5px var(--border);
+    border-radius: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.dream, .recommend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dream > button, .recommend > button {
+    margin-top: 10px;
+    background: transparent;
+    color: var(--text);
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: var(--font);
+    border-radius: 10px;
+    border: solid 5px var(--border);
+    cursor: pointer;
+}
+
+.dream > button:hover, .recommend > button:hover {
+    background-color: transparent;
+    color: var(--text);
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: var(--font);
+    border-radius: 10px;
+    border: solid 5px var(--border);
+    cursor: pointer;
+}
+
+div {
+    border-radius: 10px;
+    margin: 20px;
+}
