@@ -1,0 +1,43 @@
+:root {
+    --background: #0D1821;
+    --text: #41EAD4;
+    --border: #F71735;
+    --font: 'Kanit', sans-serif;
+  }
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+
+h2 {
+    padding: 10px;
+}
+
+.fpl-about, .model-about {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    min-height: 50vh;
+    max-height: 50vh;
+    border-bottom: 5px solid var(--border);
+    border-radius: 0px;
+}
+
+.fpl-about > ul, .model-about > ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    
+}
+
+
+div {
+    
+    border-radius: 10px;
+    margin: 20px;
+}
