@@ -1,0 +1,17 @@
+:root {
+    --background: firebrick;
+    --text: aquamarine;
+    --border: violet;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    background-color: var(--background);
+    color: var(--text);
+}
