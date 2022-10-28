@@ -7,7 +7,7 @@ const StatsTable = () => {
 
             <div className='filters'>
 
-                <div>
+                <div role='team'>
                     <label className='filter-padding' for="team">Team</label>
                     <select name="team" id="team">
                         <option value="Arsenal">Arsenal FC</option>
@@ -17,7 +17,7 @@ const StatsTable = () => {
                     </select>
                 </div>
 
-                <div>
+                <div role='position'>
                     <label className='filter-padding' for="position">Position</label>
                     <select name="position" id="position">
                         <option value="GK">GK</option>
