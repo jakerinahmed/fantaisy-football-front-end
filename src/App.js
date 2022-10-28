@@ -14,10 +14,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
-        <Route path='/predictions' element={<Predictions />} />
-        {/* <Route path='/statistics' element={<Statistics />} /> */}
         <Route path='/recommendations' element={<Recommendations />} />
-        {/* <Route path='*' element={<NotFound />} /> */}
+        {/*<Route path='/predictions' element={<Predictions />} />
+        <Route path='/statistics' element={<Statistics />} />
+        <Route path='*' element={<NotFound />} /> */}
       </Routes>
     </>
   );

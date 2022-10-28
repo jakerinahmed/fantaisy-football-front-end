@@ -88,6 +88,20 @@ h2 {
     justify-content: center;
 }
 
+#submit-button{
+    margin-top: 10px;
+    background: transparent;
+    color: var(--text);
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: var(--font);
+    border-radius: 10px;
+    border: solid 5px var(--border);
+    cursor: pointer;
+
+}
+
 .suggestion{
     border: none;
     border-top: 5px solid var(--border);
