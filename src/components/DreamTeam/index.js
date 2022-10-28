@@ -3,7 +3,7 @@ import './style.css'
 
 const DreamTeam = () => {
   return (
-    <div className='dream-team'>
+    <div className='dream-team' role='dream-team'>
         <p>Dream Team</p>
     </div>
   )
