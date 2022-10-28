@@ -1,8 +1,9 @@
 :root {
-    --background: firebrick;
-    --text: aquamarine;
-    --border: violet;
-}
+    --background: #0d1821;
+    --text: #41ead4;
+    --border: #f71735;
+    --font: "Kanit", sans-serif;
+  }
 
 * {
     padding: 0px;

@@ -3,7 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
 import { Navbar } from './layout'
-import { Home, About, Recommendations } from './pages'
+
+import { Home, About, Predictions, Recommendations } from './pages'
+
 
 function App() {
   return (
