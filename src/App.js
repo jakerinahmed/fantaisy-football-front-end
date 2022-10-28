@@ -3,7 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
 import { Navbar } from './layout'
-import { Home, About, Predictions } from './pages'
+
+import { Home, About, Predictions, Recommendations } from './pages'
+
 
 function App() {
   return (
@@ -13,9 +15,9 @@ function App() {
         <Route path='/' element={<Home />} />
          <Route path='/about' element={<About />} />
          <Route path='/predictions' element={<Predictions />} />
-        {/* <Route path='/statistics' element={<Statistics />} />
+        <Route path='/statistics' element={<Statistics />} />
         <Route path='/recommendations' element={<Recommendations />} />
-        <Route path='*' element={<NotFound />} /> */}
+        {/* <Route path='*' element={<NotFound />} /> */}
       </Routes>
     </>
   );
