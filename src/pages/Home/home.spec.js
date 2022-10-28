@@ -21,7 +21,7 @@ describe('Home', () => {
         const buttons = screen.getAllByRole('button')
         expect(buttons.length).toBe(2);
     });
-    test('there are two buttons on the home page', () => {
+    test('the view analysis button takes you to /recommendations', () => {
 
         const button = screen.getByText('View analysis')
         expect(button.href).toContain("/recommendations");

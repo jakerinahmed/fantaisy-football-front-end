@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.css'
 import { Link } from 'react-router-dom'
-import { Recommendations } from '../index'
+
 
 const Home = () => {
   return (

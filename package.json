@@ -13,6 +13,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --setupFilesAfterEnv ./src/test/setupTests.js",
+    "coverage": "react-scripts test --setupFilesAfterEnv ./src/test/setupTests.js --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "jest": {

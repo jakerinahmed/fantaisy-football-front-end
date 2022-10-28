@@ -7,7 +7,7 @@ const Recommendations = () => {
     <div>
 
       <div className='login-div'>
-        <p>To view your team please enter your email and password for your fantasy premier league team</p>
+        <p role="instruction">To view your team please enter your email and password for your fantasy premier league team</p>
         <div className='form-div'>
 
           <form>
@@ -20,7 +20,9 @@ const Recommendations = () => {
             <div className='user-id'>
               <label>User ID:</label>
               <input type='text' placeholder="user id"></input>
-              
+            </div>
+            <div className='user-id'>
+              <input type='submit' id="submit-button" value="Get my team!"></input>
             </div>
           </form>
         </div>
