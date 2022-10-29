@@ -1,0 +1,121 @@
+:root {
+    --background: #0D1821;
+    --text: #41EAD4;
+    --border: #F71735;
+    --font: 'Kanit', sans-serif;
+  }
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+
+h2 {
+    padding: 10px;
+}
+
+.login-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 30vh;
+}
+
+.form-div{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.login-details > input{
+    margin:5px;
+    background:transparent;
+    border:none;
+    border-bottom: 5px solid var(--text);
+    color: var(--text);
+    padding: 5px;
+    font-size: 20px;
+    
+}
+
+.user-id{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-id > input{
+    margin:5px;
+    background:transparent;
+    border:none;
+    border-bottom: 5px solid var(--text);
+    color: var(--text);
+    padding: 5px;
+    font-size: 20px;
+}
+
+.user-id > label {
+    margin: 10px;
+    font-size: 20px;
+}
+
+
+.login-details > label {
+    margin: 10px;
+    font-size: 20px;
+}
+
+.teams-rec{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 5px solid var(--border) ;
+    border-radius: 0px;   
+    min-height: 30vh;
+}
+
+.user-team, .user-op-team{
+    border: 5px solid var(--border);
+    min-width: 50%;
+    min-height: 30vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#submit-button{
+    margin-top: 10px;
+    background: transparent;
+    color: var(--text);
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: var(--font);
+    border-radius: 10px;
+    border: solid 5px var(--border);
+    cursor: pointer;
+
+}
+
+.suggestion{
+    border: none;
+    border-top: 5px solid var(--border);
+    border-radius: 0px;
+    padding: 20px;
+}
+
+.suggestion > p > span{
+    color: var(--text);
+    font-style: italic;
+
+}
+
+div {
+    border-radius: 10px;
+    margin: 20px;
+}

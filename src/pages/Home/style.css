@@ -58,6 +58,7 @@ h2 {
     border-radius: 10px;
     border: solid 5px var(--border);
     cursor: pointer;
+    text-decoration: none;
 }
 
 .dream > button:hover, .recommend > button:hover {

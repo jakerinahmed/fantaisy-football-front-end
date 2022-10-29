@@ -1,0 +1,38 @@
+:root {
+  --background: #0d1821;
+  --text: #41ead4;
+  --border: #f71735;
+  --font: "Kanit", sans-serif;
+}
+
+table,
+th,
+td
+{
+  border-collapse: collapse;
+  padding: 15px;
+  text-align: center;
+  color: white;
+}
+
+th {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+table, th {
+  background-color: #1D3549;
+}
+
+tr:nth-child(even) {
+  background-color: #234058;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.filter-padding{
+  padding-right: 5px;
+}
