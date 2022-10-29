@@ -6,7 +6,6 @@ import { useEffect } from 'react'
 const Stats = () => {
     const [allData, setAllData] = useState([])
     const [playerCode, setPlayerCode] = useState(58822)
-    // const [summary, setSummary] = useState("")
     useEffect(() => {
         const getAllData = async () => {
                 const response = await axios.get(`https://fantaisyfootball.herokuapp.com/allstats`)
@@ -15,18 +14,7 @@ const Stats = () => {
         getAllData()
     },[])
     const [names, setNames] = useState(["person"])
-    const [playerData, setPlayerData] = useState([{}])
-    // const handleTeamChoice = async (e) => {
-    //         const team = e.target.value
-    //         const { data }= await axios.get(`https://fantaisyfootball.herokuapp.com/teams/${team}`)
-    //         setTeamData(data)
-    //         const names = []
-    //         for (let i = 0; i < data.length ; i ++) {
-    //             names.push(data[i].name)
-    //         }
-    //         console.log(names)    
-    //         setNames(names)
-    // }
+    const [playerData, setPlayerData] = useState(["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",])
 
     const handleTeamChoice = async (e) => {
         const team = e.target.value
@@ -41,17 +29,41 @@ const Stats = () => {
         const name = e.target.value
         const data_array = allData.filter(p => p.name === name);
         const data = data_array[0]
-        setPlayerData(data)
         setPlayerCode(data.code)
+        setPlayerData(data)
     }
-    // const renderStats = (playerData) => {
-    //     console.log(playerData)
-    //     Object.keys(playerData).forEach(key => {
-    //         return (
-    //             <p> {key}, {playerData[key]}</p>
-    //             );
-    //       });
-    //     }
+    
+    const renderStats = ([assists, bonusPoints, chanceOfPlaying, cleanSheets, code,  creativity, goals, goalsConceded, ictIndex, id, influence, minutes, name, ownGoals, pensMissed, pensSaved, playerID, ppg, position, redCards, saves, selectedPerc, corners, freeKicks, pens, team, threat, totalPoints, transfersIn, transfersInRound, transfersOut, transfersOutRound, yellowCards ]) => {
+        return (
+            <div>
+            <h2>{name}</h2>
+            <h3>{position}</h3>
+            <h4>{team}</h4>
+            <p>Assists: {assists}</p>
+            <p>Bonus Points: {bonusPoints}</p>
+            <p>Clean Sheets: {cleanSheets}</p>
+            <p>Creativity: {creativity}</p>
+            <p>Goals: {goals}</p>
+            <p>Goals Conceded: {goalsConceded}</p>
+            <p>ICT Index: {ictIndex}</p>
+            <p>Influence: {influence}</p>
+            <p>Minutes Played: {minutes}</p>
+            <p>Own Goals: {ownGoals}</p>
+            <p>Pens Missed: {pensMissed}</p>
+            <p>Pens Saved: {pensSaved}</p>
+            <p>Points Per Game: {ppg}</p>
+            <p>Red Cards: {redCards}</p>
+            <p>Saves: {saves}</p>
+            <p>Selected by Percentage: {selectedPerc}</p>
+            <p>Takes Corners: {corners}</p>
+            <p>Takes Free Kicks: {freeKicks}</p>
+            <p>Takes Penalties: {pens}</p>
+            <p>Threat: {threat}</p>
+            <p>Total Points: {totalPoints}</p>
+            <p>Yellow Cards: {yellowCards}</p>
+            </div>
+        )
+        }
 
 
     function renderNames (names) {
@@ -86,7 +98,7 @@ const Stats = () => {
         </select>
         <div>
             <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${playerCode}.png`} alt="" />
-            {/* {renderStats(playerData[0])} */}
+            {renderStats(Object.values(playerData))}
         </div>
     </div>
   )
