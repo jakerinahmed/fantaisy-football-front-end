@@ -63,6 +63,10 @@ const Recommendations = () => {
     userPlayers.forEach(userPlayer => {
       currentPlayers.push(userPlayer.name)
     })
+    let teams = []
+    userPlayers.forEach(userPlayer => {
+      teams.push(userPlayer.team)
+    })
     console.log(bank)
     userPlayers.forEach(userPlayer => {
       dreamPlayers.forEach(dreamPlayer => {
@@ -71,7 +75,16 @@ const Recommendations = () => {
           const pointDiff = dreamPlayer.points - userPlayer.points
           const playerIn = dreamPlayer.name
           const playerOut = userPlayer.name
-          if(pointDiff > 0 && !currentPlayers.find(name => playerIn === name)){
+          console.log(teams)
+          if(dreamPlayer.team !== userPlayer.team){
+            const newTeams = teams.filter(team => dreamPlayer.team === team)
+            console.log(newTeams)
+            var teamCount = newTeams.length + 1
+
+          }
+          console.log(teamCount)
+
+          if(pointDiff > 0 && !currentPlayers.find(name => playerIn === name) && teams.filter(team => dreamPlayer.team === team) && teamCount <= 3){
             
             newTransfers.push(`Transfer ${playerIn} for ${playerOut} for ${pointDiff} points`)
 
