@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { PlayerCard } from '../../components'
 
 import './style.css'
 
@@ -14,9 +15,9 @@ const Recommendations = () => {
   {name:"Trossard",value: 6.8, points:2, position:"MID", team: "BHA" },
   {name:"Saka",value: 7.9, points:4, position:"MID", team: "ARS" },
   {name:"Haaland",value: 12.0, points:9, position:"FWD", team: "MCI"},
-  {name:"Toney",value: 7.5, points:9, position:"FWD", team: "BRE"},
-  {name:"Iverson",value: 3.9, points:9, position:"GK", team: "LEI"},
-  {name:"Andreas",value: 4.5, points:4, position:"MID", team: "FUL"},
+  {name:"Toney",value: 7.5, points:5, position:"FWD", team: "BRE"},
+  {name:"Iverson",value: 3.9, points:0, position:"GK", team: "LEI"},
+  {name:"Andreas",value: 4.5, points:0, position:"MID", team: "FUL"},
   {name:"Vestergaard", value: 3.9, points:0, position:"DEF", team: "LEI"},
   {name:"Greenwood",value: 4.2, points:0, position:"FWD", team: "LEE"},
   ])
@@ -35,12 +36,29 @@ const Recommendations = () => {
   ])
 
   const [transfers, setTransfers] = useState([])
+  const [userPoints, setUserPoints] = useState(null)
+  const [dreamPoints, setDreamPoints] = useState(null)
+
+  useEffect(() => {
+    const totalPoints = dreamPlayers.reduce((accumulator, dreamPlayer) => {
+      return accumulator + dreamPlayer.points
+   },0)
+    const userPoints = userPlayers.reduce((accumulator, userPlayer) => {
+      return accumulator + userPlayer.points
+   },0)
+   setDreamPoints(totalPoints)
+   setUserPoints(userPoints)
+   
+  },[])
+
+
 
   function teamOptimiser(){
     var newTransfers = []
     const bank = userPlayers.reduce((accumulator, userPlayer) => {
        return accumulator + userPlayer.value
     },0)
+    
     console.log(bank)
     userPlayers.forEach(userPlayer => {
       dreamPlayers.forEach(dreamPlayer => {
@@ -84,79 +102,73 @@ const Recommendations = () => {
         </div>
 
       </div>
+
       <div className='teams-rec'>
+      <div className='team-div'>
         <p>Your team</p>
+        <p>Your total points: {userPoints}</p>
         <div className='user-team'>
           <div className='goalies'>
             {
-              userPlayers.map((userPlayer,i) => {
+              userPlayers.map((userPlayer) => {
                 if(userPlayer.position == "GK"){
                   return (  
-                  <div className='playercard'> 
-                  <p key={i} > {userPlayer.name}</p>
-                  <p>points: {userPlayer.points}</p>
-                  </div>
+                    <PlayerCard name = {userPlayer.name} points = {userPlayer.points}></PlayerCard>
                   )
                 }
               })
             }
+
+            
           </div>
           <div className='defenders'>
           {
-              userPlayers.map((userPlayer,i) => {
-                if(userPlayer.position == "DEF"){
-                  return (  
-                    <div className='playercard'> 
-                    <p key={i} > {userPlayer.name}</p>
-                    <p>points: {userPlayer.points}</p>
-                    </div>
-                    )
+            userPlayers.map((userPlayer,i) => {
+              if(userPlayer.position == "DEF"){
+                return (  
+                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points}></PlayerCard>
+                )
                 }
               })
             }
           </div>
           <div className='mids'>
           {
-              userPlayers.map((userPlayer,i) => {
-                if(userPlayer.position == "MID"){
-                  return (  
-                    <div className='playercard'> 
-                    <p key={i} > {userPlayer.name}</p>
-                    <p>points: {userPlayer.points}</p>
-                    </div>
-                    )
-                }
-              })
-            }
+            userPlayers.map((userPlayer,i) => {
+              if(userPlayer.position == "MID"){
+                return (  
+                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points}></PlayerCard>
+                )
+                  }
+                })
+              }
 
           </div>
           <div className='forwards'>
           {
-              userPlayers.map((userPlayer,i) => {
-                if(userPlayer.position == "FWD"){
-                  return (  
-                    <div className='playercard'> 
-                    <p key={i} > {userPlayer.name}</p>
-                    <p>points: {userPlayer.points}</p>
-                    </div>
-                    )
+            userPlayers.map((userPlayer,i) => {
+              if(userPlayer.position == "FWD"){
+                return (  
+                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points}></PlayerCard>
+                )
                 }
               })
             }
 
           </div>
         </div>
+        </div>
+
+        <div className='team-div'>
         <p>Dream team</p>
+        <p>total points: {dreamPoints}</p>
         <div className='user-op-team'>
         <div className='goalies'>
             {
               dreamPlayers.map((dreamPlayer,i) => {
                 if(dreamPlayer.position == "GK"){
                   return (  
-                  <div className='playercard'> 
-                  <p key={i} > {dreamPlayer.name}</p>
-                  <p>points: {dreamPlayer.points}</p>
-                  </div>
+                    <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points}></PlayerCard>
                   )
                 }
               })
@@ -164,49 +176,41 @@ const Recommendations = () => {
           </div>
           <div className='defenders'>
           {
-              dreamPlayers.map((dreamPlayer,i) => {
-                if(dreamPlayer.position == "DEF"){
-                  return (  
-                    <div className='playercard'> 
-                    <p key={i} > {dreamPlayer.name}</p>
-                    <p>points: {dreamPlayer.points}</p>
-                    </div>
-                    )
-                }
-              })
-            }
+            dreamPlayers.map((dreamPlayer,i) => {
+              if(dreamPlayer.position == "DEF"){
+                return (  
+                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points}></PlayerCard>
+                )
+                  }
+                })
+              }
           </div>
           <div className='mids'>
           {
-              dreamPlayers.map((dreamPlayer,i) => {
-                if(dreamPlayer.position == "MID"){
-                  return (  
-                    <div className='playercard'> 
-                    <p key={i} > {dreamPlayer.name}</p>
-                    <p>points: {dreamPlayer.points}</p>
-                    </div>
-                    )
-                }
-              })
-            }
+            dreamPlayers.map((dreamPlayer,i) => {
+              if(dreamPlayer.position == "MID"){
+                return (  
+                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points}></PlayerCard>
+                )
+                  }
+                })
+              }
 
           </div>
           <div className='forwards'>
           {
-              dreamPlayers.map((dreamPlayer,i) => {
-                if(dreamPlayer.position == "FWD"){
-                  return (  
-                    <div className='playercard'> 
-                    <p key={i} > {dreamPlayer.name}</p>
-                    <p>points: {dreamPlayer.points}</p>
-                    </div>
-                    )
-                }
-              })
-            }
+            dreamPlayers.map((dreamPlayer,i) => {
+              if(dreamPlayer.position == "FWD"){
+                return (  
+                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points}></PlayerCard>
+                )
+                  }
+                })
+              }
 
           </div>
         </div>
+      </div>
       </div>
       <div className='suggestion'>
         <p>Our model suggests that you captain Haaland, give up on Salah because he is <span>washed</span>. </p>
