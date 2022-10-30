@@ -1,0 +1,24 @@
+.playerStats {
+    display: flex;
+}
+
+.bonusStats {
+    display: flex;
+    flex-direction: column;
+}
+
+.playerOne, .playerTwo {
+    min-width: 40vw;
+    max-width: 40vw;
+    border: solid 1px white;
+}
+
+.playerInfo > h2 {
+    padding: 0px;
+    margin: 0px;
+}
+
+.comparePlayers {
+    display: flex;
+    justify-content: space-around;
+}
