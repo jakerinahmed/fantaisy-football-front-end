@@ -7,7 +7,8 @@ import './style.css'
 
 const Stats = () => {
     const [allData, setAllData] = useState([])
-    const [playerCode, setPlayerCode] = useState(58822)
+    const [comparing, setComparing] = useState(false)
+    const [isHidden, setIsHidden] = useState(true)
     useEffect(() => {
         const getAllData = async () => {
             const response = await axios.get(`https://fantaisyfootball.herokuapp.com/allstats`)
@@ -15,8 +16,10 @@ const Stats = () => {
         }
         getAllData()
     }, [])
-    const [names, setNames] = useState(["person"])
+    const [names, setNames] = useState(["Select Player"])
+    const [namesTwo, setNamesTwo] = useState(["Select Player"])
     const [playerData, setPlayerData] = useState(["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",])
+    const [playerDataTwo, setPlayerDataTwo] = useState(["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",])
 
     const handleTeamChoice = async (e) => {
         const team = e.target.value
@@ -27,12 +30,29 @@ const Stats = () => {
         }
         setNames(options)
     }
+
+    const handleTeamChoiceTwo = async (e) => {
+        const team = e.target.value
+        const playerNames = allData.filter(p => p.team === team)
+        const options = []
+        for (let i = 0; i < playerNames.length; i++) {
+            options.push(playerNames[i].name)
+        }
+        setNamesTwo(options)
+    }
     const handlePlayerChoice = (e) => {
         const name = e.target.value
         const data_array = allData.filter(p => p.name === name);
         const data = data_array[0]
-        setPlayerCode(data.code)
         setPlayerData(data)
+    }
+
+    const handlePlayerChoiceTwo = (e) => {
+        const name = e.target.value
+        const data_array = allData.filter(p => p.name === name);
+        const data = data_array[0]
+        setPlayerDataTwo(data)
+        setComparing(true)
     }
 
     const renderStats = ([assists, bonusPoints, chanceOfPlaying, cleanSheets, code, creativity, goals, goalsConceded, ictIndex, id, influence, minutes, name, ownGoals, pensMissed, pensSaved, playerID, ppg, position, redCards, saves, selectedPerc, corners, freeKicks, pens, team, threat, totalPoints, transfersIn, transfersInRound, transfersOut, transfersOutRound, yellowCards]) => {
@@ -40,7 +60,7 @@ const Stats = () => {
             return (
                 <div className='playerStats'>
                     <div>
-                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${playerCode}.png`} alt="" />
+                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
                     </div>
                     <div>
                         <div className='playerInfo'>
@@ -78,7 +98,7 @@ const Stats = () => {
             return (
                 <div className='playerStats'>
                     <div>
-                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${playerCode}.png`} alt="" />
+                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
                     </div>
                     <div>
                         <div className='playerInfo'>
@@ -115,7 +135,7 @@ const Stats = () => {
             return (
                 <div className='playerStats'>
                     <div>
-                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${playerCode}.png`} alt="" />
+                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
                     </div>
                     <div>
                         <div className='playerInfo'>
@@ -152,7 +172,7 @@ const Stats = () => {
             return (
                 <div className='playerStats'>
                     <div>
-                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${playerCode}.png`} alt="" />
+                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
                     </div>
                     <div>
                         <div className='playerInfo'>
@@ -186,6 +206,9 @@ const Stats = () => {
             )
         }
     }
+    function renderDropdown () {
+        setIsHidden(false)
+    }
 
 
     function renderNames(names) {
@@ -193,6 +216,8 @@ const Stats = () => {
     }
     return (
         <div>
+            <div className='dropdowns'>
+                <div>
             <select onInput={handleTeamChoice}>
                 <option value="Arsenal F.C.">Arsenal</option>
                 <option value="Aston Villa F.C.">Aston Villa</option>
@@ -218,12 +243,41 @@ const Stats = () => {
             <select onInput={handlePlayerChoice}>
                 {renderNames(names)}
             </select>
+            </div>
+            <div>
+            <select hidden = {isHidden} className='dropdown2' onInput={handleTeamChoiceTwo}>
+                <option value="Arsenal F.C.">Arsenal</option>
+                <option value="Aston Villa F.C.">Aston Villa</option>
+                <option value="A.F.C. Bournemouth">Bournemouth</option>
+                <option value="Brentford F.C.">Brentford</option>
+                <option value="Brighton & Hove Albion F.C.">Brighton & Hove Albion</option>
+                <option value="Chelsea F.C.">Chelsea</option>
+                <option value="Crystal Palace F.C.">Crystal Palace</option>
+                <option value="Everton F.C.">Everton</option>
+                <option value="Fulham F.C.">Fulham</option>
+                <option value="Leicester City F.C.">Leicester City</option>
+                <option value="Leeds United">Leeds United</option>
+                <option value="Liverpool F.C.">Liverpool</option>
+                <option value="Manchester City F.C.">Manchester City</option>
+                <option value="Manchester United F.C.">Manchester United</option>
+                <option value="Newcastle United F.C.">Newcastle United</option>
+                <option value="Nottingham Forest F.C.">Nottingham Forest</option>
+                <option value="Southampton F.C.">Southampton</option>
+                <option value="Tottenham Hotspur F.C.">Tottenham Hotspur</option>
+                <option value="West Ham United F.C.">West Ham United</option>
+                <option value="Wolverhampton Wanderers F.C.">Wolverhampton Wanderers</option>
+            </select>
+            <select hidden = {isHidden} className='dropdown2' onInput={handlePlayerChoiceTwo}>
+                {renderNames(namesTwo)}
+            </select>
+            </div>
+            </div>
             <div className='comparePlayers'>
                 <div className='playerOne'>
                     {renderStats(Object.values(playerData))}
                 </div>
-                <div className='playerTwo'>
-
+                <div className='playerTwo'>{comparing ? renderStats(Object.values(playerDataTwo)) :
+                    <button onClick={renderDropdown}>Add second player</button>}
                 </div>
             </div>
         </div>

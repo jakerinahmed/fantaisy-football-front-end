@@ -10,7 +10,10 @@
 .playerOne, .playerTwo {
     min-width: 40vw;
     max-width: 40vw;
-    border: solid 1px white;
+    border: solid 5px var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .playerInfo > h2 {
@@ -19,6 +22,12 @@
 }
 
 .comparePlayers {
+    display: flex;
+    justify-content: space-around;
+}
+
+.dropdowns {
+    width: 100%;
     display: flex;
     justify-content: space-around;
 }
