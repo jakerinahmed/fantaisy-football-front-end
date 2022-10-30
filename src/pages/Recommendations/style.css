@@ -80,13 +80,45 @@ h2 {
 
 .user-team, .user-op-team{
     border: 5px solid var(--border);
-    min-width: 50%;
-    min-height: 30vh;
     text-align: center;
+    min-height: 100vh;
+    min-width: 70vh;
+
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    background-image: url('../../../public/imgs/football_pitch.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-size: 15px;
 }
+
+.goalies{
+    color: var(--background);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.goalies > p {
+    margin: 5px;
+    margin-bottom: none;
+    margin-top: none;
+}
+
+.defenders, .mids, .forwards {
+    color: var(--background);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+
 
 #submit-button{
     margin-top: 10px;
