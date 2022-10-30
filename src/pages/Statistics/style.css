@@ -1,0 +1,51 @@
+.playerStats {
+    display: flex;
+}
+
+.bonusStats {
+    display: flex;
+    flex-direction: column;
+}
+
+.playerOne, .playerTwo {
+    min-width: 40vw;
+    max-width: 40vw;
+    border: solid 5px var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playerInfo > h2 {
+    padding: 0px;
+    margin: 0px;
+}
+
+.comparePlayers {
+    display: flex;
+    justify-content: space-around;
+}
+
+.dropdowns {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.compareBtn {
+    padding:10px;
+    border-radius: 10px;
+    background-color: var(--border);
+    color: var(--background);
+    font-weight: bold;
+}
+
+.compareBtn:hover {
+    padding:10px;
+    border-radius: 10px;
+    border: solid 1px var(--border);
+    background-color: var(--background);
+    color: var(--border);
+    font-weight: bold;
+    cursor: pointer;
+}
