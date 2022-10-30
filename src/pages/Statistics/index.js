@@ -277,7 +277,7 @@ const Stats = () => {
                     {renderStats(Object.values(playerData))}
                 </div>
                 <div className='playerTwo'>{comparing ? renderStats(Object.values(playerDataTwo)) :
-                    <button onClick={renderDropdown}>Add second player</button>}
+                    <button  hidden = {!isHidden} className='compareBtn' onClick={renderDropdown}>Add second player</button>}
                 </div>
             </div>
         </div>
