@@ -49,3 +49,8 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+.chartDiv {
+    width: 90%;
+    height: 500px;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, LabelList, ResponsiveContainer, Cell } from 'recharts';
 
 import './style.css'
 
@@ -9,6 +10,9 @@ const Stats = () => {
     const [allData, setAllData] = useState([])
     const [comparing, setComparing] = useState(false)
     const [isHidden, setIsHidden] = useState(true)
+    const [xAxis, setXAxis]= useState('goals')
+    const [yAxis, setYAxis] = useState('minutes')
+    const [renderGraph, setRenderGraph] = useState(false)
     useEffect(() => {
         const getAllData = async () => {
             const response = await axios.get(`https://fantaisyfootball.herokuapp.com/allstats`)
@@ -214,6 +218,37 @@ const Stats = () => {
     function renderNames(names) {
         return names.map(n => <option value={n}>{n}</option>)
     }
+
+    function CustomTooltip({ payload, label, active }) {
+        if (active) {
+            console.log(payload)
+          return (
+            <div className="custom-tooltip">
+              <p className="label">{`${payload[0].payload.name}`}</p>
+              <p className="intro">{`${xAxis}: ${payload[0].payload[xAxis]}`}</p>
+              <p className="desc">{`${yAxis}: ${payload[0].payload[yAxis]}`}</p>
+            </div>
+          );
+        }
+    }
+    function renderAxisData () {
+        const axis = Object.keys(allData[0])
+        return axis.map(n => <option value={n}>{n}</option>)
+    }
+
+    function handleXAxis(e) {
+        setXAxis(e.target.value) 
+    }
+
+    function handleYAxis (e) {
+        setYAxis(e.target.value)
+    }
+
+    function renderChartDiv () {
+        setRenderGraph(true)
+    }
+
+    
     return (
         <div>
             <div className='dropdowns'>
@@ -276,11 +311,42 @@ const Stats = () => {
                 <div className='playerOne'>
                     {renderStats(Object.values(playerData))}
                 </div>
-                <div className='playerTwo'>{comparing ? renderStats(Object.values(playerDataTwo)) :
+                <div className='playerTwo'>
+                    {comparing ? renderStats(Object.values(playerDataTwo)) :
                     <button  hidden = {!isHidden} className='compareBtn' onClick={renderDropdown}>Add second player</button>}
                 </div>
             </div>
-        </div>
+                {renderGraph ? 
+            <div className='chartDiv'>
+            <ResponsiveContainer>
+        <ScatterChart
+          width={300}
+          height={400}
+        >
+          <CartesianGrid />
+          <XAxis type="number" dataKey={`${xAxis}`} label={`${xAxis}`} />
+          <YAxis type="number" dataKey={`${yAxis}`} label={`${yAxis}`} />
+            <Tooltip content={<CustomTooltip />}/>
+          <Scatter name="Player Stats" data={allData} fill="#8884d8">
+          {allData.forEach((x, index) => {
+            if (x.name === playerData.name) {
+                return <Cell key={`cell-${index}`} fill="#ff0000" /> 
+            }
+          })}
+          </Scatter>
+        </ScatterChart>
+      </ResponsiveContainer>
+      <div className='axisSelect'>
+        <select onInput={handleXAxis}>
+                    {renderAxisData()}
+        </select>
+        <select onInput={handleYAxis}>
+                    {renderAxisData()}
+        </select>
+      </div> </div> : <button onClick={renderChartDiv} hidden = {renderGraph}>Compare to the rest of the league</button>}
+      </div>
+            
+        
     )
 }
 
