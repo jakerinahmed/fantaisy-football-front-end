@@ -120,7 +120,7 @@ h2 {
 
 
 
-#submit-button{
+#submit-button, .button{
     margin-top: 10px;
     background: transparent;
     color: var(--text);
@@ -139,6 +139,12 @@ h2 {
     border-top: 5px solid var(--border);
     border-radius: 0px;
     padding: 20px;
+}
+.suggestion-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;   
+   
 }
 
 .suggestion > p > span{

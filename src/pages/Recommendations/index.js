@@ -58,18 +58,28 @@ const Recommendations = () => {
     const bank = userPlayers.reduce((accumulator, userPlayer) => {
        return accumulator + userPlayer.value
     },0)
-    
+
+    let currentPlayers = []
+    userPlayers.forEach(userPlayer => {
+      currentPlayers.push(userPlayer.name)
+    })
     console.log(bank)
     userPlayers.forEach(userPlayer => {
       dreamPlayers.forEach(dreamPlayer => {
+      
         if(userPlayer.value + 100 - bank >= dreamPlayer.value && userPlayer.position === dreamPlayer.position && userPlayer.name !== dreamPlayer.name){
           const pointDiff = dreamPlayer.points - userPlayer.points
           const playerIn = dreamPlayer.name
           const playerOut = userPlayer.name
-          if(pointDiff > 0){
-            newTransfers.push(`${playerIn} for ${playerOut} for ${pointDiff} points`)
+          if(pointDiff > 0 && !currentPlayers.find(name => playerIn === name)){
+            
+            newTransfers.push(`Transfer ${playerIn} for ${playerOut} for ${pointDiff} points`)
 
           }
+         
+          
+
+          
         }
       })
     })
@@ -215,12 +225,17 @@ const Recommendations = () => {
       <div className='suggestion'>
         <p>Our model suggests that you captain Haaland, give up on Salah because he is <span>washed</span>. </p>
       </div>
-      <button onClick={() => teamOptimiser()}>Get opinion</button>
-        {
-          transfers.map((transfer,i) => {
-            return <li key={i} > {transfer}</li>
-          })
-        }
+      <button onClick={() => teamOptimiser()} className="button">Get opinion</button>
+      <div id="suggestion-div">
+        
+          {
+            transfers.map((transfer,i) => {
+              return <li key={i} > {transfer}</li>
+            })
+          }
+
+        
+      </div>
 
     </div>
   )
