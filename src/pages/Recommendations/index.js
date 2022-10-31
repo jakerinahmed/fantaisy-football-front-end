@@ -16,8 +16,8 @@ const Recommendations = () => {
   {name:"Neves",value: 5.5, points:7, position:"MID", team:"WOL" },
   {name:"Bentancur",value: 5.4, points:2, position:"MID", team: "TOT" },
   {name:"Wilson",value: 7.4, points:4, position:"MID", team: "NEW" },
-  {name:"Moore",value: 5.4, points:9, position:"FWD", team: "BOU"},
-  {name:"Havertz",value: 7.7, points:9, position:"FWD", team: "CHE"},
+  {name:"Moore",value: 5.4, points:9, position:"ATK", team: "BOU"},
+  {name:"Havertz",value: 7.7, points:9, position:"ATK", team: "CHE"},
   ])
 
   const [transfers, setTransfers] = useState([])
@@ -120,7 +120,7 @@ useEffect(() => {
    setUserPoints(userPoints)
    
    
-  },[userPlayers, dreamPlayers])
+  },[userPlayers, dreamPlayers, variable])
 
   
 
@@ -231,50 +231,21 @@ useEffect(() => {
         <p>total points: {dreamPoints}</p>
         <div className='user-op-team'>
         <div className='goalies'>
-            {
-              dreamPlayers.map((dreamPlayer,i) => {
-                if(dreamPlayer.position === "GK"){
-                  return (  
-                    <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
-                  )
-                }
-              })
-            }
+        {renderPlayers(dreamPlayers,"GK")}
+            
           </div>
           <div className='defenders'>
-          {
-            dreamPlayers.map((dreamPlayer,i) => {
-              if(dreamPlayer.position === "DEF"){
-                return (  
-                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
-                  )
-                }
-              })
-            }
+          {renderPlayers(dreamPlayers,"DEF")}
+          
           </div>
           <div className='mids'>
-          {
-            dreamPlayers.map((dreamPlayer,i) => {
-              if(dreamPlayer.position === "MID"){
-                return (  
-                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
-                  )
-                }
-              })
-            }
+          {renderPlayers(dreamPlayers,"MID")}
+          
 
           </div>
           <div className='forwards'>
-          {
-            dreamPlayers.map((dreamPlayer,i) => {
-              if(dreamPlayer.position === "FWD"){
-                return (  
-                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
-                  )
-                }
-                })
-              }
-
+          {renderPlayers(dreamPlayers,"ATK")}
+         
           </div>
         </div>
       </div>
