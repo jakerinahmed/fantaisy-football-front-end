@@ -51,6 +51,42 @@
 }
 
 .chartDiv {
-    width: 70%;
+    width: 100%;
     height: 500px;
+    display: flex;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.yAxis {
+    display: flex;
+    flex-direction: column;
+    padding-top: 160px;
+    margin: 0px;
+    height: 100%;
+}
+
+.graphMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px
+}
+
+.filters {
+    display: flex;
+    margin-top: 20px;
+}
+
+#submit {
+    height: fit-content;
+}
+
+.submitDiv {
+    display: flex;
+    align-items: flex-end;
+}
+
+#asterix {
+    padding-top: 20px;
 }

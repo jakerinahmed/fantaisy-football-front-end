@@ -1,22 +1,27 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, LabelList, ResponsiveContainer, Cell } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 
 import './style.css'
 
 
 const Stats = () => {
     const [allData, setAllData] = useState([])
+    const [graphData, setGraphData] = useState([])
     const [comparing, setComparing] = useState(false)
     const [isHidden, setIsHidden] = useState(true)
-    const [xAxis, setXAxis]= useState('goals')
-    const [yAxis, setYAxis] = useState('minutes')
+    const [xAxis, setXAxis]= useState('minutes')
+    const [yAxis, setYAxis] = useState('influence')
     const [renderGraph, setRenderGraph] = useState(false)
+    const [teamFilter, setTeamFilter] = useState("all")
+    const [positionFilter, setPositionFilter] = useState("all")
+    
     useEffect(() => {
         const getAllData = async () => {
             const response = await axios.get(`https://fantaisyfootball.herokuapp.com/allstats`)
             setAllData(response.data)
+            setGraphData(response.data)
         }
         getAllData()
     }, [])
@@ -98,6 +103,7 @@ const Stats = () => {
                             <p>Own Goals: {ownGoals}</p>
                             <p>Yellow Cards: {yellowCards}</p>
                             <p>Red Cards: {redCards}</p>
+                            <p id='asterix'>* Marked stats dont affect players points</p>
                         </div>
                     </div>
                 </div>
@@ -238,9 +244,36 @@ const Stats = () => {
           );
         }
     }
-    function renderAxisData () {
-        const axis = Object.keys(allData[0])
-        return axis.map(n => <option value={n}>{n}</option>)
+    function rifa (item, array) {
+        const index = array.findIndex((i) => i === item)
+        array.splice(index, 1)
+    }
+    
+    function renderXAxisData () {
+        const data = Object.keys(allData[0])
+        rifa("minutes", data)
+        rifa("code", data)
+        rifa("team", data)
+        rifa("position", data)
+        rifa("name", data)
+        rifa("id", data)
+        rifa("player_id", data)
+        data.unshift("minutes")
+        return data.map(n => <option value={n}>{n}</option>)
+    }
+
+
+    function renderYAxisData () {
+        const data = Object.keys(allData[0])
+        rifa("influence", data)
+        rifa("code", data)
+        rifa("team", data)
+        rifa("position", data)
+        rifa("name", data)
+        rifa("id", data)
+        rifa("player_id", data)
+        data.unshift("influence")
+        return data.map(n => <option value={n}>{n}</option>)
     }
 
     function handleXAxis(e) {
@@ -266,6 +299,23 @@ const Stats = () => {
             return "#04f5ff"
         }
     }
+
+function handleFilters (e) {
+    e.preventDefault()
+    setTeamFilter(e.target.teamFilter.value)
+    const team = e.target.teamFilter.value
+    setPositionFilter(e.target.positionFilter.value)
+    const position = e.target.positionFilter.value
+    if (team === "all" && position === "all"){
+        setGraphData(allData)
+    } else if (team !== "all" && position === "all"){
+        setGraphData(allData.filter(p => p.team === team))
+    } else if (team === "all" && position !== "all"){
+        setGraphData(allData.filter(p => p.position === position))
+    } else {
+        setGraphData(allData.filter(p => p.position === position && p.team === team))
+    }
+}
 
     
     return (
@@ -337,34 +387,74 @@ const Stats = () => {
             </div>
                 {renderGraph ? 
             <div className='chartDiv'>
+                <div className='yAxis'>
+                <select onInput={handleYAxis}>
+                    {renderYAxisData()}
+        </select>
+                </div>
+                <div className='graphMain'>
+                    <h3>{yAxis} against {xAxis} for {teamFilter} players in {positionFilter} positions</h3>
         <ScatterChart
-          width={1600}
+          width={1400}
           height={500}
-          margin={{
-            top: 20,
-            right: 20,
-            bottom: 20,
-            left: 20,
-          }}
         >
           <CartesianGrid />
-          <XAxis type="number" dataKey={`${xAxis}`} label={`${xAxis}`} />
-          <YAxis type="number" dataKey={`${yAxis}`} label={`${yAxis}`} />
+          <XAxis type="number" dataKey={`${xAxis}`} />
+          <YAxis type="number" dataKey={`${yAxis}`} />
             <Tooltip content={<CustomTooltip />}/>
-          <Scatter name="Player Stats" data={allData} fill="#8884d8">
-          {allData.map((entry, index) => (
+          <Scatter name="Player Stats" data={graphData} fill="#8884d8">
+          {graphData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={getColorForType(entry)} />
             ))}
           </Scatter>
         </ScatterChart>
-      <div className='axisSelect'>
         <select onInput={handleXAxis}>
-                    {renderAxisData()}
+                    {renderXAxisData()}
         </select>
-        <select onInput={handleYAxis}>
-                    {renderAxisData()}
-        </select>
-      </div> </div> : <button onClick={renderChartDiv} hidden = {renderGraph}>Compare to the rest of the league</button>}
+      
+        <form className='filters' onSubmit={handleFilters}>
+        <h3>Filters:</h3>
+        <div className='teamFilter'>
+            <p>Team:</p>
+      <select name ="teamFilter">
+                <option value="all">all</option>
+                <option value="Arsenal F.C.">Arsenal</option>
+                <option value="Aston Villa F.C.">Aston Villa</option>
+                <option value="A.F.C. Bournemouth">Bournemouth</option>
+                <option value="Brentford F.C.">Brentford</option>
+                <option value="Brighton & Hove Albion F.C.">Brighton & Hove Albion</option>
+                <option value="Chelsea F.C.">Chelsea</option>
+                <option value="Crystal Palace F.C.">Crystal Palace</option>
+                <option value="Everton F.C.">Everton</option>
+                <option value="Fulham F.C.">Fulham</option>
+                <option value="Leicester City F.C.">Leicester City</option>
+                <option value="Leeds United">Leeds United</option>
+                <option value="Liverpool F.C.">Liverpool</option>
+                <option value="Manchester City F.C.">Manchester City</option>
+                <option value="Manchester United F.C.">Manchester United</option>
+                <option value="Newcastle United F.C.">Newcastle United</option>
+                <option value="Nottingham Forest F.C.">Nottingham Forest</option>
+                <option value="Southampton F.C.">Southampton</option>
+                <option value="Tottenham Hotspur F.C.">Tottenham Hotspur</option>
+                <option value="West Ham United F.C.">West Ham United</option>
+                <option value="Wolverhampton Wanderers F.C.">Wolverhampton Wanderers</option>
+            </select>
+            </div>
+            <div className='positionFilter'>
+                <p>Position:</p>
+            <select name ="positionFilter">
+                <option value="all">all</option>
+                <option value="ATK">ATK</option>
+                <option value="MID">MID</option>
+                <option value="DEF">DEF</option>
+                <option value="GK">GK</option>
+            </select>
+            </div>
+            <div className='submitDiv'>
+            <input type="submit" value="apply filters" id='submit'/>
+            </div>
+            </form>
+           </div> </div> : <button onClick={renderChartDiv} hidden = {renderGraph}>Compare to the rest of the league</button>}
       </div>
             
         
