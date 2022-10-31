@@ -38,6 +38,10 @@ const Recommendations = () => {
   const [transfers, setTransfers] = useState([])
   const [userPoints, setUserPoints] = useState(null)
   const [dreamPoints, setDreamPoints] = useState(null)
+  const [suggestion, setSuggestion] = useState(true)
+  const [optimal, setOptimal] = useState(null)
+  const [optimalTransfer, setOptimalTransfer] = useState({})
+  
 
   useEffect(() => {
     const totalPoints = dreamPlayers.reduce((accumulator, dreamPlayer) => {
@@ -86,7 +90,7 @@ const Recommendations = () => {
 
           if(pointDiff > 0 && !currentPlayers.find(name => playerIn === name) && teams.filter(team => dreamPlayer.team === team) && teamCount <= 3){
             
-            newTransfers.push(`Transfer ${playerIn} for ${playerOut} for ${pointDiff} points`)
+            newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
 
           }
          
@@ -96,9 +100,18 @@ const Recommendations = () => {
         }
       })
     })
-    
+    let maxPoints = []
+    newTransfers.forEach(transfer => {
+      maxPoints.push(transfer.points)
+    })
+    const newOptimal = Math.max(...maxPoints)
+    const optIndex = maxPoints.findIndex(num => num === newOptimal)
+    const optTransfer = newTransfers[optIndex]
+    setOptimalTransfer(optTransfer)
+    setOptimal(newOptimal)
     console.log(newTransfers)
-    return setTransfers(newTransfers)
+    setSuggestion(false)
+    return setTransfers(newTransfers) 
   } 
   return (
     <div>
@@ -136,7 +149,7 @@ const Recommendations = () => {
               userPlayers.map((userPlayer) => {
                 if(userPlayer.position == "GK"){
                   return (  
-                    <PlayerCard name = {userPlayer.name} points = {userPlayer.points}></PlayerCard>
+                    <PlayerCard name = {userPlayer.name} points = {userPlayer.points} optimal= {optimalTransfer}></PlayerCard>
                   )
                 }
               })
@@ -149,7 +162,7 @@ const Recommendations = () => {
             userPlayers.map((userPlayer,i) => {
               if(userPlayer.position == "DEF"){
                 return (  
-                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points}></PlayerCard>
+                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points} optimal = {optimalTransfer}></PlayerCard>
                 )
                 }
               })
@@ -160,7 +173,7 @@ const Recommendations = () => {
             userPlayers.map((userPlayer,i) => {
               if(userPlayer.position == "MID"){
                 return (  
-                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points}></PlayerCard>
+                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points} optimal = {optimalTransfer}></PlayerCard>
                 )
                   }
                 })
@@ -172,7 +185,7 @@ const Recommendations = () => {
             userPlayers.map((userPlayer,i) => {
               if(userPlayer.position == "FWD"){
                 return (  
-                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points}></PlayerCard>
+                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points} optimal = {optimalTransfer}></PlayerCard>
                 )
                 }
               })
@@ -191,7 +204,7 @@ const Recommendations = () => {
               dreamPlayers.map((dreamPlayer,i) => {
                 if(dreamPlayer.position == "GK"){
                   return (  
-                    <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points}></PlayerCard>
+                    <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
                   )
                 }
               })
@@ -202,7 +215,7 @@ const Recommendations = () => {
             dreamPlayers.map((dreamPlayer,i) => {
               if(dreamPlayer.position == "DEF"){
                 return (  
-                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points}></PlayerCard>
+                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
                 )
                   }
                 })
@@ -213,7 +226,7 @@ const Recommendations = () => {
             dreamPlayers.map((dreamPlayer,i) => {
               if(dreamPlayer.position == "MID"){
                 return (  
-                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points}></PlayerCard>
+                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
                 )
                   }
                 })
@@ -225,7 +238,7 @@ const Recommendations = () => {
             dreamPlayers.map((dreamPlayer,i) => {
               if(dreamPlayer.position == "FWD"){
                 return (  
-                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points}></PlayerCard>
+                  <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
                 )
                   }
                 })
@@ -239,11 +252,11 @@ const Recommendations = () => {
         <p>Our model suggests that you captain Haaland, give up on Salah because he is <span>washed</span>. </p>
       </div>
       <button onClick={() => teamOptimiser()} className="button">Get opinion</button>
-      <div id="suggestion-div">
+      <div hidden = {suggestion} id="suggestion-div">
         
           {
             transfers.map((transfer,i) => {
-              return <li key={i} > {transfer}</li>
+              return <li key={i} style={ { color: transfer.points === optimal ? 'red' : 'none' } }  > Transfer {transfer.in} for {transfer.out} for {transfer.points} points</li>
             })
           }
 
