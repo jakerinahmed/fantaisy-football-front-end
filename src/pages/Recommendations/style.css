@@ -164,3 +164,38 @@ div {
     border-radius: 10px;
     margin: 20px;
 }
+
+.login-div-auth{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    color: #F71735;
+    
+}
+
+.wrapper {
+    margin: 70px auto;
+    padding: 20px;
+    background-color: var(--background);
+    width: 30%;
+    position: relative;
+    border-radius: 10px;
+}
+
+.wrapper h2 {
+    font-weight: bold;
+    font-size: 26px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.login-div-auth:target {
+    visibility: visible;
+    opacity: 1;
+}
