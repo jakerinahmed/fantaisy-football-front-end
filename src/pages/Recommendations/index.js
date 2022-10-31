@@ -1,26 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { PlayerCard } from '../../components'
+import axios from 'axios'
 
 import './style.css'
 
 const Recommendations = () => {
-  const [userPlayers, setUserPlayers] = useState([
-  {name:"de Gea",value: 4.9, points:6, position:"GK", team: "MUN" },
-  {name:"Cancelo",value: 7.2 , points:6, position:"DEF", team:"MCI" },
-  {name:"Thiago",value: 5.4, points:0, position:"DEF", team:"CHE" },
-  {name:"White",value: 4.5, points:11, position:"DEF", team: "ARS" },    
-  {name:"Trippier",value: 5.8, points:8, position:"DEF", team: "NEW" },
-  {name:"Maddison",value: 8.1, points:7, position:"MID", team:"LEI" },
-  {name:"De Bruyne",value: 12.2, points:5, position:"MID", team: "MCI" },
-  {name:"Trossard",value: 6.8, points:2, position:"MID", team: "BHA" },
-  {name:"Saka",value: 7.9, points:4, position:"MID", team: "ARS" },
-  {name:"Haaland",value: 12.0, points:9, position:"FWD", team: "MCI"},
-  {name:"Toney",value: 7.5, points:5, position:"FWD", team: "BRE"},
-  {name:"Iverson",value: 3.9, points:0, position:"GK", team: "LEI"},
-  {name:"Andreas",value: 4.5, points:0, position:"MID", team: "FUL"},
-  {name:"Vestergaard", value: 3.9, points:0, position:"DEF", team: "LEI"},
-  {name:"Greenwood",value: 4.2, points:0, position:"FWD", team: "LEE"},
-  ])
+  const [userPlayers, setUserPlayers] = useState([])
   const [dreamPlayers, setDreamPlayers] = useState([
   {name:"Pickford",value: 4.5, points:6, position:"GK", team: "EVE" },
   {name:"Mee",value: 4.5, points:6, position:"DEF", team:"BRE" },
@@ -41,9 +26,90 @@ const Recommendations = () => {
   const [suggestion, setSuggestion] = useState(true)
   const [optimal, setOptimal] = useState(null)
   const [optimalTransfer, setOptimalTransfer] = useState({})
+  const [email, setEmail] = useState(null)
+  const [password, setPassword] = useState(null)
+  const [userID, setUserID] = useState(null)
+  const [variable, setVariable] = useState(false)
+  const [showTeams, setShowTeams] = useState(true)
+  
   
 
-  useEffect(() => {
+  
+let handleSubmit = async (e) => {
+    console.log(email)
+    console.log(password)
+    console.log(userID)
+    setVariable(false)
+    setShowTeams(false)
+    e.preventDefault();
+    try {
+      await axios.post('http://127.0.0.1:5000/getuserteam', {
+        email: email,
+        password: password,
+        userID: userID
+      })
+      .then(function (response) {
+        console.log(response.data);
+        fetchPlayerInfo(response.data)
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    
+  };
+
+ const fetchPlayerInfo = async (data) => {
+      let allPlayers = [];
+      data.forEach(async(id) =>{
+        
+        try {
+        const response = await axios.get(`http://127.0.0.1:5000/userplayer/${id}`)
+        console.log(response.data)
+        console.log(response.data[0].name)
+        const player = {
+          name: response.data[0].name,
+          value: response.data[0].cost,
+          points: Math.floor(Math.random()*15),
+          position: response.data[0].position,
+          team: response.data[0].team, 
+        }
+        allPlayers.push(player)
+        console.log('player', player)
+      } catch (err) {
+        console.log(err);
+      }
+      
+    })
+    console.log(allPlayers)
+    setUserPlayers(allPlayers)
+    
+    console.log(userPlayers)
+  }
+ 
+function renderPlayers(players, position){
+  console.log('calling render')
+  console.log(players)
+  return (
+
+    players.map((player) => {
+      
+      if(player.position === position){
+        console.log('made it in')
+        return (  
+          <PlayerCard name = {player.name} points = {player.points} optimal= {optimalTransfer}></PlayerCard>
+        )
+      } else {
+        console.log('did not make it')
+      }
+    })
+  )
+}
+
+useEffect(() => {
     const totalPoints = dreamPlayers.reduce((accumulator, dreamPlayer) => {
       return accumulator + dreamPlayer.points
    },0)
@@ -53,8 +119,10 @@ const Recommendations = () => {
    setDreamPoints(totalPoints)
    setUserPoints(userPoints)
    
-  },[])
+   
+  },[userPlayers, dreamPlayers])
 
+  
 
 
   function teamOptimiser(){
@@ -93,10 +161,6 @@ const Recommendations = () => {
             newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
 
           }
-         
-          
-
-          
         }
       })
     })
@@ -120,24 +184,25 @@ const Recommendations = () => {
         <p role="instruction">To view your team please enter your email and password for your fantasy premier league team</p>
         <div className='form-div'>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className='login-details'>
               <label>Email:</label>
-              <input type='email' placeholder="email"></input>
+              <input type='email' placeholder="email" onChange={(e) => setEmail(e.target.value)} required></input>
               <label>Password:</label>
-              <input type='password' placeholder="password"></input>
+              <input type='password' placeholder="password" onChange={(e) => setPassword(e.target.value)} required></input>
             </div>
             <div className='user-id'>
               <label>User ID:</label>
-              <input type='text' placeholder="user id"></input>
+              <input type='text' placeholder="user id" onChange={(e) => setUserID(e.target.value)} required></input>
             </div>
             <div className='user-id'>
-              <input type='submit' id="submit-button" value="Get my team!"></input>
+              <input  type = 'submit' id="submit-button" value="Get my team!"></input>
             </div>
           </form>
         </div>
 
       </div>
+      <div hidden = {showTeams}>
 
       <div className='teams-rec'>
       <div className='team-div'>
@@ -145,52 +210,18 @@ const Recommendations = () => {
         <p>Your total points: {userPoints}</p>
         <div className='user-team'>
           <div className='goalies'>
-            {
-              userPlayers.map((userPlayer) => {
-                if(userPlayer.position == "GK"){
-                  return (  
-                    <PlayerCard name = {userPlayer.name} points = {userPlayer.points} optimal= {optimalTransfer}></PlayerCard>
-                  )
-                }
-              })
-            }
-
             
+           {variable ? renderPlayers(userPlayers,"GK"):<button onClick={() => setVariable(true)} className='button'>see players</button> } 
+
           </div>
           <div className='defenders'>
-          {
-            userPlayers.map((userPlayer,i) => {
-              if(userPlayer.position == "DEF"){
-                return (  
-                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points} optimal = {optimalTransfer}></PlayerCard>
-                )
-                }
-              })
-            }
+            {renderPlayers(userPlayers,"DEF")} 
           </div>
           <div className='mids'>
-          {
-            userPlayers.map((userPlayer,i) => {
-              if(userPlayer.position == "MID"){
-                return (  
-                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points} optimal = {optimalTransfer}></PlayerCard>
-                )
-                  }
-                })
-              }
-
+            {renderPlayers(userPlayers,"MID")}
           </div>
           <div className='forwards'>
-          {
-            userPlayers.map((userPlayer,i) => {
-              if(userPlayer.position == "FWD"){
-                return (  
-                  <PlayerCard name = {userPlayer.name} points = {userPlayer.points} optimal = {optimalTransfer}></PlayerCard>
-                )
-                }
-              })
-            }
-
+            {renderPlayers(userPlayers,"ATK")}
           </div>
         </div>
         </div>
@@ -202,7 +233,7 @@ const Recommendations = () => {
         <div className='goalies'>
             {
               dreamPlayers.map((dreamPlayer,i) => {
-                if(dreamPlayer.position == "GK"){
+                if(dreamPlayer.position === "GK"){
                   return (  
                     <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
                   )
@@ -213,34 +244,34 @@ const Recommendations = () => {
           <div className='defenders'>
           {
             dreamPlayers.map((dreamPlayer,i) => {
-              if(dreamPlayer.position == "DEF"){
+              if(dreamPlayer.position === "DEF"){
                 return (  
                   <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
-                )
-                  }
-                })
-              }
+                  )
+                }
+              })
+            }
           </div>
           <div className='mids'>
           {
             dreamPlayers.map((dreamPlayer,i) => {
-              if(dreamPlayer.position == "MID"){
+              if(dreamPlayer.position === "MID"){
                 return (  
                   <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
-                )
-                  }
-                })
-              }
+                  )
+                }
+              })
+            }
 
           </div>
           <div className='forwards'>
           {
             dreamPlayers.map((dreamPlayer,i) => {
-              if(dreamPlayer.position == "FWD"){
+              if(dreamPlayer.position === "FWD"){
                 return (  
                   <PlayerCard name = {dreamPlayer.name} points = {dreamPlayer.points} optimal = {optimalTransfer}></PlayerCard>
-                )
-                  }
+                  )
+                }
                 })
               }
 
@@ -262,7 +293,9 @@ const Recommendations = () => {
 
         
       </div>
+      
 
+    </div>
     </div>
   )
 }
