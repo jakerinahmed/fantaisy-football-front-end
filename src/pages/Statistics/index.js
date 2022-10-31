@@ -22,9 +22,10 @@ const Stats = () => {
     }, [])
     const [names, setNames] = useState(["Select Player"])
     const [namesTwo, setNamesTwo] = useState(["Select Player"])
-    const [playerData, setPlayerData] = useState(["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",])
-    const [playerDataTwo, setPlayerDataTwo] = useState(["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",])
-
+    const [playerData, setPlayerData] = useState(["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",""])
+    const [playerDataTwo, setPlayerDataTwo] = useState(["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",""])
+    const [playersArray, setPlayersArray] = useState([playerData,playerDataTwo])
+    
     const handleTeamChoice = async (e) => {
         const team = e.target.value
         const playerNames = allData.filter(p => p.team === team)
@@ -49,6 +50,8 @@ const Stats = () => {
         const data_array = allData.filter(p => p.name === name);
         const data = data_array[0]
         setPlayerData(data)
+        setPlayersArray([data, playersArray[1]])
+        console.log(playersArray)
     }
 
     const handlePlayerChoiceTwo = (e) => {
@@ -56,10 +59,11 @@ const Stats = () => {
         const data_array = allData.filter(p => p.name === name);
         const data = data_array[0]
         setPlayerDataTwo(data)
+        setPlayersArray([playersArray[0], data])
         setComparing(true)
     }
 
-    const renderStats = ([assists, bonusPoints, chanceOfPlaying, cleanSheets, code, creativity, goals, goalsConceded, ictIndex, id, influence, minutes, name, ownGoals, pensMissed, pensSaved, playerID, ppg, position, redCards, saves, selectedPerc, corners, freeKicks, pens, team, threat, totalPoints, transfersIn, transfersInRound, transfersOut, transfersOutRound, yellowCards]) => {
+    const renderStats = ([assists, bonusPoints, chanceOfPlaying, cleanSheets, code, cost, creativity, goals, goalsConceded, ictIndex, id, influence, minutes, name, ownGoals, pensMissed, pensSaved, playerID, ppg, position, redCards, saves, selectedPerc, corners, freeKicks, pens, team, threat, totalPoints, transfersIn, transfersInRound, transfersOut, transfersOutRound, yellowCards]) => {
         if (position === "ATK") {
             return (
                 <div className='playerStats'>
@@ -75,6 +79,7 @@ const Stats = () => {
                         <div className='bonusStats'>
                             <p>Total Points: {totalPoints}</p>
                             <p>Points Per Game: {ppg}</p>
+                            <p>Cost: {cost}</p>
                             <p>Goals: {goals}</p>
                             <p>Assists: {assists}</p>
                             <p>Goals Conceded: {goalsConceded}*</p>
@@ -113,6 +118,7 @@ const Stats = () => {
                         <div className='bonusStats'>
                             <p>Total Points: {totalPoints}</p>
                             <p>Points Per Game: {ppg}</p>
+                            <p>Cost: {cost}</p>
                             <p>Goals: {goals}</p>
                             <p>Assists: {assists}</p>
                             <p>Goals Conceded: {goalsConceded}</p>
@@ -150,6 +156,7 @@ const Stats = () => {
                         <div className='bonusStats'>
                             <p>Total Points: {totalPoints}</p>
                             <p>Points Per Game: {ppg}</p>
+                            <p>Cost: {cost}</p>
                             <p>Goals: {goals}</p>
                             <p>Assists: {assists}</p>
                             <p>Goals Conceded: {goalsConceded}</p>
@@ -187,6 +194,7 @@ const Stats = () => {
                         <div className='bonusStats'>
                             <p>Total Points: {totalPoints}</p>
                             <p>Points Per Game: {ppg}</p>
+                            <p>Cost: {cost}</p>
                             <p>Saves: {saves}</p>
                             <p>Pens Saved: {pensSaved}</p>
                             <p>Clean Sheets: {cleanSheets}</p>
@@ -221,7 +229,6 @@ const Stats = () => {
 
     function CustomTooltip({ payload, label, active }) {
         if (active) {
-            console.log(payload)
           return (
             <div className="custom-tooltip">
               <p className="label">{`${payload[0].payload.name}`}</p>
@@ -246,6 +253,18 @@ const Stats = () => {
 
     function renderChartDiv () {
         setRenderGraph(true)
+    }
+
+    function getColorForType (entry) {
+        if (entry === playerData) {
+            return "#e90052"
+        }
+        else if (entry === playerDataTwo) {
+            return "#38003c"
+        }
+        else {
+            return "#04f5ff"
+        }
     }
 
     
@@ -318,24 +337,26 @@ const Stats = () => {
             </div>
                 {renderGraph ? 
             <div className='chartDiv'>
-            <ResponsiveContainer>
         <ScatterChart
-          width={300}
-          height={400}
+          width={1600}
+          height={500}
+          margin={{
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 20,
+          }}
         >
           <CartesianGrid />
           <XAxis type="number" dataKey={`${xAxis}`} label={`${xAxis}`} />
           <YAxis type="number" dataKey={`${yAxis}`} label={`${yAxis}`} />
             <Tooltip content={<CustomTooltip />}/>
           <Scatter name="Player Stats" data={allData} fill="#8884d8">
-          {allData.forEach((x, index) => {
-            if (x.name === playerData.name) {
-                return <Cell key={`cell-${index}`} fill="#ff0000" /> 
-            }
-          })}
+          {allData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={getColorForType(entry)} />
+            ))}
           </Scatter>
         </ScatterChart>
-      </ResponsiveContainer>
       <div className='axisSelect'>
         <select onInput={handleXAxis}>
                     {renderAxisData()}
