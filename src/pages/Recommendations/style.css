@@ -122,18 +122,31 @@ h2 {
 
 #submit-button, .button{
     margin-top: 10px;
-    background: transparent;
+    font-family: var(--font);
+    cursor: pointer;
+    padding:10px;
+    border-radius: 10px;
+    background-color:transparent;
+    border: solid 5px var(--border);
     color: var(--text);
-    padding: 10px;
     font-size: 20px;
     font-weight: bold;
-    font-family: var(--font);
-    border-radius: 10px;
-    border: solid 5px var(--border);
-    cursor: pointer;
+    background: linear-gradient(to left, var(--background) 50%, var(--text) 50%) right;
+    background-size: 200%;
+    transition: .5s ease-out;
 
 }
 
+#submit-button:hover, .button:hover{
+    padding:10px;
+    border-radius: 10px;
+    border: solid 5px var(--border);
+    background-color: var(--text);
+    color: var(--background);
+    font-weight: bold;
+    cursor: pointer;
+    background-position: left;
+}
 .suggestion{
     border: none;
     border-top: 5px solid var(--border);
