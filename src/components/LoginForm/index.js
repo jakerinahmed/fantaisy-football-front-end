@@ -56,6 +56,8 @@ export const LoginForm = (props) => {
 
     if (authMode === "signin") {
         return (
+            
+
             <div className="overlay">
                 <div className="wrapper">
                     <h2>Sign up</h2>
@@ -78,40 +80,41 @@ export const LoginForm = (props) => {
 
                     {/* <form  role={'form'} className="Auth-form" id="loginForm" onSubmit={handleLogin}>
                         <div className="Auth-form-content">
-                            <h3 className="Auth-form-title">Sign In</h3>
-                            <div className="text-center">
-                                Not registered yet?{" "}
-                                <span role={'signUpBtn'} className="link-primary" onClick={changeAuthMode}>
-                                    Sign Up
-                                </span>
+                        <h3 className="Auth-form-title">Sign In</h3>
+                        <div className="text-center">
+                        Not registered yet?{" "}
+                        <span role={'signUpBtn'} className="link-primary" onClick={changeAuthMode}>
+                        Sign Up
+                        </span>
                             </div>
                             <div className="form-group mt-3">
-                                <label htmlFor="name1">Username:</label>
-                                <input
-                                    type="text"
-                                    id="name1"
-                                    className="form-control mt-1"
-                                    placeholder="Enter username"
-                                    required
-                                    />
+                            <label htmlFor="name1">Username:</label>
+                            <input
+                            type="text"
+                            id="name1"
+                            className="form-control mt-1"
+                            placeholder="Enter username"
+                            required
+                            />
                             </div>
                             <div className="form-group mt-3">
-                                <label htmlFor="password1">Password:</label>
-                                <input
-                                    type="password"
-                                    id="password1"
-                                    className="form-control mt-1"
-                                    placeholder="Enter password"
-                                    required
-                                    />
+                            <label htmlFor="password1">Password:</label>
+                            <input
+                            type="password"
+                            id="password1"
+                            className="form-control mt-1"
+                            placeholder="Enter password"
+                            required
+                            />
                             </div>
                             <div className="d-grid gap-2 mt-3">
-                                <input role={'submit'} type="submit" value="Login" className="py-2" />
+                            <input role={'submit'} type="submit" value="Login" className="py-2" />
                             </div>
-                        </div>
-                    </form> */}
+                            </div>
+                        </form> */}
                 </div>
             </div>
+           
         )
     }
 

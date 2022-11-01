@@ -72,154 +72,165 @@ const Stats = () => {
         if (position === "ATK") {
             return (
                 <div className='playerStats'>
-                    <div>
-                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
-                    </div>
-                    <div>
+                    <div className='playerStats'>
+
+                        <div>
+                            <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
+                        </div>
+                        
                         <div className='playerInfo'>
                             <h2>{name}</h2>
                             <h3>{position}</h3>
                             <h4>{team}</h4>
                         </div>
-                        <div className='bonusStats'>
-                            <p>Total Points: {totalPoints}</p>
-                            <p>Points Per Game: {ppg}</p>
-                            <p>Cost: {cost}</p>
-                            <p>Goals: {goals}</p>
-                            <p>Assists: {assists}</p>
-                            <p>Goals Conceded: {goalsConceded}*</p>
-                            <p>Clean Sheets: {cleanSheets}*</p>
-                            <p>Bonus Points: {bonusPoints}</p>
-                            <p>Minutes Played: {minutes}</p>
-                            <p>Selected by Percentage: {selectedPerc}%</p>
-                            <p>Influence: {influence}</p>
-                            <p>Creativity: {creativity}</p>
-                            <p>Threat: {threat}</p>
-                            <p>ICT Index: {ictIndex}</p>
-                            <p>Pens Missed: {pensMissed}</p>
-                            <p>Takes Corners: {corners}</p>
-                            <p>Takes Free Kicks: {freeKicks}</p>
-                            <p>Takes Penalties: {pens}</p>
-                            <p>Own Goals: {ownGoals}</p>
-                            <p>Yellow Cards: {yellowCards}</p>
-                            <p>Red Cards: {redCards}</p>
-                            <p id='asterix'>* Marked stats dont affect players points</p>
-                        </div>
                     </div>
+                    <div className='bonusStats'>
+                        <p>Total Points: {totalPoints}</p>
+                        <p>Points Per Game: {ppg}</p>
+                        <p>Cost: {cost}</p>
+                        <p>Goals: {goals}</p>
+                        <p>Assists: {assists}</p>
+                        <p>Goals Conceded: {goalsConceded}*</p>
+                        <p>Clean Sheets: {cleanSheets}*</p>
+                        <p>Bonus Points: {bonusPoints}</p>
+                        <p>Minutes Played: {minutes}</p>
+                        <p>Selected by Percentage: {selectedPerc}%</p>
+                        <p>Influence: {influence}</p>
+                        <p>Creativity: {creativity}</p>
+                        <p>Threat: {threat}</p>
+                        <p>ICT Index: {ictIndex}</p>
+                        <p>Pens Missed: {pensMissed}</p>
+                        <p>Takes Corners: {corners}</p>
+                        <p>Takes Free Kicks: {freeKicks}</p>
+                        <p>Takes Penalties: {pens}</p>
+                        <p>Own Goals: {ownGoals}</p>
+                        <p>Yellow Cards: {yellowCards}</p>
+                        <p>Red Cards: {redCards}</p>
+                        <p id='asterix'>* Marked stats dont affect players points</p>
+                    </div>
+                   
                 </div>
             )
 
         } else if (position === "MID") {
             return (
                 <div className='playerStats'>
-                    <div>
-                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
-                    </div>
-                    <div>
+                    <div className='player-stuff'>
+                        <div>
+                            <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
+                        </div>
+                        
                         <div className='playerInfo'>
                             <h2>{name}</h2>
                             <h3>{position}</h3>
                             <h4>{team}</h4>
                         </div>
-                        <div className='bonusStats'>
-                            <p>Total Points: {totalPoints}</p>
-                            <p>Points Per Game: {ppg}</p>
-                            <p>Cost: {cost}</p>
-                            <p>Goals: {goals}</p>
-                            <p>Assists: {assists}</p>
-                            <p>Goals Conceded: {goalsConceded}</p>
-                            <p>Clean Sheets: {cleanSheets}</p>
-                            <p>Bonus Points: {bonusPoints}</p>
-                            <p>Minutes Played: {minutes}</p>
-                            <p>Selected by Percentage: {selectedPerc}%</p>
-                            <p>Influence: {influence}</p>
-                            <p>Creativity: {creativity}</p>
-                            <p>Threat: {threat}</p>
-                            <p>ICT Index: {ictIndex}</p>
-                            <p>Pens Missed: {pensMissed}</p>
-                            <p>Takes Corners: {corners}</p>
-                            <p>Takes Free Kicks: {freeKicks}</p>
-                            <p>Takes Penalties: {pens}</p>
-                            <p>Own Goals: {ownGoals}</p>
-                            <p>Yellow Cards: {yellowCards}</p>
-                            <p>Red Cards: {redCards}</p>
-                        </div>
                     </div>
+                    <div className='bonusStats'>
+                        <p>Total Points: {totalPoints}</p>
+                        <p>Points Per Game: {ppg}</p>
+                        <p>Cost: {cost}</p>
+                        <p>Goals: {goals}</p>
+                        <p>Assists: {assists}</p>
+                        <p>Goals Conceded: {goalsConceded}</p>
+                        <p>Clean Sheets: {cleanSheets}</p>
+                        <p>Bonus Points: {bonusPoints}</p>
+                        <p>Minutes Played: {minutes}</p>
+                        <p>Selected by Percentage: {selectedPerc}%</p>
+                        <p>Influence: {influence}</p>
+                        <p>Creativity: {creativity}</p>
+                        <p>Threat: {threat}</p>
+                        <p>ICT Index: {ictIndex}</p>
+                        <p>Pens Missed: {pensMissed}</p>
+                        <p>Takes Corners: {corners}</p>
+                        <p>Takes Free Kicks: {freeKicks}</p>
+                        <p>Takes Penalties: {pens}</p>
+                        <p>Own Goals: {ownGoals}</p>
+                        <p>Yellow Cards: {yellowCards}</p>
+                        <p>Red Cards: {redCards}</p>
+                    </div>
+                   
                 </div>
             )
         } else if (position === "DEF") {
             return (
                 <div className='playerStats'>
-                    <div>
-                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
-                    </div>
-                    <div>
+                    <div className='player-stuff'>
+
+                        <div>
+                            <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
+                        </div>
+                        
                         <div className='playerInfo'>
                             <h2>{name}</h2>
                             <h3>{position}</h3>
                             <h4>{team}</h4>
                         </div>
-                        <div className='bonusStats'>
-                            <p>Total Points: {totalPoints}</p>
-                            <p>Points Per Game: {ppg}</p>
-                            <p>Cost: {cost}</p>
-                            <p>Goals: {goals}</p>
-                            <p>Assists: {assists}</p>
-                            <p>Goals Conceded: {goalsConceded}</p>
-                            <p>Clean Sheets: {cleanSheets}</p>
-                            <p>Bonus Points: {bonusPoints}</p>
-                            <p>Minutes Played: {minutes}</p>
-                            <p>Selected by Percentage: {selectedPerc}%</p>
-                            <p>Influence: {influence}</p>
-                            <p>Creativity: {creativity}</p>
-                            <p>Threat: {threat}</p>
-                            <p>ICT Index: {ictIndex}</p>
-                            <p>Pens Missed: {pensMissed}</p>
-                            <p>Takes Corners: {corners}</p>
-                            <p>Takes Free Kicks: {freeKicks}</p>
-                            <p>Takes Penalties: {pens}</p>
-                            <p>Own Goals: {ownGoals}</p>
-                            <p>Yellow Cards: {yellowCards}</p>
-                            <p>Red Cards: {redCards}</p>
-                        </div>
                     </div>
+                    <div className='bonusStats'>
+                        <p>Total Points: {totalPoints}</p>
+                        <p>Points Per Game: {ppg}</p>
+                        <p>Cost: {cost}</p>
+                        <p>Goals: {goals}</p>
+                        <p>Assists: {assists}</p>
+                        <p>Goals Conceded: {goalsConceded}</p>
+                        <p>Clean Sheets: {cleanSheets}</p>
+                        <p>Bonus Points: {bonusPoints}</p>
+                        <p>Minutes Played: {minutes}</p>
+                        <p>Selected by Percentage: {selectedPerc}%</p>
+                        <p>Influence: {influence}</p>
+                        <p>Creativity: {creativity}</p>
+                        <p>Threat: {threat}</p>
+                        <p>ICT Index: {ictIndex}</p>
+                        <p>Pens Missed: {pensMissed}</p>
+                        <p>Takes Corners: {corners}</p>
+                        <p>Takes Free Kicks: {freeKicks}</p>
+                        <p>Takes Penalties: {pens}</p>
+                        <p>Own Goals: {ownGoals}</p>
+                        <p>Yellow Cards: {yellowCards}</p>
+                        <p>Red Cards: {redCards}</p>
+                    </div>
+                    
                 </div>
             )
         } else {
             return (
                 <div className='playerStats'>
-                    <div>
-                        <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
-                    </div>
-                    <div>
+                    
+                    <div className='player-stuff'>
+
+                        <div>
+                            <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
+                        </div>
                         <div className='playerInfo'>
                             <h2>{name}</h2>
                             <h3>{position}</h3>
                             <h4>{team}</h4>
                         </div>
-                        <div className='bonusStats'>
-                            <p>Total Points: {totalPoints}</p>
-                            <p>Points Per Game: {ppg}</p>
-                            <p>Cost: {cost}</p>
-                            <p>Saves: {saves}</p>
-                            <p>Pens Saved: {pensSaved}</p>
-                            <p>Clean Sheets: {cleanSheets}</p>
-                            <p>Goals Conceded: {goalsConceded}</p>
-                            <p>Bonus Points: {bonusPoints}</p>
-                            <p>Goals: {goals}</p>
-                            <p>Assists: {assists}</p>
-                            <p>Minutes Played: {minutes}</p>
-                            <p>Selected by Percentage: {selectedPerc}%</p>
-                            <p>Influence: {influence}</p>
-                            <p>Creativity: {creativity}</p>
-                            <p>Threat: {threat}</p>
-                            <p>ICT Index: {ictIndex}</p>
-                            <p>Own Goals: {ownGoals}</p>
-                            <p>Yellow Cards: {yellowCards}</p>
-                            <p>Red Cards: {redCards}</p>
-                        </div>
+                    </div>
+                    <div className='bonusStats'>
+                        <p>Total Points: {totalPoints}</p>
+                        <p>Points Per Game: {ppg}</p>
+                        <p>Cost: {cost}</p>
+                        <p>Saves: {saves}</p>
+                        <p>Pens Saved: {pensSaved}</p>
+                        <p>Clean Sheets: {cleanSheets}</p>
+                        <p>Goals Conceded: {goalsConceded}</p>
+                        <p>Bonus Points: {bonusPoints}</p>
+                        <p>Goals: {goals}</p>
+                        <p>Assists: {assists}</p>
+                        <p>Minutes Played: {minutes}</p>
+                        <p>Selected by Percentage: {selectedPerc}%</p>
+                        <p>Influence: {influence}</p>
+                        <p>Creativity: {creativity}</p>
+                        <p>Threat: {threat}</p>
+                        <p>ICT Index: {ictIndex}</p>
+                        <p>Own Goals: {ownGoals}</p>
+                        <p>Yellow Cards: {yellowCards}</p>
+                        <p>Red Cards: {redCards}</p>
                     </div>
 
+                    
                 </div>
             )
         }
@@ -451,10 +462,10 @@ function handleFilters (e) {
             </select>
             </div>
             <div className='submitDiv'>
-            <input type="submit" value="apply filters" id='submit'/>
+            <input type="submit" value="apply filters" id='submit' className='button'/>
             </div>
             </form>
-           </div> </div> : <button onClick={renderChartDiv} hidden = {renderGraph}>Compare to the rest of the league</button>}
+           </div> </div> : <button onClick={renderChartDiv} hidden = {renderGraph} className="button">Compare to the rest of the league</button>}
       </div>
             
         

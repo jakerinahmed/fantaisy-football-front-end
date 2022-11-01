@@ -1,11 +1,13 @@
 .playerStats {
     display: flex;
-}
-
-.bonusStats {
-    display: flex;
     flex-direction: column;
 }
+.player-stuff{
+   display: flex;
+
+}
+
+
 
 .playerOne, .playerTwo {
     min-width: 40vw;
@@ -35,20 +37,28 @@
 .compareBtn {
     padding:10px;
     border-radius: 10px;
-    background-color: var(--border);
-    color: var(--background);
+    background-color:transparent;
+    border: solid 5px var(--border);
+    color: var(--text);
+    font-size: 20px;
     font-weight: bold;
+    background: linear-gradient(to left, var(--background) 50%, var(--text) 50%) right;
+    background-size: 200%;
+    transition: .5s ease-out;
 }
 
 .compareBtn:hover {
     padding:10px;
     border-radius: 10px;
-    border: solid 1px var(--border);
-    background-color: var(--background);
-    color: var(--border);
+    border: solid 5px var(--border);
+    background-color: var(--text);
+    color: var(--background);
     font-weight: bold;
     cursor: pointer;
+    background-position: left;
+    
 }
+
 
 .chartDiv {
     width: 100%;
@@ -90,3 +100,30 @@
 #asterix {
     padding-top: 20px;
 }
+
+ /* https://www.w3schools.com/howto/howto_custom_select.asp for styling the select more later*/
+select{
+    margin: 5px;
+    background:transparent;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 20px;
+    background-color: transparent;
+}
+
+
+select > option{
+    background:transparent;
+    background-color: var(--background);
+    
+    
+}
+
+.bonusStats{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 10px;
+}
+
