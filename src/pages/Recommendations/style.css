@@ -182,7 +182,7 @@ div {
 .wrapper {
     margin: 70px auto;
     padding: 20px;
-    background-color: var(--background);
+    background-color: var(--text);
     width: 30%;
     position: relative;
     border-radius: 10px;

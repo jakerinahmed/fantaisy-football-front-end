@@ -180,7 +180,7 @@ useEffect(() => {
               <input type='text' placeholder="user id" onChange={(e) => setUserID(e.target.value)} required></input>
             </div>
             <div className='user-id'>
-              <input  type = 'submit' id="submit-button" value="Get my team!"></input>
+              <input role="submit" type='submit' id="submit-button" value="Get my team!"></input>
             </div>
           </form>
         </div>

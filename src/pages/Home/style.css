@@ -77,3 +77,8 @@ div {
     border-radius: 10px;
     margin: 10px;
 }
+
+button > a{
+    text-decoration: none;
+    color: var(--text);
+}
