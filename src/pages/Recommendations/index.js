@@ -38,7 +38,7 @@ let handleSubmit = async (e) => {
     setShowTeams(false)
     e.preventDefault();
     try {
-      await axios.post('http://127.0.0.1:5000/getuserteam', {
+      await axios.post('https://fantaisyfootball.herokuapp.com/getuserteam', {
         userID: userID,
         gameweek:14
       })
@@ -61,7 +61,7 @@ let handleSubmit = async (e) => {
       data.forEach(async(id) =>{
         
         try {
-        const response = await axios.get(`http://127.0.0.1:5000/userplayer/${id}`)
+        const response = await axios.get(`https://fantaisyfootball.herokuapp.com/userplayer/${id}`)
         
         const player = {
           name: response.data[0].name,

@@ -165,7 +165,7 @@ div {
     margin: 20px;
 }
 
-.login-div-auth{
+.overlay{
     position: fixed;
     top: 0;
     bottom: 0;
@@ -195,7 +195,7 @@ div {
     text-transform: uppercase;
 }
 
-.login-div-auth:target {
+.overlay:target {
     visibility: visible;
     opacity: 1;
 }
