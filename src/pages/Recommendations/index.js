@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { PlayerCard } from '../../components'
+import { PlayerCard, LoginForm} from '../../components'
 import axios from 'axios'
 
 import './style.css'
@@ -26,8 +26,6 @@ const Recommendations = () => {
   const [suggestion, setSuggestion] = useState(true)
   const [optimal, setOptimal] = useState(null)
   const [optimalTransfer, setOptimalTransfer] = useState({})
-  const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState(null)
   const [userID, setUserID] = useState(null)
   const [variable, setVariable] = useState(false)
   const [showTeams, setShowTeams] = useState(true)
@@ -36,20 +34,15 @@ const Recommendations = () => {
 
   
 let handleSubmit = async (e) => {
-    console.log(email)
-    console.log(password)
-    console.log(userID)
     setVariable(false)
     setShowTeams(false)
     e.preventDefault();
     try {
       await axios.post('http://127.0.0.1:5000/getuserteam', {
-        email: email,
-        password: password,
-        userID: userID
+        userID: userID,
+        gameweek:14
       })
       .then(function (response) {
-        console.log(response.data);
         fetchPlayerInfo(response.data)
 
       })
@@ -62,14 +55,14 @@ let handleSubmit = async (e) => {
     
   };
 
+
  const fetchPlayerInfo = async (data) => {
       let allPlayers = [];
       data.forEach(async(id) =>{
         
         try {
         const response = await axios.get(`http://127.0.0.1:5000/userplayer/${id}`)
-        console.log(response.data)
-        console.log(response.data[0].name)
+        
         const player = {
           name: response.data[0].name,
           value: response.data[0].cost,
@@ -78,32 +71,30 @@ let handleSubmit = async (e) => {
           team: response.data[0].team, 
         }
         allPlayers.push(player)
-        console.log('player', player)
+        
       } catch (err) {
         console.log(err);
       }
       
     })
-    console.log(allPlayers)
-    setUserPlayers(allPlayers)
     
-    console.log(userPlayers)
+    setUserPlayers(allPlayers)
+ 
   }
  
 function renderPlayers(players, position){
-  console.log('calling render')
-  console.log(players)
+  
   return (
 
     players.map((player) => {
       
       if(player.position === position){
-        console.log('made it in')
+        
         return (  
           <PlayerCard name = {player.name} points = {player.points} optimal= {optimalTransfer}></PlayerCard>
         )
       } else {
-        console.log('did not make it')
+        
       }
     })
   )
@@ -147,14 +138,14 @@ useEffect(() => {
           const pointDiff = dreamPlayer.points - userPlayer.points
           const playerIn = dreamPlayer.name
           const playerOut = userPlayer.name
-          console.log(teams)
+          
           if(dreamPlayer.team !== userPlayer.team){
             const newTeams = teams.filter(team => dreamPlayer.team === team)
             console.log(newTeams)
             var teamCount = newTeams.length + 1
 
           }
-          console.log(teamCount)
+         
 
           if(pointDiff > 0 && !currentPlayers.find(name => playerIn === name) && teams.filter(team => dreamPlayer.team === team) && teamCount <= 3){
             
@@ -179,18 +170,11 @@ useEffect(() => {
   } 
   return (
     <div>
-
       <div className='login-div'>
         <p role="instruction">To view your team please enter your email and password for your fantasy premier league team</p>
         <div className='form-div'>
 
           <form onSubmit={handleSubmit}>
-            <div className='login-details'>
-              <label>Email:</label>
-              <input type='email' placeholder="email" onChange={(e) => setEmail(e.target.value)} required></input>
-              <label>Password:</label>
-              <input type='password' placeholder="password" onChange={(e) => setPassword(e.target.value)} required></input>
-            </div>
             <div className='user-id'>
               <label>User ID:</label>
               <input type='text' placeholder="user id" onChange={(e) => setUserID(e.target.value)} required></input>
@@ -267,6 +251,7 @@ useEffect(() => {
       
 
     </div>
+    {/* <LoginForm /> */}
     </div>
   )
 }
