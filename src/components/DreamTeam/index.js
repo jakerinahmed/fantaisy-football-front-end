@@ -42,21 +42,21 @@ const DreamTeam = ({ allData }) => {
       console.log("bpp", byPredictedPoints)
       let i = 0
         while (dream_team.length < 11) {
-          if ((byPredictedPoints[i].position == "MID") && midfielderCount < 5 && attOrMidCount < 7 && outfieldCount < 10){
+          if ((byPredictedPoints[i].position == "MD") && midfielderCount < 5 && attOrMidCount < 7 && outfieldCount < 10){
             dream_team.push([byPredictedPoints[i].name, byPredictedPoints[i].position])
             midfielderCount += 1
             outfieldCount +=1
             attOrMidCount +=1
             i += 1
           }
-          else if ((byPredictedPoints[i].position == "ATK") && attackerCount < 3 && attOrMidCount < 7 && outfieldCount < 10){
+          else if ((byPredictedPoints[i].position == "FW") && attackerCount < 3 && attOrMidCount < 7 && outfieldCount < 10){
             dream_team.push([byPredictedPoints[i].name, byPredictedPoints[i].position])
             attackerCount += 1
             outfieldCount +=1
             attOrMidCount +=1
             i += 1
           }
-          else if ((byPredictedPoints[i].position == "DEF") && defenderCount < 5 && outfieldCount < 10){
+          else if ((byPredictedPoints[i].position == "DF") && defenderCount < 5 && outfieldCount < 10){
             dream_team.push([byPredictedPoints[i].name, byPredictedPoints[i].position])
             defenderCount += 1
             outfieldCount +=1
@@ -64,7 +64,7 @@ const DreamTeam = ({ allData }) => {
           }
           else if ((byPredictedPoints[i].position == "GK") && goalkeeperCount < 1){
             dream_team.push([byPredictedPoints[i].name, byPredictedPoints[i].position])
-            defenderCount += 1
+            goalkeeperCount += 1
             i += 1
           }
           else {
@@ -93,13 +93,13 @@ const DreamTeam = ({ allData }) => {
         {dreamTeamPlayers.filter(x => x[1] == "GK")}
         </div>
         <div className='dream-team-defenders'>
-        {dreamTeamPlayers.filter(x => x[1] == "DEF")}
+        {dreamTeamPlayers.filter(x => x[1] == "DF")}
         </div>
         <div className='dream-team-midfielders'>
-        {dreamTeamPlayers.filter(x => x[1] == "MID")}
+        {dreamTeamPlayers.filter(x => x[1] == "MD")}
         </div>
         <div className='dream-team-attackers'>
-        {dreamTeamPlayers.filter(x => x[1] == "ATK")}
+        {dreamTeamPlayers.filter(x => x[1] == "FW")}
         </div>
       </div>
     )
