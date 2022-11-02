@@ -67,3 +67,13 @@ tr:nth-child(even) {
   padding: 5px;
   font-size: 15px;
 }
+
+.table-rows::-webkit-scrollbar{
+  background: var(--background);
+  border: #234058;
+  border-style: solid;
+}
+.table-rows::-webkit-scrollbar-thumb{
+  background: white;
+  border-radius: 4px;
+}
