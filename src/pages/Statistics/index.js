@@ -503,9 +503,9 @@ function handleFilters (e) {
                 <p>Position:</p>
             <select name ="positionFilter">
                 <option value="all">all</option>
-                <option value="ATK">ATK</option>
-                <option value="MID">MID</option>
-                <option value="DEF">DEF</option>
+                <option value="FW">ATK</option>
+                <option value="MD">MID</option>
+                <option value="DF">DEF</option>
                 <option value="GK">GK</option>
             </select>
             </div>
