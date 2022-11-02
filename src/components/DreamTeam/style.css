@@ -17,5 +17,14 @@
   justify-content: center;
   background-image: url('../../../public/imgs/football_pitch.jpg');
   background-size: cover;
+}
 
+.dream-team-defenders, .dream-team-midfielders, .dream-team-attackers, .dream-team-goalkeeper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+  color: var(--background);
+  font-weight: bold;
 }
