@@ -54,7 +54,7 @@ let handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post('https://fantaisyfootball.herokuapp.com/getuserteam', {
-        userID: window.localStorage.userID,
+        userID: window.localStorage.user_id,  
         gameweek:14
       })
       .then(function (response) {

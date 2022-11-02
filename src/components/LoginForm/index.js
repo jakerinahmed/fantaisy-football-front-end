@@ -31,7 +31,7 @@ export const LoginForm = (props) => {
     const register = async (username, password, userID) => {
         try {
             console.log(username, password,userID)
-            await axios.post('http://127.0.0.1:5000/register',{
+            await axios.post('https://fantaisyfootball.herokuapp.com/register',{
                     username: username,
                     password:password,
                     user_id: userID
@@ -58,7 +58,7 @@ export const LoginForm = (props) => {
     const login = async (username, password) => {
         try {
             console.log(username,password)
-            let { data } = await axios.post('http://127.0.0.1:5000/login', {},{
+            let { data } = await axios.post('https://fantaisyfootball.herokuapp.com/login', {},{
                 auth: {
                 username: username,
                 password: password
@@ -103,7 +103,11 @@ export const LoginForm = (props) => {
 
             <div className="login-form-container">
                 <div className="login-form-div">
-                    <button onClick={() => setAuthMode(true)}>Sign up</button>
+                <div className='login-switches'>
+
+                    <button onClick={() => setAuthMode(false)} className="button">Sign up</button>
+                    <button onClick={() => setAuthMode(true)} className="button">Login</button>
+                </div>
                         <hr></hr>
                     <div className="content">
                        
@@ -130,11 +134,29 @@ export const LoginForm = (props) => {
     }
 
     return (
-        <div className="overlay">
-           <div className='wrapper'>
-                
+        <div className="login-form-container">
+                <div className="login-form-div">
+                    <div className='login-switches'>
+
+                    <button onClick={() => setAuthMode(false)} className="button">Sign up</button>
+                    <button onClick={() => setAuthMode(true)} className="button">Login</button>
+                    </div>
+                        <hr></hr>
+                    <div className="content">
+                       
+                        <form id="registerForm" onSubmit={handleLogin}>
+                            <label>Username:</label>
+                            <input name="name" id="name1" type="text" className='form-inputs' required></input>
+                            <label>Password:</label>
+                            <input name="password" id="password1" type="password" className='form-inputs' required></input>
+                            <input type="submit" value="Submit" id="submit-signup"></input>
+                        </form>
+                        
+                    </div>
+
+                    
+                </div>
             </div>
-        </div>
     )
 }
 
