@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './style.css'
 
-const StatsTable = ({allData}) => {
+const StatsTable = ({ allData }) => {
 
     const [orderedPlayers, setOrderedPlayers] = useState([])
     const [teamFilter, setTeamFilter] = useState("All")
     const [positionFilter, setPositionFilter] = useState("Any")
+    const [tableFilter, setTableFilter] = useState("PP")
 
     useEffect(() => {
         async function addToTable() {
@@ -28,14 +29,66 @@ const StatsTable = ({allData}) => {
         const team = e.target.teamFilter.value
         setPositionFilter(e.target.positionFilter.value)
         const position = e.target.positionFilter.value
-        if (team === "All" && position === "Any") {
-            setOrderedPlayers(allData)
+        setTableFilter(e.target.tableFilter.value)
+        const sortFilter = e.target.tableFilter.value
+
+        if (team !== "All" && position !== "Any") {
+            if (sortFilter === "PP per Cost") {
+                const filteredPlayers = allData.filter(p => p.position === position && p.team === team)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
+                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
+                }))
+            } else if (sortFilter === "Cost") {
+                const filteredPlayers = allData.filter(p => p.position === position && p.team === team)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
+                    return b.cost - a.cost;
+                }))
+            } else {
+                setOrderedPlayers(allData.filter(p => p.position === position && p.team === team))
+            }
+
         } else if (team !== "All" && position === "Any") {
-            setOrderedPlayers(allData.filter(p => p.team === team))
+            if (sortFilter === "PP per Cost") {
+                const filteredPlayers = allData.filter(p => p.team === team)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
+                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
+                }))
+            } else if (sortFilter === "Cost") {
+                const filteredPlayers = allData.filter(p => p.team === team)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
+                    return b.cost - a.cost;
+                }))
+            } else {
+                setOrderedPlayers(allData.filter(p => p.team === team))
+            }
+
         } else if (team === "All" && position !== "Any") {
-            setOrderedPlayers(allData.filter(p => p.position === position))
+            if (sortFilter === "PP per Cost") {
+                const filteredPlayers = allData.filter(p => p.position === position)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
+                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
+                }))
+            } else if (sortFilter === "Cost") {
+                const filteredPlayers = allData.filter(p => p.position === position)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
+                    return b.cost - a.cost;
+                }))
+            } else {
+                setOrderedPlayers(allData.filter(p => p.position === position))
+            }
+
         } else {
-            setOrderedPlayers(allData.filter(p => p.position === position && p.team === team))
+            if (sortFilter === "PP per Cost") {
+                setOrderedPlayers(allData.sort((a, b) => {
+                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
+                }))
+            } else if (sortFilter === "Cost") {
+                setOrderedPlayers(allData.sort((a, b) => {
+                    return b.cost - a.cost;
+                }))
+            } else {
+                setOrderedPlayers(allData)
+            }
         }
     }
 
@@ -78,6 +131,15 @@ const StatsTable = ({allData}) => {
                             <option value="DF">DF</option>
                             <option value="MF">MF</option>
                             <option value="FW">FW</option>
+                        </select>
+                    </div>
+
+                    <div role='table-headers'>
+                        <label className='filter-padding' for='table-headers'>Sort by</label>
+                        <select name="tableFilter" id="tableFilter">
+                            <option value="PP">Predicted Points</option>
+                            <option value="Cost">Cost</option>
+                            <option value="PP per Cost">PP per Cost</option>
                         </select>
                     </div>
                     <input type='submit' value='Apply filters' />

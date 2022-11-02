@@ -23,7 +23,7 @@ const Home = () => {
         <div className='recommend'>
           <h2>Want to see our recommendations?</h2>
           
-          <button><Link to="/recommendations">View analysis</Link></button>
+          <Link to="/recommendations"><button>View analysis</button></Link>
           
         </div>
 

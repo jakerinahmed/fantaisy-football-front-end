@@ -5,6 +5,7 @@ import axios from 'axios'
 import './style.css'
 
 const Recommendations = () => {
+  
   const [userPlayers, setUserPlayers] = useState([])
   const [dreamPlayers, setDreamPlayers] = useState([
   {name:"Pickford",value: 4.5, points:6, position:"GK", team: "EVE" },
@@ -20,6 +21,12 @@ const Recommendations = () => {
   {name:"Havertz",value: 7.7, points:9, position:"ATK", team: "CHE"},
   ])
 
+  useEffect(() => {
+    localStorage.clear()
+  },[])
+
+  
+
   const [transfers, setTransfers] = useState([])
   const [userPoints, setUserPoints] = useState(null)
   const [dreamPoints, setDreamPoints] = useState(null)
@@ -29,17 +36,25 @@ const Recommendations = () => {
   const [userID, setUserID] = useState(null)
   const [variable, setVariable] = useState(false)
   const [showTeams, setShowTeams] = useState(true)
+  const [authorised, setAuthorised] = useState(false)
+  const [tokenCheck, setTokenCheck] = useState(false)
   
-  
+  function updateTokenCheck() {
+    setTokenCheck(!tokenCheck)
+  }
 
-  
+  useEffect(() => {
+    if(window.localStorage.token){
+      setAuthorised(true)
+    }
+  },[tokenCheck])
 let handleSubmit = async (e) => {
     setVariable(false)
     setShowTeams(false)
     e.preventDefault();
     try {
       await axios.post('https://fantaisyfootball.herokuapp.com/getuserteam', {
-        userID: userID,
+        userID: window.localStorage.user_id,  
         gameweek:14
       })
       .then(function (response) {
@@ -62,7 +77,7 @@ let handleSubmit = async (e) => {
         
         try {
         const response = await axios.get(`https://fantaisyfootball.herokuapp.com/userplayer/${id}`)
-        
+      
         const player = {
           name: response.data[0].name,
           value: response.data[0].cost,
@@ -99,6 +114,8 @@ function renderPlayers(players, position){
     })
   )
 }
+
+
 
 useEffect(() => {
     const totalPoints = dreamPlayers.reduce((accumulator, dreamPlayer) => {
@@ -155,6 +172,8 @@ useEffect(() => {
         }
       })
     })
+    
+    
     let maxPoints = []
     newTransfers.forEach(transfer => {
       maxPoints.push(transfer.points)
@@ -168,17 +187,15 @@ useEffect(() => {
     setSuggestion(false)
     return setTransfers(newTransfers) 
   } 
-  return (
-    <div>
+  if(authorised){
+
+    return (
+      <div>
       <div className='login-div'>
-        <p role="instruction">To view your team please enter your email and password for your fantasy premier league team</p>
+        <p role="instruction">To view your team please enter your userID</p>
         <div className='form-div'>
 
           <form onSubmit={handleSubmit}>
-            <div className='user-id'>
-              <label>User ID:</label>
-              <input type='text' placeholder="user id" onChange={(e) => setUserID(e.target.value)} required></input>
-            </div>
             <div className='user-id'>
               <input role="submit" type='submit' id="submit-button" value="Get my team!"></input>
             </div>
@@ -251,9 +268,17 @@ useEffect(() => {
       
 
     </div>
-    {/* <LoginForm /> */}
     </div>
   )
+} else {
+  return(
+    <div>
+      <LoginForm updateTokenCheck={updateTokenCheck}/>
+
+    </div>
+
+  )
+}
 }
 
 export default Recommendations
