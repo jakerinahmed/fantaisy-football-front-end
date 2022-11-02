@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 10px;
   margin: 10px;
   margin-top: 0px;
   max-height: 20vh;
@@ -20,9 +20,9 @@
 .nav-item {
   padding: 10px;
   margin-left: 20px;
-  font-weight: bold;
+  /* font-weight: bold; */
   font-family: var(--font);
-  font-size: 25px;
+  font-size: 20px;
   color: var(--text);
   text-decoration: none;
 
@@ -38,8 +38,8 @@
   padding: 10px;
   margin-left: 20px;
   font-family: var(--font);
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 20px;
+  /* font-weight: bold; */
   background-color: var(--border);
   color: var(--background);
   border: none;

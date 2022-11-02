@@ -33,6 +33,7 @@ const Stats = () => {
     
     const handleTeamChoice = async (e) => {
         const team = e.target.value
+        console.log(allData)
         const playerNames = allData.filter(p => p.team === team)
         const options = []
         for (let i = 0; i < playerNames.length; i++) {
@@ -68,8 +69,8 @@ const Stats = () => {
         setComparing(true)
     }
 
-    const renderStats = ([assists, bonusPoints, chanceOfPlaying, cleanSheets, code, cost, creativity, goals, goalsConceded, ictIndex, id, influence, minutes, name, ownGoals, pensMissed, pensSaved, playerID, ppg, position, redCards, saves, selectedPerc, corners, freeKicks, pens, team, threat, totalPoints, transfersIn, transfersInRound, transfersOut, transfersOutRound, yellowCards]) => {
-        if (position === "ATK") {
+    const renderStats = ([assists, avgAssistsPer90, avgCreativityPer90, avgGoalsConcededPer90, avgGoalsPer90, avgICTPer90, avgInfluencePer90, avgMinutes, avgThreatPer90, bonusPoints, chanceOfPlaying, cleanSheets, code, cost, creativity, goals, goalsConceded, ictIndex, id, influence, minutes, name, ownGoals, pensMissed, pensSaved, playerID, ppg, position, predictedPoints, redCards, saves, selectedPerc, corners, freeKicks, pens, team, threat, totalPoints, transfersIn, transfersInRound, transfersOut, transfersOutRound, yellowCards]) => {
+        if (position === "FW") {
             return (
                 <div className='playerStats'>
                     <div className='player-stuff'>
@@ -87,18 +88,27 @@ const Stats = () => {
                     <div className='bonusStats'>
                         <p>Total Points: {totalPoints}</p>
                         <p>Points Per Game: {ppg}</p>
+                        <p>Predicted Points for next fixture: {predictedPoints}</p>
                         <p>Cost: {cost}</p>
                         <p>Goals: {goals}</p>
+                        <p>Average Goals per 90: {avgGoalsPer90}</p>
                         <p>Assists: {assists}</p>
+                        <p>Average Assists per 90: {avgAssistsPer90}</p>
                         <p>Goals Conceded: {goalsConceded}*</p>
+                        <p>Average Goals Conceded per 90: {avgGoalsConcededPer90}</p>
                         <p>Clean Sheets: {cleanSheets}*</p>
                         <p>Bonus Points: {bonusPoints}</p>
                         <p>Minutes Played: {minutes}</p>
+                        <p>Average Minutes Per Game: {avgMinutes}</p>
                         <p>Selected by Percentage: {selectedPerc}%</p>
                         <p>Influence: {influence}</p>
+                        <p>Average Influence per 90: {avgInfluencePer90}</p>
                         <p>Creativity: {creativity}</p>
+                        <p>Average Creativity per 90: {avgCreativityPer90}</p>
                         <p>Threat: {threat}</p>
+                        <p>Average Threat per 90: {avgThreatPer90}</p>
                         <p>ICT Index: {ictIndex}</p>
+                        <p>Average ICT Index per 90: {avgICTPer90}</p>
                         <p>Pens Missed: {pensMissed}</p>
                         <p>Takes Corners: {corners}</p>
                         <p>Takes Free Kicks: {freeKicks}</p>
@@ -112,7 +122,7 @@ const Stats = () => {
                 </div>
             )
 
-        } else if (position === "MID") {
+        } else if (position === "MD") {
             return (
                 <div className='playerStats'>
                     <div className='player-stuff'>
@@ -129,18 +139,27 @@ const Stats = () => {
                     <div className='bonusStats'>
                         <p>Total Points: {totalPoints}</p>
                         <p>Points Per Game: {ppg}</p>
+                        <p>Predicted Points for next fixture: {predictedPoints}</p>
                         <p>Cost: {cost}</p>
                         <p>Goals: {goals}</p>
+                        <p>Average Goals per 90: {avgGoalsPer90}</p>
                         <p>Assists: {assists}</p>
+                        <p>Average Assists per 90: {avgAssistsPer90}</p>
                         <p>Goals Conceded: {goalsConceded}</p>
+                        <p>Average Goals Conceded per 90: {avgGoalsConcededPer90}</p>
                         <p>Clean Sheets: {cleanSheets}</p>
                         <p>Bonus Points: {bonusPoints}</p>
                         <p>Minutes Played: {minutes}</p>
+                        <p>Average Minutes Per Game: {avgMinutes}</p>
                         <p>Selected by Percentage: {selectedPerc}%</p>
                         <p>Influence: {influence}</p>
+                        <p>Average Influence per 90: {avgInfluencePer90}</p>
                         <p>Creativity: {creativity}</p>
+                        <p>Average Creativity per 90: {avgCreativityPer90}</p>
                         <p>Threat: {threat}</p>
+                        <p>Average Threat per 90: {avgThreatPer90}</p>
                         <p>ICT Index: {ictIndex}</p>
+                        <p>Average ICT Index per 90: {avgICTPer90}</p>
                         <p>Pens Missed: {pensMissed}</p>
                         <p>Takes Corners: {corners}</p>
                         <p>Takes Free Kicks: {freeKicks}</p>
@@ -152,7 +171,7 @@ const Stats = () => {
                    
                 </div>
             )
-        } else if (position === "DEF") {
+        } else if (position === "DF") {
             return (
                 <div className='playerStats'>
                     <div className='player-stuff'>
@@ -168,20 +187,29 @@ const Stats = () => {
                         </div>
                     </div>
                     <div className='bonusStats'>
-                        <p>Total Points: {totalPoints}</p>
+                    <p>Total Points: {totalPoints}</p>
                         <p>Points Per Game: {ppg}</p>
+                        <p>Predicted Points for next fixture: {predictedPoints}</p>
                         <p>Cost: {cost}</p>
                         <p>Goals: {goals}</p>
+                        <p>Average Goals per 90: {avgGoalsPer90}</p>
                         <p>Assists: {assists}</p>
+                        <p>Average Assists per 90: {avgAssistsPer90}</p>
                         <p>Goals Conceded: {goalsConceded}</p>
+                        <p>Average Goals Conceded per 90: {avgGoalsConcededPer90}</p>
                         <p>Clean Sheets: {cleanSheets}</p>
                         <p>Bonus Points: {bonusPoints}</p>
                         <p>Minutes Played: {minutes}</p>
+                        <p>Average Minutes Per Game: {avgMinutes}</p>
                         <p>Selected by Percentage: {selectedPerc}%</p>
                         <p>Influence: {influence}</p>
+                        <p>Average Influence per 90: {avgInfluencePer90}</p>
                         <p>Creativity: {creativity}</p>
+                        <p>Average Creativity per 90: {avgCreativityPer90}</p>
                         <p>Threat: {threat}</p>
+                        <p>Average Threat per 90: {avgThreatPer90}</p>
                         <p>ICT Index: {ictIndex}</p>
+                        <p>Average ICT Index per 90: {avgICTPer90}</p>
                         <p>Pens Missed: {pensMissed}</p>
                         <p>Takes Corners: {corners}</p>
                         <p>Takes Free Kicks: {freeKicks}</p>
@@ -216,15 +244,20 @@ const Stats = () => {
                         <p>Pens Saved: {pensSaved}</p>
                         <p>Clean Sheets: {cleanSheets}</p>
                         <p>Goals Conceded: {goalsConceded}</p>
+                        <p>Average Goals Conceded per 90: {avgGoalsConcededPer90}</p>
                         <p>Bonus Points: {bonusPoints}</p>
                         <p>Goals: {goals}</p>
                         <p>Assists: {assists}</p>
                         <p>Minutes Played: {minutes}</p>
                         <p>Selected by Percentage: {selectedPerc}%</p>
                         <p>Influence: {influence}</p>
+                        <p>Average Influence per 90: {avgInfluencePer90}</p>
                         <p>Creativity: {creativity}</p>
+                        <p>Average Creativity per 90: {avgCreativityPer90}</p>
                         <p>Threat: {threat}</p>
+                        <p>Average Threat per 90: {avgThreatPer90}</p>
                         <p>ICT Index: {ictIndex}</p>
+                        <p>Average ICT Index per 90: {avgICTPer90}</p>
                         <p>Own Goals: {ownGoals}</p>
                         <p>Yellow Cards: {yellowCards}</p>
                         <p>Red Cards: {redCards}</p>
@@ -269,6 +302,13 @@ const Stats = () => {
         rifa("name", data)
         rifa("id", data)
         rifa("player_id", data)
+        rifa("takes_corners", data)
+        rifa("takes_penalties", data)
+        rifa("takes_free_kicks", data)
+        rifa("transfers_in", data)
+        rifa("transfers_in_this_round", data)
+        rifa("transfers_out", data)
+        rifa("transfers_out_this_round", data)
         data.unshift("minutes")
         return data.map(n => <option value={n}>{n}</option>)
     }
@@ -283,6 +323,13 @@ const Stats = () => {
         rifa("name", data)
         rifa("id", data)
         rifa("player_id", data)
+        rifa("takes_corners", data)
+        rifa("takes_penalties", data)
+        rifa("takes_free_kicks", data)
+        rifa("transfers_in", data)
+        rifa("transfers_in_this_round", data)
+        rifa("transfers_out", data)
+        rifa("transfers_out_this_round", data)
         data.unshift("influence")
         return data.map(n => <option value={n}>{n}</option>)
     }
@@ -304,7 +351,7 @@ const Stats = () => {
             return "#e90052"
         }
         else if (entry === playerDataTwo) {
-            return "#38003c"
+            return "#e90052"
         }
         else {
             return "#04f5ff"
@@ -334,6 +381,7 @@ function handleFilters (e) {
             <div className='dropdowns'>
                 <div>
             <select onInput={handleTeamChoice}>
+                <option>Select Team</option>
                 <option value="Arsenal F.C.">Arsenal</option>
                 <option value="Aston Villa F.C.">Aston Villa</option>
                 <option value="A.F.C. Bournemouth">Bournemouth</option>
@@ -455,9 +503,9 @@ function handleFilters (e) {
                 <p>Position:</p>
             <select name ="positionFilter">
                 <option value="all">all</option>
-                <option value="ATK">ATK</option>
-                <option value="MID">MID</option>
-                <option value="DEF">DEF</option>
+                <option value="FW">ATK</option>
+                <option value="MD">MID</option>
+                <option value="DF">DEF</option>
                 <option value="GK">GK</option>
             </select>
             </div>

@@ -1,39 +1,34 @@
 import React, { useEffect, useState } from 'react'
+
+import axios from 'axios'
 import { DreamTeam, StatsTable } from '../../components'
 import './style.css'
 import axios from 'axios'
 
 const Predictions = () => {
-  let [product, setproduct] = useState([]);
-  let [change, setChange] = useState(true);
+  const [allData, setAllData] = useState([])
 
-async function fetchData() {
-    let response = await axios(
-      `https://fantaisyfootball.herokuapp.com/allstats`
-    );
-    let user = await response.data;
-    setproduct(user);
-    
-    console.log(product);
-    setChange(!change)
+  useEffect(() => {
+    async function storePlayerData() {
+      const storeData = await getPlayerData()
+      setAllData(storeData)
+    }
+    storePlayerData()
+  }, [])
+
+  const getPlayerData = async () => {
+    try {
+      const data = await axios.get('https://fantaisyfootball.herokuapp.com/allstats')
+      return data.data
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
-  // useEffect(async () => {
-  //   let response = await axios(
-  //     `https://fantaisyfootball.herokuapp.com/allstats`
-  //   );
-  //   let user = await response.data;
-  //   setproduct(user);
-    
-  //   console.log(product);
-    
-  // },[product]); 
-  
   return (
     <div className='predictions'>
-      <button onClick={() => console.log(product)}>Get stats</button>
-        <DreamTeam/>
-        <StatsTable/>
+      <DreamTeam allData={allData}/>
+      <StatsTable allData={allData} />
     </div>
   )
 }
