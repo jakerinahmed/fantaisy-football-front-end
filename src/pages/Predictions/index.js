@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-
 import axios from 'axios'
 import { DreamTeam, StatsTable } from '../../components'
 import './style.css'
-import axios from 'axios'
 
 const Predictions = () => {
   const [allData, setAllData] = useState([])
