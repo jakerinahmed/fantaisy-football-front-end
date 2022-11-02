@@ -9,16 +9,16 @@ const Recommendations = () => {
   const [userPlayers, setUserPlayers] = useState([])
   const [dreamPlayers, setDreamPlayers] = useState([
   {name:"Pickford",value: 4.5, points:6, position:"GK", team: "EVE" },
-  {name:"Mee",value: 4.5, points:6, position:"DEF", team:"BRE" },
-  {name:"Mitchell",value: 4.5, points:0, position:"DEF", team:"CRY" },
-  {name:"Trippier",value: 5.8, points:8, position:"DEF", team: "NEW" },
-  {name:"Almiron",value: 5.6, points:11, position:"MID", team: "NEW" },    
-  {name:"De Bruyne",value: 12.4, points:5, position:"MID", team: "MCI" },
-  {name:"Neves",value: 5.5, points:7, position:"MID", team:"WOL" },
-  {name:"Bentancur",value: 5.4, points:2, position:"MID", team: "TOT" },
-  {name:"Wilson",value: 7.4, points:4, position:"MID", team: "NEW" },
-  {name:"Moore",value: 5.4, points:9, position:"ATK", team: "BOU"},
-  {name:"Havertz",value: 7.7, points:9, position:"ATK", team: "CHE"},
+  {name:"Mee",value: 4.5, points:6, position:"DF", team:"BRE" },
+  {name:"Mitchell",value: 4.5, points:0, position:"DF", team:"CRY" },
+  {name:"Trippier",value: 5.8, points:8, position:"DF", team: "NEW" },
+  {name:"Almiron",value: 5.6, points:11, position:"MF", team: "NEW" },    
+  {name:"De Bruyne",value: 12.4, points:5, position:"MF", team: "MCI" },
+  {name:"Neves",value: 5.5, points:7, position:"MF", team:"WOL" },
+  {name:"Bentancur",value: 5.4, points:2, position:"MF", team: "TOT" },
+  {name:"Wilson",value: 7.4, points:4, position:"MF", team: "NEW" },
+  {name:"Moore",value: 5.4, points:9, position:"FW", team: "BOU"},
+  {name:"Havertz",value: 7.7, points:9, position:"FW", team: "CHE"},
   ])
 
   useEffect(() => {
@@ -98,7 +98,7 @@ let handleSubmit = async (e) => {
   }
  
 function renderPlayers(players, position){
-  
+  console.log(userPlayers)
   return (
 
     players.map((player) => {
@@ -207,8 +207,8 @@ useEffect(() => {
 
       <div className='teams-rec'>
       <div className='team-div'>
-        <p>Your team</p>
-        <p>Your total points: {userPoints}</p>
+        <p>Your Team</p>
+        <p>Your Total Points: {userPoints}</p>
         <div className='user-team'>
           <div className='goalies'>
             
@@ -216,36 +216,36 @@ useEffect(() => {
 
           </div>
           <div className='defenders'>
-            {renderPlayers(userPlayers,"DEF")} 
+            {renderPlayers(userPlayers,"DF")} 
           </div>
           <div className='mids'>
-            {renderPlayers(userPlayers,"MID")}
+            {renderPlayers(userPlayers,"MF")}
           </div>
           <div className='forwards'>
-            {renderPlayers(userPlayers,"ATK")}
+            {renderPlayers(userPlayers,"FW")}
           </div>
         </div>
         </div>
 
         <div className='team-div'>
         <p>Dream team</p>
-        <p>total points: {dreamPoints}</p>
+        <p>Total Points: {dreamPoints}</p>
         <div className='user-op-team'>
         <div className='goalies'>
         {renderPlayers(dreamPlayers,"GK")}
             
           </div>
           <div className='defenders'>
-          {renderPlayers(dreamPlayers,"DEF")}
+          {renderPlayers(dreamPlayers,"DF")}
           
           </div>
           <div className='mids'>
-          {renderPlayers(dreamPlayers,"MID")}
+          {renderPlayers(dreamPlayers,"MF")}
           
 
           </div>
           <div className='forwards'>
-          {renderPlayers(dreamPlayers,"ATK")}
+          {renderPlayers(dreamPlayers,"FW")}
          
           </div>
         </div>
@@ -259,7 +259,7 @@ useEffect(() => {
         
           {
             transfers.map((transfer,i) => {
-              return <li key={i} style={ { color: transfer.points === optimal ? 'red' : 'none' } }  > Transfer {transfer.in} for {transfer.out} for {transfer.points} points</li>
+              return <li key={i} style={ { color: transfer.points === optimal ? 'red' : 'none' } }  > Transfer in {transfer.in} for {transfer.out} for {transfer.points} points</li>
             })
           }
 
