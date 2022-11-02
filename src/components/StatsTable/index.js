@@ -12,9 +12,9 @@ const StatsTable = ({ allData }) => {
     useEffect(() => {
         async function addToTable() {
             const tableData = await allData
-            console.log(tableData)
+            // console.log(tableData)
             let byPredictedPoints = tableData
-            console.log(byPredictedPoints)
+            // console.log(byPredictedPoints)
             byPredictedPoints.sort((a, b) => {
                 return b.predicted_points - a.predicted_points;
             });
