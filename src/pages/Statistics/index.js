@@ -304,7 +304,7 @@ const Stats = () => {
             return "#e90052"
         }
         else if (entry === playerDataTwo) {
-            return "#38003c"
+            return "#e90052"
         }
         else {
             return "#04f5ff"
