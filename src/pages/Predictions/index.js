@@ -25,7 +25,7 @@ const Predictions = () => {
 
   return (
     <div className='predictions'>
-      <DreamTeam />
+      <DreamTeam allData={allData}/>
       <StatsTable allData={allData} />
     </div>
   )
