@@ -42,7 +42,7 @@ const DreamTeam = ({ allData }) => {
       console.log("bpp", byPredictedPoints)
       let i = 0
         while (dream_team.length < 11) {
-          if ((byPredictedPoints[i].position == "MD") && midfielderCount < 5 && attOrMidCount < 7 && outfieldCount < 10){
+          if ((byPredictedPoints[i].position == "MF") && midfielderCount < 5 && attOrMidCount < 7 && outfieldCount < 10){
             dream_team.push([byPredictedPoints[i].name, byPredictedPoints[i].position])
             midfielderCount += 1
             outfieldCount +=1
