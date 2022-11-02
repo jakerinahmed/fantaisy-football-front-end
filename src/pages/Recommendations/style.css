@@ -120,7 +120,7 @@ h2 {
 
 
 
-#submit-button, .button{
+#submit-button, .button, #submit-signup{
     margin-top: 10px;
     font-family: var(--font);
     cursor: pointer;
@@ -137,7 +137,7 @@ h2 {
 
 }
 
-#submit-button:hover, .button:hover{
+#submit-button:hover, .button:hover, #submit-signup:hover{
     padding:10px;
     border-radius: 10px;
     border: solid 5px var(--border);
@@ -178,37 +178,23 @@ div {
     margin: 20px;
 }
 
-.overlay{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.8);
-    transition: opacity 500ms;
-    visibility: hidden;
-    opacity: 0;
-    color: #F71735;
-    
+
+.content > #registerForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.wrapper {
-    margin: 70px auto;
-    padding: 20px;
-    background-color: var(--text);
-    width: 30%;
-    position: relative;
-    border-radius: 10px;
+.login-form-div > hr{
+    border: 2px solid var(--border);
 }
 
-.wrapper h2 {
-    font-weight: bold;
-    font-size: 26px;
-    text-align: center;
-    text-transform: uppercase;
+#registerForm > .form-inputs{
+    margin: 5px;
+    padding: 5px;
+    background: transparent;
+    border: none;
+    border-bottom: 5px solid var(--border);
 }
 
-.overlay:target {
-    visibility: visible;
-    opacity: 1;
-}

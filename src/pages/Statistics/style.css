@@ -7,7 +7,9 @@
 
 }
 
-
+.graphMain > h3{
+    margin-top: 15px;
+}
 
 .playerOne, .playerTwo {
     min-width: 40vw;

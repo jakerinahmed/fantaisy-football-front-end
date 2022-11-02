@@ -73,7 +73,7 @@ const Stats = () => {
         if (position === "FW") {
             return (
                 <div className='playerStats'>
-                    <div className='playerStats'>
+                    <div className='player-stuff'>
 
                         <div>
                             <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
