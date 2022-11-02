@@ -51,6 +51,7 @@ export const LoginForm = (props) => {
             alert('Login failed. Please try again');
         } else {
             setLocalStorage(token)
+            props.updateTokenCheck()
         }
         e.target.reset()
     }
