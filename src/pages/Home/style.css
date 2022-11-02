@@ -47,7 +47,7 @@ h2 {
     justify-content: center;
 }
 
-.dream > button, .recommend > button {
+.dream > button, .recommend > a > button {
     margin-top: 10px;
     font-family: var(--font);
     cursor: pointer;

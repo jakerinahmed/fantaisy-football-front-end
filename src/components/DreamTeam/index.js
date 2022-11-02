@@ -36,34 +36,34 @@ const DreamTeam = ({ allData }) => {
         let byPredictedPoints = allData
 
         byPredictedPoints.sort((a, b) => {
-          return b.assists - a.assists;
+          return b.predicted_points - a.predicted_points;
       });
 
       console.log("bpp", byPredictedPoints)
       let i = 0
         while (dream_team.length < 11) {
           if ((byPredictedPoints[i].position == "MF") && midfielderCount < 5 && attOrMidCount < 7 && outfieldCount < 10){
-            dream_team.push([byPredictedPoints[i].name, byPredictedPoints[i].position])
+            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points})
             midfielderCount += 1
             outfieldCount +=1
             attOrMidCount +=1
             i += 1
           }
           else if ((byPredictedPoints[i].position == "FW") && attackerCount < 3 && attOrMidCount < 7 && outfieldCount < 10){
-            dream_team.push([byPredictedPoints[i].name, byPredictedPoints[i].position])
+            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points})
             attackerCount += 1
             outfieldCount +=1
             attOrMidCount +=1
             i += 1
           }
           else if ((byPredictedPoints[i].position == "DF") && defenderCount < 5 && outfieldCount < 10){
-            dream_team.push([byPredictedPoints[i].name, byPredictedPoints[i].position])
+            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points})
             defenderCount += 1
             outfieldCount +=1
             i += 1
           }
           else if ((byPredictedPoints[i].position == "GK") && goalkeeperCount < 1){
-            dream_team.push([byPredictedPoints[i].name, byPredictedPoints[i].position])
+            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points})
             goalkeeperCount += 1
             i += 1
           }
@@ -78,6 +78,26 @@ const DreamTeam = ({ allData }) => {
       }
       returnDreamTeamPlayers()
     }, [allData])
+    
+    console.log("dtgk", dreamTeamPlayers.filter(x => x.position == "GK"))
+
+    let goalkeeperContent = []
+    let defenderContent = []
+    let midfielderContent = []
+    let attackerContent = []
+
+    for (let i=0; i < dreamTeamPlayers.filter(x => x.position == "GK").length; i++ ){
+       goalkeeperContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "GK")[i].name} points={dreamTeamPlayers.filter(x => x.position == "GK")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
+    }
+    for (let i=0; i < dreamTeamPlayers.filter(x => x.position == "DF").length; i++ ){
+       defenderContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "DF")[i].name} points={dreamTeamPlayers.filter(x => x.position == "DF")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
+    }
+    for (let i=0; i < dreamTeamPlayers.filter(x => x.position == "MF").length; i++ ){
+       midfielderContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "MF")[i].name} points={dreamTeamPlayers.filter(x => x.position == "MF")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
+    }
+    for (let i=0; i < dreamTeamPlayers.filter(x => x.position == "FW").length; i++ ){
+       attackerContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "FW")[i].name} points={dreamTeamPlayers.filter(x => x.position == "FW")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
+    }
 
   if (!dreamTeamPlayers[0]) {
     console.log("hello")
@@ -90,16 +110,16 @@ const DreamTeam = ({ allData }) => {
     return (
       <div className='dream-team' role='dream-team'>
         <div className='dream-team-goalkeeper'>
-        {dreamTeamPlayers.filter(x => x[1] == "GK")}
+            {goalkeeperContent}
         </div>
         <div className='dream-team-defenders'>
-        {dreamTeamPlayers.filter(x => x[1] == "DF")}
+        {defenderContent}
         </div>
         <div className='dream-team-midfielders'>
-        {dreamTeamPlayers.filter(x => x[1] == "MD")}
+        {midfielderContent}
         </div>
         <div className='dream-team-attackers'>
-        {dreamTeamPlayers.filter(x => x[1] == "FW")}
+        {attackerContent}
         </div>
       </div>
     )
