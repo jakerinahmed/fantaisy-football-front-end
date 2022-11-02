@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export const LoginForm = (props) => {
     const navigate = useNavigate();
-    let [authMode, setAuthMode] = useState("signin")
+    let [authMode, setAuthMode] = useState(false)
     
     
 
@@ -31,7 +31,7 @@ export const LoginForm = (props) => {
     const register = async (username, password, userID) => {
         try {
             console.log(username, password,userID)
-            await axios.post('http://127.0.0.1:5000/register',{
+            await axios.post('https://fantaisyfootball.herokuapp.com/register',{
                     username: username,
                     password:password,
                     user_id: userID
@@ -58,7 +58,7 @@ export const LoginForm = (props) => {
     const login = async (username, password) => {
         try {
             console.log(username,password)
-            let { data } = await axios.post('http://127.0.0.1:5000/login', {},{
+            let { data } = await axios.post('https://fantaisyfootball.herokuapp.com/login', {},{
                 auth: {
                 username: username,
                 password: password
@@ -97,13 +97,17 @@ export const LoginForm = (props) => {
         e.target.reset()
     }
 
-    if (authMode === "signin") {
+    if (!authMode) {
         return (
             
 
             <div className="login-form-container">
                 <div className="login-form-div">
-                    <h2>Sign up</h2>
+                <div className='login-switches'>
+
+                    <button onClick={() => setAuthMode(false)} className="button">Sign up</button>
+                    <button onClick={() => setAuthMode(true)} className="button">Login</button>
+                </div>
                         <hr></hr>
                     <div className="content">
                        
@@ -122,40 +126,7 @@ export const LoginForm = (props) => {
                         
                     </div>
 
-                    {/* <form  role={'form'} className="Auth-form" id="loginForm" onSubmit={handleLogin}>
-                        <div className="Auth-form-content">
-                        <h3 className="Auth-form-title">Sign In</h3>
-                        <div className="text-center">
-                        Not registered yet?{" "}
-                        <span role={'signUpBtn'} className="link-primary" onClick={changeAuthMode}>
-                        Sign Up
-                        </span>
-                            </div>
-                            <div className="form-group mt-3">
-                            <label htmlFor="name1">Username:</label>
-                            <input
-                            type="text"
-                            id="name1"
-                            className="form-control mt-1"
-                            placeholder="Enter username"
-                            required
-                            />
-                            </div>
-                            <div className="form-group mt-3">
-                            <label htmlFor="password1">Password:</label>
-                            <input
-                            type="password"
-                            id="password1"
-                            className="form-control mt-1"
-                            placeholder="Enter password"
-                            required
-                            />
-                            </div>
-                            <div className="d-grid gap-2 mt-3">
-                            <input role={'submit'} type="submit" value="Login" className="py-2" />
-                            </div>
-                            </div>
-                        </form> */}
+                    
                 </div>
             </div>
            
@@ -163,11 +134,29 @@ export const LoginForm = (props) => {
     }
 
     return (
-        <div className="overlay">
-           <div className='wrapper'>
-                
+        <div className="login-form-container">
+                <div className="login-form-div">
+                    <div className='login-switches'>
+
+                    <button onClick={() => setAuthMode(false)} className="button">Sign up</button>
+                    <button onClick={() => setAuthMode(true)} className="button">Login</button>
+                    </div>
+                        <hr></hr>
+                    <div className="content">
+                       
+                        <form id="registerForm" onSubmit={handleLogin}>
+                            <label>Username:</label>
+                            <input name="name" id="name1" type="text" className='form-inputs' required></input>
+                            <label>Password:</label>
+                            <input name="password" id="password1" type="password" className='form-inputs' required></input>
+                            <input type="submit" value="Submit" id="submit-signup"></input>
+                        </form>
+                        
+                    </div>
+
+                    
+                </div>
             </div>
-        </div>
     )
 }
 
