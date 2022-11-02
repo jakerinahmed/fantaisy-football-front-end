@@ -32,66 +32,62 @@ const StatsTable = ({ allData }) => {
         setTableFilter(e.target.tableFilter.value)
         const sortFilter = e.target.tableFilter.value
 
-        if (team === "All" && position === "Any") {
-
-            if (sortFilter === "PP") {
-                setOrderedPlayers(allData)
+        if (team !== "All" && position !== "Any") {
+            if (sortFilter === "PP per Cost") {
+                const filteredPlayers = allData.filter(p => p.position === position && p.team === team)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
+                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
+                }))
             } else if (sortFilter === "Cost") {
-                setOrderedPlayers(allData.sort((a, b) => {
+                const filteredPlayers = allData.filter(p => p.position === position && p.team === team)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
                     return b.cost - a.cost;
                 }))
             } else {
-                setOrderedPlayers(allData.sort((a, b) => {
-                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
-                }))
+                setOrderedPlayers(allData.filter(p => p.position === position && p.team === team))
             }
 
         } else if (team !== "All" && position === "Any") {
-            
-            if (sortFilter === "PP") {
-                setOrderedPlayers(allData.filter(p => p.team === team))
+            if (sortFilter === "PP per Cost") {
+                const filteredPlayers = allData.filter(p => p.team === team)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
+                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
+                }))
             } else if (sortFilter === "Cost") {
-                setOrderedPlayers(allData.filter(p => p.team === team))
-                setOrderedPlayers(orderedPlayers.sort((a, b) => {
+                const filteredPlayers = allData.filter(p => p.team === team)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
                     return b.cost - a.cost;
                 }))
             } else {
                 setOrderedPlayers(allData.filter(p => p.team === team))
-                setOrderedPlayers(orderedPlayers.sort((a, b) => {
-                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
-                }))
             }
 
         } else if (team === "All" && position !== "Any") {
-            
-            if (sortFilter === "PP") {
-                setOrderedPlayers(allData.filter(p => p.position === position))
+            if (sortFilter === "PP per Cost") {
+                const filteredPlayers = allData.filter(p => p.position === position)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
+                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
+                }))
             } else if (sortFilter === "Cost") {
-                setOrderedPlayers(allData.filter(p => p.position === position))
-                setOrderedPlayers(orderedPlayers.sort((a, b) => {
+                const filteredPlayers = allData.filter(p => p.position === position)
+                setOrderedPlayers(filteredPlayers.sort((a, b) => {
                     return b.cost - a.cost;
                 }))
             } else {
                 setOrderedPlayers(allData.filter(p => p.position === position))
-                setOrderedPlayers(orderedPlayers.sort((a, b) => {
-                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
-                }))
             }
 
         } else {
-            
-            if (sortFilter === "PP") {
-                setOrderedPlayers(allData.filter(p => p.position === position && p.team === team))
+            if (sortFilter === "PP per Cost") {
+                setOrderedPlayers(allData.sort((a, b) => {
+                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
+                }))
             } else if (sortFilter === "Cost") {
-                setOrderedPlayers(allData.filter(p => p.position === position && p.team === team))
-                setOrderedPlayers(orderedPlayers.sort((a, b) => {
+                setOrderedPlayers(allData.sort((a, b) => {
                     return b.cost - a.cost;
                 }))
             } else {
-                setOrderedPlayers(allData.filter(p => p.position === position && p.team === team))
-                setOrderedPlayers(orderedPlayers.sort((a, b) => {
-                    return (b.predicted_points / b.cost) - (a.predicted_points / a.cost);
-                }))
+                setOrderedPlayers(allData)
             }
         }
     }
