@@ -98,7 +98,7 @@ const StatsTable = ({ allData }) => {
                 <div className='filters'>
                     <div role='team'>
                         <label className='filter-padding' for="team">Team</label>
-                        <select name="teamFilter" id="team">
+                        <select className='filter-drop-down' name="teamFilter" id="team">
                             <option value="All">All</option>
                             <option value="Arsenal F.C.">Arsenal</option>
                             <option value="Aston Villa F.C.">Aston Villa</option>
@@ -125,7 +125,7 @@ const StatsTable = ({ allData }) => {
 
                     <div role='position'>
                         <label className='filter-padding' for="position">Position</label>
-                        <select name="positionFilter" id="position">
+                        <select className='filter-drop-down' name="positionFilter" id="position">
                             <option value="Any">Any</option>
                             <option value="GK">GK</option>
                             <option value="DF">DF</option>
@@ -136,13 +136,13 @@ const StatsTable = ({ allData }) => {
 
                     <div role='table-headers'>
                         <label className='filter-padding' for='table-headers'>Sort by</label>
-                        <select name="tableFilter" id="tableFilter">
+                        <select className='filter-drop-down' name="tableFilter" id="tableFilter">
                             <option value="PP">Predicted Points</option>
                             <option value="Cost">Cost</option>
                             <option value="PP per Cost">PP per Cost</option>
                         </select>
                     </div>
-                    <input type='submit' value='Apply filters' />
+                    <input className='stats_table_filters_submit_btn' type='submit' value='Apply filters' />
                 </div>
 
             </form>

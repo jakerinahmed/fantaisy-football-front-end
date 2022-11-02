@@ -17,7 +17,7 @@ const Home = () => {
 
         <div className='dream'>
           <h2>Our dream team is....</h2>
-          <button>View Dream Team</button>
+          <Link to="/predictions"><button>View Dream Team</button></Link>
         </div>
 
         <div className='recommend'>

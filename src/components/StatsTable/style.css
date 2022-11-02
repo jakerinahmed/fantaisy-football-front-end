@@ -31,6 +31,7 @@ tr:nth-child(even) {
 .filters {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 .filter-padding{
@@ -45,4 +46,24 @@ tr:nth-child(even) {
 .head {
   top: 0;
   position: sticky;
+}
+
+.stats_table_filters_submit_btn {
+  font-size: 20px;
+  font-family: var(--font);
+  border-radius: 10px;
+  border: solid 3px var(--border);
+  padding:10px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: var(--text);
+  color: var(--background);
+  font-weight: bold;
+  cursor: pointer;
+  height: 40px;
+}
+
+.filter-drop-down {
+  padding: 5px;
+  font-size: 15px;
 }

@@ -47,7 +47,7 @@ h2 {
     justify-content: center;
 }
 
-.dream > button, .recommend > a > button {
+.dream > a > button, .recommend > a > button {
     margin-top: 10px;
     font-family: var(--font);
     cursor: pointer;
@@ -64,7 +64,7 @@ h2 {
     transition: .5s ease-out;
 }
 
-.dream > button:hover, .recommend > button:hover {
+.dream > a > button:hover, .recommend > a > button:hover {
 
     font-size: 20px;
     font-family: var(--font);
