@@ -2,24 +2,25 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './style.css'
 
-const StatsTable = () => {
+const StatsTable = ({allData}) => {
 
-    const [allData, setAllData] = useState([])
     const [orderedPlayers, setOrderedPlayers] = useState([])
-    const [filteredPlayers, setFilteredPlayers] = useState([])
     const [teamFilter, setTeamFilter] = useState("All")
     const [positionFilter, setPositionFilter] = useState("Any")
 
-
-    const getPlayerData = async () => {
-        try {
-            const data = await axios.get('https://fantaisyfootball.herokuapp.com/allstats')
-            setAllData(data.data)
-            return data.data
-        } catch (error) {
-            console.log(error.message)
+    useEffect(() => {
+        async function addToTable() {
+            const tableData = await allData
+            console.log(tableData)
+            let byPredictedPoints = tableData
+            console.log(byPredictedPoints)
+            byPredictedPoints.sort((a, b) => {
+                return b.predicted_points - a.predicted_points;
+            });
+            setOrderedPlayers(byPredictedPoints)
         }
-    }
+        addToTable()
+    }, [allData])
 
     function handleFilters(e) {
         e.preventDefault()
@@ -38,22 +39,8 @@ const StatsTable = () => {
         }
     }
 
-    useEffect(() => {
-        async function addToTable() {
-            const tableData = await getPlayerData()
-            let byPredictedPoints = tableData
-            console.log(byPredictedPoints)
-            byPredictedPoints.sort((a, b) => {
-                return b.predicted_points - a.predicted_points;
-            });
-            setOrderedPlayers(byPredictedPoints)
-        }
-        addToTable()
-    }, [])
-
     return (
         <div>
-
             <form onSubmit={handleFilters}>
                 <div className='filters'>
                     <div role='team'>
@@ -93,9 +80,9 @@ const StatsTable = () => {
                             <option value="FW">FW</option>
                         </select>
                     </div>
+                    <input type='submit' value='Apply filters' />
                 </div>
 
-                <input type='submit' value='Apply filters'/>
             </form>
 
             <div className='table-rows'>
