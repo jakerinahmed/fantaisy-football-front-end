@@ -140,32 +140,6 @@ const Stats = () => {
                         </table>
                         <table className='statistics'>
                         <tr>
-                            <th>Goals Conceded:</th>
-                            <td>{goalsConceded}</td>
-                        </tr>
-                        <tr>
-                            <th>Goals Conceded per 90:</th>
-                            <td>{avgGoalsConcededPer90}</td>
-                        </tr>
-                        <tr>
-                            <th>Cleansheets:</th>
-                            <td>{cleanSheets}</td>
-                        </tr>
-                        <tr>
-                            <th>Own Goals:</th>
-                            <td>{ownGoals}</td>
-                        </tr>
-                        <tr>
-                            <th>Yellow Cards:</th>
-                            <td>{yellowCards}</td>
-                        </tr>
-                        <tr>
-                            <th>Red Cards:</th>
-                            <td>{redCards}</td>
-                        </tr>
-                        </table>
-                        <table className='statistics'>
-                        <tr>
                             <th>ICT Index:</th>
                             <td>{ictIndex}</td>
                         </tr>
@@ -190,6 +164,33 @@ const Stats = () => {
                             <td>{avgThreatPer90}</td>
                         </tr> 
                         </table>
+                        <table className='statistics'>
+                        <tr>
+                            <th>Goals Conceded:</th>
+                            <td>{goalsConceded}</td>
+                        </tr>
+                        <tr>
+                            <th>Goals Conceded per 90:</th>
+                            <td>{avgGoalsConcededPer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Cleansheets:</th>
+                            <td>{cleanSheets}</td>
+                        </tr>
+                        <tr>
+                            <th>Own Goals:</th>
+                            <td>{ownGoals}</td>
+                        </tr>
+                        <tr>
+                            <th>Yellow Cards:</th>
+                            <td>{yellowCards}</td>
+                        </tr>
+                        <tr>
+                            <th>Red Cards:</th>
+                            <td>{redCards}</td>
+                        </tr>
+                        </table>
+                        
                     </div>
                    
                 </div>
