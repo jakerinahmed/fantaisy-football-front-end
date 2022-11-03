@@ -207,5 +207,10 @@ div {
     border: none;
     border-bottom: 5px solid var(--border);
     color: #41EAD4;
+    font-size: 25px;
+}
+
+#registerForm > label{
+    font-size: 20px;
 }
 
