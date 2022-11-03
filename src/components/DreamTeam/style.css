@@ -12,11 +12,9 @@
   border: solid 5px var(--border);
   border-radius: 10px;
 
-  min-width: 100vh;
-  max-width: 140vh;
+  width: 610px;
+  height: 609.33;
   
-  min-height: 190vh;
-  max-height: 360vh;
   align-items: center;
   justify-content: center;
   background-image: url('../../../public/imgs/football_pitch.jpg');
