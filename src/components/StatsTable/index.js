@@ -12,9 +12,7 @@ const StatsTable = ({ allData }) => {
     useEffect(() => {
         async function addToTable() {
             const tableData = await allData
-            // console.log(tableData)
             let byPredictedPoints = tableData
-            // console.log(byPredictedPoints)
             byPredictedPoints.sort((a, b) => {
                 return b.predicted_points - a.predicted_points;
             });
@@ -25,6 +23,7 @@ const StatsTable = ({ allData }) => {
 
     function handleFilters(e) {
         e.preventDefault()
+        console.log(e.target)
         setTeamFilter(e.target.teamFilter.value)
         const team = e.target.teamFilter.value
         setPositionFilter(e.target.positionFilter.value)
@@ -100,7 +99,7 @@ const StatsTable = ({ allData }) => {
                 <div className='filters'>
                     <div role='team'>
                         <label className='filter-padding' for="team">Team</label>
-                        <select className='filter-drop-down' name="teamFilter" id="team">
+                        <select role='teamDropdown' className='filter-drop-down' name="teamFilter" id="team">
                             <option value="All">All</option>
                             <option value="Arsenal F.C.">Arsenal</option>
                             <option value="Aston Villa F.C.">Aston Villa</option>
@@ -115,7 +114,7 @@ const StatsTable = ({ allData }) => {
                             <option value="Leeds United">Leeds United</option>
                             <option value="Liverpool F.C.">Liverpool</option>
                             <option value="Manchester City F.C.">Manchester City</option>
-                            <option value="Manchester United F.C.">Manchester United</option>
+                            <option role='Manchester' value="Manchester United F.C.">Manchester United</option>
                             <option value="Newcastle United F.C.">Newcastle United</option>
                             <option value="Nottingham Forest F.C.">Nottingham Forest</option>
                             <option value="Southampton F.C.">Southampton</option>
@@ -144,7 +143,7 @@ const StatsTable = ({ allData }) => {
                             <option value="PP per Cost">PP per Cost</option>
                         </select>
                     </div>
-                    <input className='stats_table_filters_submit_btn' type='submit' value='Apply filters' />
+                    <input role='filterSubmitBtn' className='stats_table_filters_submit_btn' type='submit' value='Apply filters' />
                 </div>
 
             </form>
@@ -160,7 +159,7 @@ const StatsTable = ({ allData }) => {
                         <th>PP per Cost</th>
                     </tr>
                     {orderedPlayers.map(player => {
-                        return <tr><td>{player.name}</td>
+                        return <tr role='tableRow'><td>{player.name}</td>
                             <td>{player.team}</td>
                             <td>{player.position}</td>
                             <td>£{player.cost}m</td>

@@ -48,9 +48,4 @@ describe('Statistics', () => {
         expect(options[20].textContent).toContain('Wolverhampton Wanderers')
 
     });
-
-    test("renderStats", () => {
-        render(<Statistics/>)
-        wrapper.setPlayerData({position: "FW"})
-    })
 });

@@ -304,9 +304,7 @@ useEffect(() => {
     return (
       <div>
       <div className='login-div'>
-        <p role="instruction">To view your team please enter your userID</p>
         <div className='form-div'>
-
           <form onSubmit={handleSubmit}>
             <div className='user-id'>
               <input role="submit" type='submit' id="submit-button" value="Get my team!"></input>

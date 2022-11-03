@@ -17,7 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --setupFilesAfterEnv --maxWorkers=2 ./src/test/setupTests.js",
+    "test": "react-scripts test --setupFilesAfterEnv --maxWorkers=1 ./src/test/setupTests.js",
     "coverage": "react-scripts test --setupFilesAfterEnv ./src/test/setupTests.js --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
@@ -53,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^8.19.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
