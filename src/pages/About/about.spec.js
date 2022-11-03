@@ -20,6 +20,4 @@ describe('About', () => {
         expect(heading[1].textContent).toContain("How to play");
     });
 
-
-
 });

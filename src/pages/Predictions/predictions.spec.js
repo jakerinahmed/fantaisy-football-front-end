@@ -4,16 +4,19 @@ import { MemoryRouter } from 'react-router-dom';
 
 
 
-describe('About', () => {
+describe('Predictions', () => {
     beforeEach(() => {
-        render(<Predictions />, { wrapper: MemoryRouter })
+        fetch.resetMocks()
+        render(
+            <Predictions />, { wrapper: MemoryRouter }
+        )
     });
 
     test('it renders the dream team', () => {
         const dreamTeam = screen.getAllByRole('dream-team')
         expect(dreamTeam).toBeTruthy()
     });
-    
+
     test('it renders the filters', () => {
         const teamFilter = screen.getAllByRole('team')
         const positionFilter = screen.getAllByRole('position')
