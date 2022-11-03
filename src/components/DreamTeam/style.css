@@ -7,16 +7,22 @@
 
 .dream-team {
   padding: 50px;
+  
   text-align: center;
   border: solid 5px var(--border);
   border-radius: 10px;
-  max-width: 100vh;
-  min-width: 100vh;
-  min-height: 80vh;
+
+  width: 610px;
+  height: 609.33;
+  
   align-items: center;
   justify-content: center;
   background-image: url('../../../public/imgs/football_pitch.jpg');
   background-size: cover;
+  background-repeat: no-repeat;
+  
+ 
+ 
 }
 
 .dream-team-defenders, .dream-team-midfielders, .dream-team-attackers, .dream-team-goalkeeper {

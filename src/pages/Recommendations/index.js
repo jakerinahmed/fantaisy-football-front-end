@@ -20,7 +20,6 @@ const Recommendations = () => {
   const [suggestion, setSuggestion] = useState(true)
   const [optimal, setOptimal] = useState(null)
   const [optimalTransfer, setOptimalTransfer] = useState({})
-  const [userID, setUserID] = useState(null)
   const [variable, setVariable] = useState(false)
   const [showTeams, setShowTeams] = useState(true)
   const [authorised, setAuthorised] = useState(false)
@@ -181,7 +180,7 @@ useEffect(() => {
    setUserPoints(userPoints)
    
    
-  },[userPlayers, allPlayers, variable])
+  },[userPlayers, allPlayers, variable, dreamPlayers])
 
   
 
@@ -293,10 +292,11 @@ useEffect(() => {
     const optTransfer = newTransfers[optIndex]
     setOptimalTransfer(optTransfer)
     setOptimal(newOptimal)
-
+    
     console.log(newTransfers)
     setSuggestion(false)
     console.log('optimal team', optimalTeamPlayers)
+    console.log('transfers', transfers)
     return setTransfers(newTransfers), setOptimalTeam(optimalTeamPlayers)
   } 
   if(authorised){
@@ -365,9 +365,6 @@ useEffect(() => {
           </div>
         </div>
       </div>
-      </div>
-      <div className='suggestion'>
-        <p>Our model suggests that you captain Haaland, give up on Salah because he is <span>washed</span>. </p>
       </div>
       <button onClick={() => teamOptimiser()} className="button">Get opinion</button>
       <div hidden = {suggestion} id="suggestion-div">
