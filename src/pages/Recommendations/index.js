@@ -136,7 +136,7 @@ function renderPlayers(players, position){
 
 
 useEffect(() => {
-    const totalPoints = allPlayers.reduce((accumulator, allPlayer) => {
+    const totalPoints = dreamPlayers.reduce((accumulator, allPlayer) => {
       return accumulator + allPlayer.points
    },0)
     const userPoints = userPlayers.reduce((accumulator, userPlayer) => {
@@ -154,7 +154,7 @@ useEffect(() => {
   function teamOptimiser(){
     var newTransfers = []
     var optimalTeamPlayers = []
-    const bank = userPlayers.reduce((accumulator, userPlayer) => {
+    let bank = userPlayers.reduce((accumulator, userPlayer) => {
        return accumulator + userPlayer.value
     },0)
     console.log("allplayers", allPlayers);
@@ -173,20 +173,22 @@ useEffect(() => {
           const pointDiff = allPlayer.points - userPlayer.points
           const playerIn = allPlayer.name
           const playerOut = userPlayer.name
+          const costDiff = userPlayer.value - allPlayer.value
+          console.log(bank, "bank");
           
           if(allPlayer.team !== userPlayer.team){
             const newTeams = teams.filter(team => allPlayer.team === team)
             var teamCount = newTeams.length + 1
 
           }
-         
 
           if(pointDiff > 2 && !currentPlayers.find(name => playerIn === name) && teams.filter(team => allPlayer.team === team) && teamCount <= 3){
             
             let dupe = newTransfers.filter(player => playerIn === player.in)
             let dupeOut = newTransfers.filter(player => playerOut === player.out)
-
+            
             if(dupe.length === 1 && dupe.points < pointDiff && dupeOut.length === 1){
+              bank = bank - costDiff
               optimalTeamPlayers = optimalTeamPlayers.filter(player => playerIn !== player.name)
               optimalTeamPlayers = optimalTeamPlayers.filter(player => playerOut !== player.playername)
               newTransfers = newTransfers.filter(player => playerOut !== player.out)
@@ -194,12 +196,14 @@ useEffect(() => {
               newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
               optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
             }else if(dupeOut.length === 1 && dupeOut.points < pointDiff){
+              bank = bank - costDiff
               optimalTeamPlayers = optimalTeamPlayers.filter(player => playerOut !== player.playername)
               newTransfers = newTransfers.filter(player => playerOut !== player.out)
               newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
               optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
-
+              
             }else if (dupe.length === 0 && dupeOut.length === 0){
+              bank = bank - costDiff
               newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
               optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
             }
@@ -341,7 +345,7 @@ useEffect(() => {
         
           {
             transfers.map((transfer,i) => {
-              return <li key={i} style={ { color: transfer.points === optimal ? 'red' : 'none' } }  > Transfer in {transfer.in} for {transfer.out} for {transfer.points} points</li>
+              return <li key={i} > Transfer in {transfer.in} for {transfer.out} for {transfer.points} points</li>
             })
           }
 
