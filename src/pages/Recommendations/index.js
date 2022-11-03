@@ -10,10 +10,7 @@ const Recommendations = () => {
   const [dreamPlayers, setDreamPlayers] = useState([])
   const [allPlayers, setAllPlayers] = useState([])
   const [optimalTeam, setOptimalTeam] = useState([])
-
-  // useEffect(() => {
-  //   localStorage.clear()
-  // },[])
+  const [benchPlayers, setBenchPlayers] = useState([])
 
   
 
@@ -60,6 +57,10 @@ let handleSubmit = async (e) => {
     
   };
 
+  const logOut = () => {
+    localStorage.clear()
+  }
+
   const getPlayerData = async () => {
     try {
       const data = await axios.get('https://fantaisyfootball.herokuapp.com/allstats')
@@ -79,6 +80,7 @@ let handleSubmit = async (e) => {
         points: player.predicted_points,
         position: player.position,
         team: player.team, 
+        code: player.code
       }
       sortedPlayers.push(sortedPlayer)
     })
@@ -117,21 +119,53 @@ let handleSubmit = async (e) => {
  
   }
  
-function renderPlayers(players, position){
-  return (
-
+  function renderPlayers(players, position){
+    // sortBenchPlayers(optimalTeam)
+    return (
     players.map((player) => {
-      
-      if(player.position === position){
-        
-        return (  
-          <PlayerCard name = {player.name} points = {player.points} code = {player.code} optimal= {optimalTransfer}></PlayerCard>
-        )
-      } else {
-        
-      }
+      if(benchPlayers.indexOf(player) === -1){
+
+        if(player.position === position){
+          
+          return (  
+            <PlayerCard name = {player.name} points = {player.points} code = {player.code}></PlayerCard>
+            )
+          } else {
+            
+          }
+        }
     })
   )
+}
+
+function sortBenchPlayers(players){
+  let benchPlayers = []
+  let goalkeeperCount = 0
+  let defenderCount = 0
+  let midfielderCount = 0
+  let attackerCount = 0
+  players.sort((a, b) => {
+    return a.predicted_points - b.predicted_points
+  })
+  players.forEach(p => {
+    if (p.position === "GK" && goalkeeperCount < 1 && benchPlayers.length < 4){
+      benchPlayers.push(p)
+      goalkeeperCount += 1
+    } else if (p.position === "DF" && defenderCount < 2 && benchPlayers.length < 4){
+      benchPlayers.push(p)
+      defenderCount +=1
+    } else if (p.position === "MF" && midfielderCount < 2 && benchPlayers.length < 4){
+      benchPlayers.push(p)
+      midfielderCount +=1
+    } else if (p.position === "FW" && attackerCount < 2 && benchPlayers.length < 4){
+      benchPlayers.push(p)
+      attackerCount +=1
+    }
+  }
+  )
+  sortBenchPlayers(benchPlayers)
+  console.log("benchplayers", benchPlayers);
+
 }
 
 
@@ -195,28 +229,19 @@ useEffect(() => {
               newTransfers = newTransfers.filter(player => playerOut !== player.out)
               newTransfers = newTransfers.filter(player => playerIn !== player.in)
               newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
-              optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
+              optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name, code: allPlayer.code})
             }else if(dupeOut.length === 1 && dupeOut.points < pointDiff){
               bank = bank - costDiff
               optimalTeamPlayers = optimalTeamPlayers.filter(player => playerOut !== player.playername)
               newTransfers = newTransfers.filter(player => playerOut !== player.out)
               newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
-              optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
+              optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name, code: allPlayer.code})
               
             }else if (dupe.length === 0 && dupeOut.length === 0){
               bank = bank - costDiff
               newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
-              optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
+              optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name, code: allPlayer.code})
             }
-            // else if (dupe.length === 0){
-            //   newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
-            //   optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
-            // }
-            
-            
-            
-            
-            
           }
         }
       })
@@ -287,6 +312,11 @@ useEffect(() => {
               <input role="submit" type='submit' id="submit-button" value="Get my team!"></input>
             </div>
           </form>
+          <form onSubmit={logOut}>
+            <div className='user-id'>
+              <input role="submit" type='submit' id="submit-button" value="Log Out"></input>
+            </div>
+          </form>
         </div>
 
       </div>
@@ -343,14 +373,11 @@ useEffect(() => {
       </div>
       <button onClick={() => teamOptimiser()} className="button">Get opinion</button>
       <div hidden = {suggestion} id="suggestion-div">
-        
           {
             transfers.map((transfer,i) => {
               return <li key={i} > Transfer in {transfer.in} for {transfer.out} for {transfer.points} points</li>
             })
           }
-
-        
       </div>
       
 
@@ -361,7 +388,6 @@ useEffect(() => {
   return(
     <div>
       <LoginForm updateTokenCheck={updateTokenCheck}/>
-
     </div>
 
   )
