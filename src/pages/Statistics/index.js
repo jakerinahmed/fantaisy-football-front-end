@@ -324,7 +324,10 @@ function handleFilters (e) {
                     <option value="Wolverhampton Wanderers F.C.">Wolverhampton Wanderers</option>
                 </select>
                 <select onInput={handlePlayerChoice}>
-                    <option selected>Select player</option>
+
+             
+                <option>Select Player</option>
+
                     {renderNames(names)}
                 </select>
                     </div>
@@ -358,6 +361,7 @@ function handleFilters (e) {
                 <option value="Wolverhampton Wanderers F.C.">Wolverhampton Wanderers</option>
             </select>
             <select className='dropdown2' onInput={handlePlayerChoiceTwo}>
+                <option>Select Player</option>
                 {renderNames(namesTwo)}
             </select>
                     </div>
