@@ -1,32 +1,31 @@
-import { default as Statistics } from '.';
 import { render, screen } from '@testing-library/react';
-import {MemoryRouter} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { default as StatsTable } from '.'
 
-
-
-describe('Statistics', () => {
+describe('StatsTable', () => {
     beforeEach(() => {
-        render(<Statistics />, { wrapper: MemoryRouter })
-    });
-    
-    test('it renders two drop down menus', () => {
-        
-        const dropDowns = screen.getAllByRole('combobox')
-        expect(dropDowns.length).toBe(2);
-    });
-    test('it renders a button that displays add second player', () => {
-        
-        const buttons = screen.getAllByRole('button')
-        expect(buttons[0].textContent).toContain('Add second player')
-        expect(buttons[1].textContent).toContain('Compare to the rest of the league')
-        expect(buttons.length).toBe(2)
-    });
+        render(
+            <Router>
+                <StatsTable allData={allData}/>
+            </Router>
+        )
+    })
+
+    test('renders the filters', () => {
+        let filters = screen.getByRole("filters")
+        expect(filters).toBeTruthy
+    })
+
+    test('renders team filter', () => {
+        let teamFilter = screen.getByRole("team")
+        expect(teamFilter).toBeTruthy()
+    })
+
     test('it renders the all the teams in options', () => {
-        
         const options = screen.getAllByRole('option')
         options.pop()
         expect(options.length).toBe(21)
-        expect(options[0].textContent).toContain('Select Team')
+        expect(options[0].textContent).toContain('jsdhjshjdh')
         expect(options[1].textContent).toContain('Arsenal')
         expect(options[2].textContent).toContain('Aston Villa')
         expect(options[3].textContent).toContain('Bournemouth')
@@ -49,10 +48,4 @@ describe('Statistics', () => {
         expect(options[20].textContent).toContain('Wolverhampton Wanderers')
        
     });
-
-    
-    
-
-
-
-});
+})

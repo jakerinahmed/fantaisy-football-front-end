@@ -94,7 +94,7 @@ const StatsTable = ({ allData }) => {
 
     return (
         <div>
-            <form onSubmit={handleFilters}>
+            <form role='filters' onSubmit={handleFilters}>
                 <div className='filters'>
                     <div role='team'>
                         <label className='filter-padding' for="team">Team</label>
