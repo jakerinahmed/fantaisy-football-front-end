@@ -449,6 +449,7 @@ function handleFilters (e) {
                     <option value="Wolverhampton Wanderers F.C.">Wolverhampton Wanderers</option>
                 </select>
                 <select onInput={handlePlayerChoice}>
+                <option>Select Player</option>
                     {renderNames(names)}
                 </select>
                     </div>
