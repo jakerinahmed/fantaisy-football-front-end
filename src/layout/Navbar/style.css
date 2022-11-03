@@ -29,28 +29,30 @@
 }
 
 .nav-item:hover {
-  background-color: var(--border);
-  color: var(--background);
-  border-radius: 10px 10px 10px 10px;
+  color: var(--text);
+  border: 5px solid var(--border);
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .current {
   padding: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
   margin-left: 20px;
   font-family: var(--font);
   font-size: 20px;
-  /* font-weight: bold; */
-  background-color: var(--border);
-  color: var(--background);
-  border: none;
+  color: var(--text);
+  border: 5px solid var(--border);
   border-radius: 10px;
   text-decoration: none;
 }
 
 .current:hover {
-  background-color: var(--border);
-  color: var(--background);
-  border-radius: 10px 10px 10px 10px;
+  color: var(--text);
+  border: 5px solid var(--border);
+  border-radius: 10px;
 }
 
 h1 {

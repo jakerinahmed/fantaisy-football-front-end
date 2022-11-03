@@ -142,7 +142,7 @@ const StatsTable = ({ allData }) => {
                             <option value="PP per Cost">PP per Cost</option>
                         </select>
                     </div>
-                    <input className='stats_table_filters_submit_btn' type='submit' value='Apply filters' />
+                    <input className='button' type='submit' value='Apply filters' />
                 </div>
 
             </form>

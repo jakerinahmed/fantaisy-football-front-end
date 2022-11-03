@@ -11,13 +11,9 @@
     box-sizing: border-box;
 }
 
-
-/* h2 {
-    padding: 10px;
-} */
-
 .rules-headers {
     padding-left: 0px;
+    font-size: 30px;
 }
 
 .fpl-about, .model-about {
@@ -29,14 +25,27 @@
     /* max-height: 50vh; */
     border-bottom: 5px solid var(--border);
     border-radius: 0px;
+    
 }
+
+.fpl-about > h1, .model-about > h1{
+    font-size: 40px;
+}
+
 
 .fpl-rules {
     display: flex;
     flex-direction: column;
-    /* text-align: left;
-    align-items: left;
-    justify-content: left; */
+    font-size: 25px;
+}
+.fpl-rules > li{
+    margin: 5px;
+
+}
+
+
+section > h3{
+    font-size: 25px;
 }
 
 .model {
@@ -44,9 +53,8 @@
     flex-direction: column;
     padding-left: 0px;
     margin-left: 0px;
-    /* text-align: left;
-    align-items: left;
-    justify-content: left; */
+    font-size: 20px;
+   
 }
 
 .model > button {
