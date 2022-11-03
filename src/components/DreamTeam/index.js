@@ -6,22 +6,6 @@ import PlayerCard from '../PlayerCard'
 const DreamTeam = ({ allData }) => {
   // console.log("alldata", allData)
   const [dreamTeamPlayers, setDreamTeamPlayers] = useState([])
-
-  
-  // function returnDreamTeamPlayers() {
-  //   let goalkeeperCount = 0
-  //   let defenderCount = 0
-  //   let midfielderCount = 0
-  //   let attckerCount = 0
-  //   let dream_team = []
-    
-  //   for (let i = 0; i < 12; i++) {
-  //     dream_team.push(allData[i])
-  //     setDreamTeamPlayers(dream_team)
-  //   }
-    // console.log("allData", allData);
-    // console.log(dream_team)
-    // }
     
     useEffect(() => {
       async function returnDreamTeamPlayers(){
@@ -87,16 +71,16 @@ const DreamTeam = ({ allData }) => {
     let attackerContent = []
 
     for (let i=0; i < dreamTeamPlayers.filter(x => x.position == "GK").length; i++ ){
-       goalkeeperContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "GK")[i].name} points={dreamTeamPlayers.filter(x => x.position == "GK")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
+       goalkeeperContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "GK")[i].name} code={dreamTeamPlayers.filter(x => x.position == "GK")[i].code} points={dreamTeamPlayers.filter(x => x.position == "GK")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
     }
     for (let i=0; i < dreamTeamPlayers.filter(x => x.position == "DF").length; i++ ){
-       defenderContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "DF")[i].name} points={dreamTeamPlayers.filter(x => x.position == "DF")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
+       defenderContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "DF")[i].name} code={dreamTeamPlayers.filter(x => x.position == "DF")[i].code} points={dreamTeamPlayers.filter(x => x.position == "DF")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
     }
     for (let i=0; i < dreamTeamPlayers.filter(x => x.position == "MF").length; i++ ){
-       midfielderContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "MF")[i].name} points={dreamTeamPlayers.filter(x => x.position == "MF")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
+       midfielderContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "MF")[i].name} code={dreamTeamPlayers.filter(x => x.position == "MF")[i].code} points={dreamTeamPlayers.filter(x => x.position == "MF")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
     }
     for (let i=0; i < dreamTeamPlayers.filter(x => x.position == "FW").length; i++ ){
-       attackerContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "FW")[i].name} points={dreamTeamPlayers.filter(x => x.position == "FW")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
+       attackerContent.push(<PlayerCard name={dreamTeamPlayers.filter(x => x.position == "FW")[i].name} code={dreamTeamPlayers.filter(x => x.position == "FW")[i].code} points={dreamTeamPlayers.filter(x => x.position == "FW")[i].predicted_points} optimal={[{in:"", out: ""}]}></PlayerCard>)
     }
 
   if (!dreamTeamPlayers[0]) {

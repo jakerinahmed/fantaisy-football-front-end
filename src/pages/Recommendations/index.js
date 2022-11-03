@@ -7,19 +7,8 @@ import './style.css'
 const Recommendations = () => {
   
   const [userPlayers, setUserPlayers] = useState([])
-  const [dreamPlayers, setDreamPlayers] = useState([
-  {name:"Pickford",value: 4.5, points:6, position:"GK", team: "EVE" },
-  {name:"Mee",value: 4.5, points:6, position:"DF", team:"BRE" },
-  {name:"Mitchell",value: 4.5, points:0, position:"DF", team:"CRY" },
-  {name:"Trippier",value: 5.8, points:8, position:"DF", team: "NEW" },
-  {name:"Almiron",value: 5.6, points:11, position:"MF", team: "NEW" },    
-  {name:"De Bruyne",value: 12.4, points:5, position:"MF", team: "MCI" },
-  {name:"Neves",value: 5.5, points:7, position:"MF", team:"WOL" },
-  {name:"Bentancur",value: 5.4, points:2, position:"MF", team: "TOT" },
-  {name:"Wilson",value: 7.4, points:4, position:"MF", team: "NEW" },
-  {name:"Moore",value: 5.4, points:9, position:"FW", team: "BOU"},
-  {name:"Havertz",value: 7.7, points:9, position:"FW", team: "CHE"},
-  ])
+  const [dreamPlayers, setDreamPlayers] = useState([])
+  const [allPlayers, setAllPlayers] = useState([])
   const [optimalTeam, setOptimalTeam] = useState([])
 
   useEffect(() => {
@@ -71,9 +60,38 @@ let handleSubmit = async (e) => {
     
   };
 
+  const getPlayerData = async () => {
+    try {
+      const data = await axios.get('https://fantaisyfootball.herokuapp.com/allstats')
+      return data.data
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  const formatPlayers = async () => {
+    let predictedPlayers = await getPlayerData()
+    let sortedPlayers = []
+    predictedPlayers.forEach((player) => {
+      const sortedPlayer = {
+        name: player.name,
+        value: player.cost,
+        points: player.predicted_points,
+        position: player.position,
+        team: player.team, 
+      }
+      sortedPlayers.push(sortedPlayer)
+    })
+    setAllPlayers(sortedPlayers)
+  }
+
+  useEffect(() => {
+    formatPlayers()
+  }, [])
+
 
  const fetchPlayerInfo = async (data) => {
-      let allPlayers = [];
+      let allUserPlayers = [];
       data.forEach(async(id) =>{
         
         try {
@@ -82,12 +100,12 @@ let handleSubmit = async (e) => {
         const player = {
           name: response.data[0].name,
           value: response.data[0].cost,
-          points: Math.floor(Math.random()*15),
+          points: response.data[0].predicted_points,
           position: response.data[0].position,
           team: response.data[0].team,
           code: response.data[0].code 
         }
-        allPlayers.push(player)
+        allUserPlayers.push(player)
         
       } catch (err) {
         console.log(err);
@@ -95,12 +113,11 @@ let handleSubmit = async (e) => {
       
     })
     
-    setUserPlayers(allPlayers)
+    setUserPlayers(allUserPlayers)
  
   }
  
 function renderPlayers(players, position){
-  console.log(userPlayers)
   return (
 
     players.map((player) => {
@@ -120,8 +137,8 @@ function renderPlayers(players, position){
 
 
 useEffect(() => {
-    const totalPoints = dreamPlayers.reduce((accumulator, dreamPlayer) => {
-      return accumulator + dreamPlayer.points
+    const totalPoints = dreamPlayers.reduce((accumulator, allPlayer) => {
+      return accumulator + allPlayer.points
    },0)
     const userPoints = userPlayers.reduce((accumulator, userPlayer) => {
       return accumulator + userPlayer.points
@@ -130,7 +147,7 @@ useEffect(() => {
    setUserPoints(userPoints)
    
    
-  },[userPlayers, dreamPlayers, variable])
+  },[userPlayers, allPlayers, variable])
 
   
 
@@ -138,10 +155,10 @@ useEffect(() => {
   function teamOptimiser(){
     var newTransfers = []
     var optimalTeamPlayers = []
-    const bank = userPlayers.reduce((accumulator, userPlayer) => {
+    let bank = userPlayers.reduce((accumulator, userPlayer) => {
        return accumulator + userPlayer.value
     },0)
-
+    console.log("allplayers", allPlayers);
     let currentPlayers = []
     userPlayers.forEach(userPlayer => {
       currentPlayers.push(userPlayer.name)
@@ -150,27 +167,54 @@ useEffect(() => {
     userPlayers.forEach(userPlayer => {
       teams.push(userPlayer.team)
     })
-    console.log(bank)
     userPlayers.forEach(userPlayer => {
-      dreamPlayers.forEach(dreamPlayer => {
+      allPlayers.forEach(allPlayer => {
       
-        if(userPlayer.value + 100 - bank >= dreamPlayer.value && userPlayer.position === dreamPlayer.position && userPlayer.name !== dreamPlayer.name){
-          const pointDiff = dreamPlayer.points - userPlayer.points
-          const playerIn = dreamPlayer.name
+        if(userPlayer.value + 100 - bank >= allPlayer.value && userPlayer.position === allPlayer.position && userPlayer.name !== allPlayer.name){
+          const pointDiff = allPlayer.points - userPlayer.points
+          const playerIn = allPlayer.name
           const playerOut = userPlayer.name
+          const costDiff = userPlayer.value - allPlayer.value
+          console.log(bank, "bank");
           
-          if(dreamPlayer.team !== userPlayer.team){
-            const newTeams = teams.filter(team => dreamPlayer.team === team)
-            console.log(newTeams)
+          if(allPlayer.team !== userPlayer.team){
+            const newTeams = teams.filter(team => allPlayer.team === team)
             var teamCount = newTeams.length + 1
 
           }
-         
 
-          if(pointDiff > 2 && !currentPlayers.find(name => playerIn === name) && teams.filter(team => dreamPlayer.team === team) && teamCount <= 3){
-            newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
+          if(pointDiff > 2 && !currentPlayers.find(name => playerIn === name) && teams.filter(team => allPlayer.team === team) && teamCount <= 3){
             
-            optimalTeamPlayers.push({name:dreamPlayer.name,value: dreamPlayer.value, points:dreamPlayer.points, position:dreamPlayer.position, team: dreamPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
+            let dupe = newTransfers.filter(player => playerIn === player.in)
+            let dupeOut = newTransfers.filter(player => playerOut === player.out)
+            
+            if(dupe.length === 1 && dupe.points < pointDiff && dupeOut.length === 1){
+              bank = bank - costDiff
+              optimalTeamPlayers = optimalTeamPlayers.filter(player => playerIn !== player.name)
+              optimalTeamPlayers = optimalTeamPlayers.filter(player => playerOut !== player.playername)
+              newTransfers = newTransfers.filter(player => playerOut !== player.out)
+              newTransfers = newTransfers.filter(player => playerIn !== player.in)
+              newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
+              optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
+            }else if(dupeOut.length === 1 && dupeOut.points < pointDiff){
+              bank = bank - costDiff
+              optimalTeamPlayers = optimalTeamPlayers.filter(player => playerOut !== player.playername)
+              newTransfers = newTransfers.filter(player => playerOut !== player.out)
+              newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
+              optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
+              
+            }else if (dupe.length === 0 && dupeOut.length === 0){
+              bank = bank - costDiff
+              newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
+              optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
+            }
+            // else if (dupe.length === 0){
+            //   newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
+            //   optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
+            // }
+            
+            
+            
             
             
           }
@@ -188,24 +232,36 @@ useEffect(() => {
 
       const checkPlayers = optimalTeamPlayers.filter(player => player.name === optplayer.name)
       if(checkPlayers.length > 1){
-        console.log(checkPlayers)
         let max = [] 
         checkPlayers.forEach(player => {
           max.push(player.pointDiff)
         })
         const opt = Math.max(...max)
         const optChangeIndex = max.findIndex(num => num === opt)
+        optimalTeamPlayers = optimalTeamPlayers.filter(optplayer => optplayer.playername !== checkPlayers[0].playername)
+        console.log("optimaltpl", optimalTeamPlayers);
         optTransfers.push(checkPlayers[optChangeIndex])
-      } 
-    
+        // if ((optTransfers.filter(player => player.name === checkPlayers[optchangeIndex].name).length !== 0){
+        // }
+      } else {
+        optTransfers.push(optplayer)
+      }
+    console.log("optTransfers", optTransfers);
     })
-    console.log('unique values',... new Set(optTransfers))
     const uniquePlayer = [... new Set(optTransfers)]
-    console.log(uniquePlayer)
-    let newUserTeam = userPlayers
-    uniquePlayer.forEach((player) => {
-      userPlayers.findIndex((userPlayer) => player.playername )
+    console.log("uniqueplayers", uniquePlayer)
+    let newUserTeam = []
+    userPlayers.forEach((player) => {
+      newUserTeam.push(player)
     })
+    uniquePlayer.forEach((player) => {
+      const playerIndex = userPlayers.findIndex((userPlayer) => userPlayer.name === player.playername)
+      newUserTeam[playerIndex] = player
+
+    })
+    console.log("newuserteam", newUserTeam)
+    console.log("userplayers", userPlayers);
+    setDreamPlayers(newUserTeam)
     
     const newOptimal = Math.max(...maxPoints)
     const optIndex = maxPoints.findIndex(num => num === newOptimal)
@@ -216,7 +272,6 @@ useEffect(() => {
     console.log(newTransfers)
     setSuggestion(false)
     console.log('optimal team', optimalTeamPlayers)
-    console.log('optimal', optTransfers)
     return setTransfers(newTransfers), setOptimalTeam(optimalTeamPlayers)
   } 
   if(authorised){
@@ -291,7 +346,7 @@ useEffect(() => {
         
           {
             transfers.map((transfer,i) => {
-              return <li key={i} style={ { color: transfer.points === optimal ? 'red' : 'none' } }  > Transfer in {transfer.in} for {transfer.out} for {transfer.points} points</li>
+              return <li key={i} > Transfer in {transfer.in} for {transfer.out} for {transfer.points} points</li>
             })
           }
 
