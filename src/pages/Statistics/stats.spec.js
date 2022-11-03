@@ -25,7 +25,7 @@ describe('Statistics', () => {
         
         const options = screen.getAllByRole('option')
         options.pop()
-        expect(options.length).toBe(20)
+        expect(options.length).toBe(21)
         expect(options[0].textContent).toContain('Arsenal')
         expect(options[1].textContent).toContain('Aston Villa')
         expect(options[2].textContent).toContain('Bournemouth')

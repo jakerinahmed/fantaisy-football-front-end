@@ -67,12 +67,22 @@ const About = () => {
       <div className='model-about'>
 
         <h1>Our model</h1>
-        <ul>
-          <li>Reasoning behind model and aim</li>
-          <li>Functionality</li>
-          <li>Methodology about the model</li>
-          <li>Button to view results</li>
-        </ul>
+
+        <section>
+          <h3>What is fantAIsy football?</h3>
+          <div className='model'>
+            <p>For this project, we employ a supervised machine learning model to predict the points of every player in the premier league for the upcoming gameweek. We do this by feeding the model with data of every player from previous gameweeks and the data we feed are a mix of basic stats such as goals scored, assist, minutes played and a mix of advanced stats such as creativity, threat and influence. To account for how a player may perform gameweek-to-gameweek, we've included the difficulty of the opponents has played against and the difficulty of their upcoming fixtures.</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>See the model for yourself</h3>
+          <div className='model'>
+            <p>Below is a link to the Jupyter Notebook which contains the model in which we use to predict the points.</p>
+            <button><a href='https://github.com/bradneve/first_machine_learning-_model_final_project' target="_blank" rel="noopener noreferrer">View the repo</a></button>
+          </div>
+        </section>
+        
 
       </div>
 

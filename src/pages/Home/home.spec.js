@@ -23,7 +23,7 @@ describe('Home', () => {
     });
     test('the view analysis button takes you to /recommendations', () => {
 
-        const button = screen.getByText('View analysis')
+        const button = screen.getByRole('redirect')
         expect(button.href).toContain("/recommendations");
     });
 
