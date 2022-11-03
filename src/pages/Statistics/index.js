@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveContainer } from 'recharts';
 
 import './style.css'
 
@@ -9,8 +9,6 @@ import './style.css'
 const Stats = () => {
     const [allData, setAllData] = useState([])
     const [graphData, setGraphData] = useState([])
-    const [comparing, setComparing] = useState(false)
-    const [isHidden, setIsHidden] = useState(true)
     const [xAxis, setXAxis]= useState('minutes')
     const [yAxis, setYAxis] = useState('influence')
     const [renderGraph, setRenderGraph] = useState(false)
@@ -27,8 +25,8 @@ const Stats = () => {
     }, [])
     const [names, setNames] = useState(["Select Player"])
     const [namesTwo, setNamesTwo] = useState(["Select Player"])
-    const [playerData, setPlayerData] = useState(["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",""])
-    const [playerDataTwo, setPlayerDataTwo] = useState(["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",""])
+    const [playerData, setPlayerData] = useState("")
+    const [playerDataTwo, setPlayerDataTwo] = useState("")
     const [playersArray, setPlayersArray] = useState([playerData,playerDataTwo])
     
     const handleTeamChoice = async (e) => {
@@ -66,201 +64,250 @@ const Stats = () => {
         const data = data_array[0]
         setPlayerDataTwo(data)
         setPlayersArray([playersArray[0], data])
-        setComparing(true)
     }
 
     const renderStats = ([assists, avgAssistsPer90, avgCreativityPer90, avgGoalsConcededPer90, avgGoalsPer90, avgICTPer90, avgInfluencePer90, avgMinutes, avgThreatPer90, bonusPoints, chanceOfPlaying, cleanSheets, code, cost, creativity, goals, goalsConceded, ictIndex, id, influence, minutes, name, ownGoals, pensMissed, pensSaved, playerID, ppg, position, predictedPoints, redCards, saves, selectedPerc, corners, freeKicks, pens, team, threat, totalPoints, transfersIn, transfersInRound, transfersOut, transfersOutRound, yellowCards]) => {
-        if (position === "FW") {
+        if (position === "FW" || position === "MF" || position === "DF" ) {
             return (
                 <div className='playerStats'>
                     <div className='player-stuff'>
 
-                        <div>
-                            <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
+                        <div className='photoDiv'>
+                            <img className='photo' src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
                         </div>
-                        
+                        <div>
                         <div className='playerInfo'>
                             <h2>{name}</h2>
-                            <h3>{position}</h3>
-                            <h4>{team}</h4>
+                            <h3>{team}</h3>
+                            <h4>{position}</h4>
+                        </div>
+                        <div className='generalStats'>
+                            <table className='statistics'>
+                            <tr>
+                            <th>Total Points:</th>
+                            <td>{totalPoints}</td>
+                            </tr>
+                            <tr>
+                            <th>Points Per Game:</th>
+                            <td>{ppg}</td>
+                            </tr>
+                            <tr>
+                            <th>Points predicted for next fixture</th>
+                            <td>{predictedPoints}</td>
+                            </tr>
+                            <tr>
+                            <th>Minutes Played:</th>
+                            <td>{minutes}</td>
+                            </tr>
+                            <tr>
+                            <th>Average Minutes Per Game:</th>
+                            <td>{avgMinutes}</td>
+                            </tr>
+                            </table>
+                        </div>
                         </div>
                     </div>
                     <div className='bonusStats'>
-                        <p>Total Points: {totalPoints}</p>
-                        <p>Points Per Game: {ppg}</p>
-                        <p>Predicted Points for next fixture: {predictedPoints}</p>
-                        <p>Cost: {cost}</p>
-                        <p>Goals: {goals}</p>
-                        <p>Average Goals per 90: {avgGoalsPer90}</p>
-                        <p>Assists: {assists}</p>
-                        <p>Average Assists per 90: {avgAssistsPer90}</p>
-                        <p>Goals Conceded: {goalsConceded}*</p>
-                        <p>Average Goals Conceded per 90: {avgGoalsConcededPer90}</p>
-                        <p>Clean Sheets: {cleanSheets}*</p>
-                        <p>Bonus Points: {bonusPoints}</p>
-                        <p>Minutes Played: {minutes}</p>
-                        <p>Average Minutes Per Game: {avgMinutes}</p>
-                        <p>Selected by Percentage: {selectedPerc}%</p>
-                        <p>Influence: {influence}</p>
-                        <p>Average Influence per 90: {avgInfluencePer90}</p>
-                        <p>Creativity: {creativity}</p>
-                        <p>Average Creativity per 90: {avgCreativityPer90}</p>
-                        <p>Threat: {threat}</p>
-                        <p>Average Threat per 90: {avgThreatPer90}</p>
-                        <p>ICT Index: {ictIndex}</p>
-                        <p>Average ICT Index per 90: {avgICTPer90}</p>
-                        <p>Pens Missed: {pensMissed}</p>
-                        <p>Takes Corners: {corners}</p>
-                        <p>Takes Free Kicks: {freeKicks}</p>
-                        <p>Takes Penalties: {pens}</p>
-                        <p>Own Goals: {ownGoals}</p>
-                        <p>Yellow Cards: {yellowCards}</p>
-                        <p>Red Cards: {redCards}</p>
-                        <p id='asterix'>* Marked stats dont affect players points</p>
+                        <table className='statistics'>
+                        <tr>
+                            <th>Goals:</th>
+                            <td>{goals}</td>
+                        </tr>
+                        <tr>
+                            <th>Goals per 90:</th>
+                            <td>{avgGoalsPer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Assists:</th>
+                            <td>{assists}</td>
+                        </tr>
+                        <tr>
+                            <th>Assists per 90:</th>
+                            <td>{avgAssistsPer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Takes Corners ?</th>
+                            <td>{corners}</td>
+                        </tr>
+                        <tr>
+                            <th> Takes Free Kicks ?</th>
+                            <td>{freeKicks}</td>
+                        </tr>
+                        <tr>
+                            <th>Takes Penalties ?</th>
+                            <td>{pens}</td>
+                        </tr>
+                        </table>
+                        <table className='statistics'>
+                        <tr>
+                            <th>Goals Conceded:</th>
+                            <td>{goalsConceded}</td>
+                        </tr>
+                        <tr>
+                            <th>Goals Conceded per 90:</th>
+                            <td>{avgGoalsConcededPer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Cleansheets:</th>
+                            <td>{cleanSheets}</td>
+                        </tr>
+                        <tr>
+                            <th>Own Goals:</th>
+                            <td>{ownGoals}</td>
+                        </tr>
+                        <tr>
+                            <th>Yellow Cards:</th>
+                            <td>{yellowCards}</td>
+                        </tr>
+                        <tr>
+                            <th>Red Cards:</th>
+                            <td>{redCards}</td>
+                        </tr>
+                        </table>
+                        <table className='statistics'>
+                        <tr>
+                            <th>ICT Index:</th>
+                            <td>{ictIndex}</td>
+                        </tr>
+                        <tr>
+                            <th>ICT per 90:</th>
+                            <td>{avgICTPer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Influence:</th>
+                            <td>{influence}</td>
+                        </tr>
+                        <tr>
+                            <th>Influence per 90:</th>
+                            <td>{avgInfluencePer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Creativity:</th>
+                            <td>{avgCreativityPer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Threat:</th>
+                            <td>{avgThreatPer90}</td>
+                        </tr> 
+                        </table>
                     </div>
                    
                 </div>
             )
 
-        } else if (position === "MD") {
-            return (
-                <div className='playerStats'>
-                    <div className='player-stuff'>
-                        <div>
-                            <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
-                        </div>
-                        
-                        <div className='playerInfo'>
-                            <h2>{name}</h2>
-                            <h3>{position}</h3>
-                            <h4>{team}</h4>
-                        </div>
-                    </div>
-                    <div className='bonusStats'>
-                        <p>Total Points: {totalPoints}</p>
-                        <p>Points Per Game: {ppg}</p>
-                        <p>Predicted Points for next fixture: {predictedPoints}</p>
-                        <p>Cost: {cost}</p>
-                        <p>Goals: {goals}</p>
-                        <p>Average Goals per 90: {avgGoalsPer90}</p>
-                        <p>Assists: {assists}</p>
-                        <p>Average Assists per 90: {avgAssistsPer90}</p>
-                        <p>Goals Conceded: {goalsConceded}</p>
-                        <p>Average Goals Conceded per 90: {avgGoalsConcededPer90}</p>
-                        <p>Clean Sheets: {cleanSheets}</p>
-                        <p>Bonus Points: {bonusPoints}</p>
-                        <p>Minutes Played: {minutes}</p>
-                        <p>Average Minutes Per Game: {avgMinutes}</p>
-                        <p>Selected by Percentage: {selectedPerc}%</p>
-                        <p>Influence: {influence}</p>
-                        <p>Average Influence per 90: {avgInfluencePer90}</p>
-                        <p>Creativity: {creativity}</p>
-                        <p>Average Creativity per 90: {avgCreativityPer90}</p>
-                        <p>Threat: {threat}</p>
-                        <p>Average Threat per 90: {avgThreatPer90}</p>
-                        <p>ICT Index: {ictIndex}</p>
-                        <p>Average ICT Index per 90: {avgICTPer90}</p>
-                        <p>Pens Missed: {pensMissed}</p>
-                        <p>Takes Corners: {corners}</p>
-                        <p>Takes Free Kicks: {freeKicks}</p>
-                        <p>Takes Penalties: {pens}</p>
-                        <p>Own Goals: {ownGoals}</p>
-                        <p>Yellow Cards: {yellowCards}</p>
-                        <p>Red Cards: {redCards}</p>
-                    </div>
-                   
-                </div>
-            )
-        } else if (position === "DF") {
-            return (
-                <div className='playerStats'>
-                    <div className='player-stuff'>
-
-                        <div>
-                            <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
-                        </div>
-                        
-                        <div className='playerInfo'>
-                            <h2>{name}</h2>
-                            <h3>{position}</h3>
-                            <h4>{team}</h4>
-                        </div>
-                    </div>
-                    <div className='bonusStats'>
-                    <p>Total Points: {totalPoints}</p>
-                        <p>Points Per Game: {ppg}</p>
-                        <p>Predicted Points for next fixture: {predictedPoints}</p>
-                        <p>Cost: {cost}</p>
-                        <p>Goals: {goals}</p>
-                        <p>Average Goals per 90: {avgGoalsPer90}</p>
-                        <p>Assists: {assists}</p>
-                        <p>Average Assists per 90: {avgAssistsPer90}</p>
-                        <p>Goals Conceded: {goalsConceded}</p>
-                        <p>Average Goals Conceded per 90: {avgGoalsConcededPer90}</p>
-                        <p>Clean Sheets: {cleanSheets}</p>
-                        <p>Bonus Points: {bonusPoints}</p>
-                        <p>Minutes Played: {minutes}</p>
-                        <p>Average Minutes Per Game: {avgMinutes}</p>
-                        <p>Selected by Percentage: {selectedPerc}%</p>
-                        <p>Influence: {influence}</p>
-                        <p>Average Influence per 90: {avgInfluencePer90}</p>
-                        <p>Creativity: {creativity}</p>
-                        <p>Average Creativity per 90: {avgCreativityPer90}</p>
-                        <p>Threat: {threat}</p>
-                        <p>Average Threat per 90: {avgThreatPer90}</p>
-                        <p>ICT Index: {ictIndex}</p>
-                        <p>Average ICT Index per 90: {avgICTPer90}</p>
-                        <p>Pens Missed: {pensMissed}</p>
-                        <p>Takes Corners: {corners}</p>
-                        <p>Takes Free Kicks: {freeKicks}</p>
-                        <p>Takes Penalties: {pens}</p>
-                        <p>Own Goals: {ownGoals}</p>
-                        <p>Yellow Cards: {yellowCards}</p>
-                        <p>Red Cards: {redCards}</p>
-                    </div>
-                    
-                </div>
-            )
         } else {
             return (
                 <div className='playerStats'>
                     
                     <div className='player-stuff'>
 
-                        <div>
-                            <img src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
+                        <div className='photoDiv'>
+                            <img className='photo' src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${code}.png`} alt="" />
                         </div>
+                        <div>
                         <div className='playerInfo'>
                             <h2>{name}</h2>
-                            <h3>{position}</h3>
-                            <h4>{team}</h4>
+                            <h3>{team}</h3>
+                            <h4>{position}</h4>
+                        </div>
+                        <div className='generalStats'>
+                            <table className='statistics'>
+                            <tr>
+                            <th>Total Points:</th>
+                            <td>{totalPoints}</td>
+                            </tr>
+                            <tr>
+                            <th>Points Per Game:</th>
+                            <td>{ppg}</td>
+                            </tr>
+                            <tr>
+                            <th>Points predicted for next fixture</th>
+                            <td>{predictedPoints}</td>
+                            </tr>
+                            <tr>
+                            <th>Minutes Played:</th>
+                            <td>{minutes}</td>
+                            </tr>
+                            <tr>
+                            <th>Average Minutes Per Game:</th>
+                            <td>{avgMinutes}</td>
+                            </tr>
+                            </table>
+                        </div>
                         </div>
                     </div>
                     <div className='bonusStats'>
-                        <p>Total Points: {totalPoints}</p>
-                        <p>Points Per Game: {ppg}</p>
-                        <p>Cost: {cost}</p>
-                        <p>Saves: {saves}</p>
-                        <p>Pens Saved: {pensSaved}</p>
-                        <p>Clean Sheets: {cleanSheets}</p>
-                        <p>Goals Conceded: {goalsConceded}</p>
-                        <p>Average Goals Conceded per 90: {avgGoalsConcededPer90}</p>
-                        <p>Bonus Points: {bonusPoints}</p>
-                        <p>Goals: {goals}</p>
-                        <p>Assists: {assists}</p>
-                        <p>Minutes Played: {minutes}</p>
-                        <p>Selected by Percentage: {selectedPerc}%</p>
-                        <p>Influence: {influence}</p>
-                        <p>Average Influence per 90: {avgInfluencePer90}</p>
-                        <p>Creativity: {creativity}</p>
-                        <p>Average Creativity per 90: {avgCreativityPer90}</p>
-                        <p>Threat: {threat}</p>
-                        <p>Average Threat per 90: {avgThreatPer90}</p>
-                        <p>ICT Index: {ictIndex}</p>
-                        <p>Average ICT Index per 90: {avgICTPer90}</p>
-                        <p>Own Goals: {ownGoals}</p>
-                        <p>Yellow Cards: {yellowCards}</p>
-                        <p>Red Cards: {redCards}</p>
+                        
+                        <table className='statistics'>
+                        <tr>
+                            <th>Saves:</th>
+                            <td>{saves}</td>
+                        </tr>
+                        <tr>
+                            <th>Penalty Saves:</th>
+                            <td>{pensSaved}</td>
+                        </tr>
+                        <tr>
+                            <th>Goals Conceded:</th>
+                            <td>{goalsConceded}</td>
+                        </tr>
+                        <tr>
+                            <th>Goals Conceded per 90:</th>
+                            <td>{avgGoalsConcededPer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Cleansheets:</th>
+                            <td>{cleanSheets}</td>
+                        </tr>
+                        <tr>
+                            <th>Own Goals:</th>
+                            <td>{ownGoals}</td>
+                        </tr>
+                        </table>
+                        <table className='statistics'>
+                        <tr>
+                            <th>ICT Index:</th>
+                            <td>{ictIndex}</td>
+                        </tr>
+                        <tr>
+                            <th>ICT per 90:</th>
+                            <td>{avgICTPer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Influence:</th>
+                            <td>{influence}</td>
+                        </tr>
+                        <tr>
+                            <th>Influence per 90:</th>
+                            <td>{avgInfluencePer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Creativity:</th>
+                            <td>{avgCreativityPer90}</td>
+                        </tr>
+                        <tr>
+                            <th>Threat:</th>
+                            <td>{avgThreatPer90}</td>
+                        </tr> 
+                        </table>
+                        <table className='statistics'>
+                        <tr>
+                            <th>Goals:</th>
+                            <td>{goals}</td>
+                        </tr>
+                        <tr>
+                            <th>Assists:</th>
+                            <td>{assists}</td>
+                        </tr>
+                        <tr>
+                            <th>Yellow Cards:</th>
+                            <td>{yellowCards}</td>
+                        </tr>
+                        <tr>
+                            <th>Red Cards:</th>
+                            <td>{redCards}</td>
+                        </tr>
+                        </table>
                     </div>
 
                     
@@ -268,10 +315,6 @@ const Stats = () => {
             )
         }
     }
-    function renderDropdown () {
-        setIsHidden(false)
-    }
-
 
     function renderNames(names) {
         return names.map(n => <option value={n}>{n}</option>)
@@ -378,9 +421,43 @@ function handleFilters (e) {
     
     return (
         <div>
-            <div className='dropdowns'>
-                <div>
-            <select onInput={handleTeamChoice}>
+            <div className='comparePlayers'>
+                <div className='player'>
+                <div className='dropdowns'>
+                <select onInput={handleTeamChoice}>
+                    <option>Select Team</option>
+                    <option value="Arsenal F.C.">Arsenal</option>
+                    <option value="Aston Villa F.C.">Aston Villa</option>
+                    <option value="A.F.C. Bournemouth">Bournemouth</option>
+                    <option value="Brentford F.C.">Brentford</option>
+                    <option value="Brighton & Hove Albion F.C.">Brighton & Hove Albion</option>
+                    <option value="Chelsea F.C.">Chelsea</option>
+                    <option value="Crystal Palace F.C.">Crystal Palace</option>
+                    <option value="Everton F.C.">Everton</option>
+                    <option value="Fulham F.C.">Fulham</option>
+                    <option value="Leicester City F.C.">Leicester City</option>
+                    <option value="Leeds United">Leeds United</option>
+                    <option value="Liverpool F.C.">Liverpool</option>
+                    <option value="Manchester City F.C.">Manchester City</option>
+                    <option value="Manchester United F.C.">Manchester United</option>
+                    <option value="Newcastle United F.C.">Newcastle United</option>
+                    <option value="Nottingham Forest F.C.">Nottingham Forest</option>
+                    <option value="Southampton F.C.">Southampton</option>
+                    <option value="Tottenham Hotspur F.C.">Tottenham Hotspur</option>
+                    <option value="West Ham United F.C.">West Ham United</option>
+                    <option value="Wolverhampton Wanderers F.C.">Wolverhampton Wanderers</option>
+                </select>
+                <select onInput={handlePlayerChoice}>
+                    {renderNames(names)}
+                </select>
+                    </div>
+                <div className='playerOne'>
+                    {playerData ? renderStats(Object.values(playerData)) :<div className='waiting'><h2>Select a player to view their stats</h2></div> }
+                </div>
+                </div>
+                <div className='player'>
+                <div className='dropdowns'>
+                <select className='dropdown2' onInput={handleTeamChoiceTwo}>
                 <option>Select Team</option>
                 <option value="Arsenal F.C.">Arsenal</option>
                 <option value="Aston Villa F.C.">Aston Villa</option>
@@ -403,60 +480,30 @@ function handleFilters (e) {
                 <option value="West Ham United F.C.">West Ham United</option>
                 <option value="Wolverhampton Wanderers F.C.">Wolverhampton Wanderers</option>
             </select>
-            <select onInput={handlePlayerChoice}>
-                {renderNames(names)}
-            </select>
-            </div>
-            <div>
-            <select hidden = {isHidden} className='dropdown2' onInput={handleTeamChoiceTwo}>
-                <option value="Arsenal F.C.">Arsenal</option>
-                <option value="Aston Villa F.C.">Aston Villa</option>
-                <option value="A.F.C. Bournemouth">Bournemouth</option>
-                <option value="Brentford F.C.">Brentford</option>
-                <option value="Brighton & Hove Albion F.C.">Brighton & Hove Albion</option>
-                <option value="Chelsea F.C.">Chelsea</option>
-                <option value="Crystal Palace F.C.">Crystal Palace</option>
-                <option value="Everton F.C.">Everton</option>
-                <option value="Fulham F.C.">Fulham</option>
-                <option value="Leicester City F.C.">Leicester City</option>
-                <option value="Leeds United">Leeds United</option>
-                <option value="Liverpool F.C.">Liverpool</option>
-                <option value="Manchester City F.C.">Manchester City</option>
-                <option value="Manchester United F.C.">Manchester United</option>
-                <option value="Newcastle United F.C.">Newcastle United</option>
-                <option value="Nottingham Forest F.C.">Nottingham Forest</option>
-                <option value="Southampton F.C.">Southampton</option>
-                <option value="Tottenham Hotspur F.C.">Tottenham Hotspur</option>
-                <option value="West Ham United F.C.">West Ham United</option>
-                <option value="Wolverhampton Wanderers F.C.">Wolverhampton Wanderers</option>
-            </select>
-            <select hidden = {isHidden} className='dropdown2' onInput={handlePlayerChoiceTwo}>
+            <select className='dropdown2' onInput={handlePlayerChoiceTwo}>
                 {renderNames(namesTwo)}
             </select>
-            </div>
-            </div>
-            <div className='comparePlayers'>
-                <div className='playerOne'>
-                    {renderStats(Object.values(playerData))}
-                </div>
+                    </div>
                 <div className='playerTwo'>
-                    {comparing ? renderStats(Object.values(playerDataTwo)) :
-                    <button  hidden = {!isHidden} className='compareBtn' onClick={renderDropdown}>Add second player</button>}
+                    { playerDataTwo ? renderStats(Object.values(playerDataTwo)) : <div className='waiting'><h2>Select a player to view their stats</h2></div> }
+                    
                 </div>
             </div>
+                    </div>
                 {renderGraph ? 
             <div className='chartDiv'>
                 <div className='yAxis'>
-                <select onInput={handleYAxis}>
+                <select onInput={handleYAxis} id="yAxisSelect">
                     {renderYAxisData()}
-        </select>
+        </select >
                 </div>
                 <div className='graphMain'>
                     <h3>{yAxis} against {xAxis} for {teamFilter} players in {positionFilter} positions</h3>
+                    <ResponsiveContainer>
         <ScatterChart
           width={1400}
-          height={500}
-        >
+          height={800}
+          >
           <CartesianGrid />
           <XAxis type="number" dataKey={`${xAxis}`} />
           <YAxis type="number" dataKey={`${yAxis}`} />
@@ -464,10 +511,11 @@ function handleFilters (e) {
           <Scatter name="Player Stats" data={graphData} fill="#8884d8">
           {graphData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={getColorForType(entry)} />
-            ))}
+              ))}
           </Scatter>
         </ScatterChart>
-        <select onInput={handleXAxis}>
+        </ResponsiveContainer>
+        <select onInput={handleXAxis} className="axis">
                     {renderXAxisData()}
         </select>
       
@@ -513,9 +561,8 @@ function handleFilters (e) {
             <input type="submit" value="apply filters" id='submit' className='button'/>
             </div>
             </form>
-           </div> </div> : <button onClick={renderChartDiv} hidden = {renderGraph} className="button">Compare to the rest of the league</button>}
-      </div>
-            
+           </div> </div> :<div className='chartButton'><button onClick={renderChartDiv} hidden = {renderGraph} className="button">Full league comparision</button></div>}
+            </div>
         
     )
 }

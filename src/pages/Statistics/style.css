@@ -1,14 +1,17 @@
 .playerStats {
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
 }
 .player-stuff{
    display: flex;
+   margin-top: 0px;
 
 }
 
 .graphMain > h3{
-    margin-top: 15px;
+    margin-top: 50px;
+    margin-left: 7%;
 }
 
 .playerOne, .playerTwo {
@@ -16,13 +19,17 @@
     max-width: 40vw;
     border: solid 5px var(--border);
     display: flex;
-    align-items: center;
     justify-content: center;
+    padding: 0px;
 }
 
 .playerInfo > h2 {
     padding: 0px;
     margin: 0px;
+}
+
+.playerInfo {
+    color: white;
 }
 
 .comparePlayers {
@@ -31,7 +38,6 @@
 }
 
 .dropdowns {
-    width: 100%;
     display: flex;
     justify-content: space-around;
 }
@@ -73,21 +79,25 @@
 .yAxis {
     display: flex;
     flex-direction: column;
-    padding-top: 160px;
+    padding-top: 20vh;
+    width: 7%;
     margin: 0px;
-    height: 100%;
+    height: 50vh;
 }
 
 .graphMain {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0px
+    justify-content: center;
+    margin: 0px;
+    width: 80%;
+    height: 50vh;
 }
 
 .filters {
     display: flex;
-    margin-top: 20px;
+    margin: 0px;
 }
 
 #submit {
@@ -127,5 +137,52 @@ select > option{
     grid-template-columns: repeat(3,1fr);
     grid-template-columns: repeat(3,1fr);
     grid-gap: 10px;
+}
+
+.axis {
+    width: 150px;
+}
+
+#yAxisSelect {
+    width: 100%;
+}
+
+.statistics > tr > th {
+    font-size: 15px;
+    padding: 0px;
+}
+ 
+.statistics > tr > td {
+    font-size: 15px;
+    padding: 10px;
+}
+
+.generalStats {
+    display: flex;
+}
+
+.photoDiv {
+    display: flex;
+    align-items: center;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    margin: 0px;
+    align-items: center;
+}
+
+.waiting {
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chartButton {
+    display: flex;
+    justify-content: center;
 }
 
