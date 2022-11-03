@@ -84,7 +84,8 @@ let handleSubmit = async (e) => {
           value: response.data[0].cost,
           points: Math.floor(Math.random()*15),
           position: response.data[0].position,
-          team: response.data[0].team, 
+          team: response.data[0].team,
+          code: response.data[0].code 
         }
         allPlayers.push(player)
         
@@ -107,7 +108,7 @@ function renderPlayers(players, position){
       if(player.position === position){
         
         return (  
-          <PlayerCard name = {player.name} points = {player.points} optimal= {optimalTransfer}></PlayerCard>
+          <PlayerCard name = {player.name} points = {player.points} code = {player.code} optimal= {optimalTransfer}></PlayerCard>
         )
       } else {
         
