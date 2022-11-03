@@ -106,7 +106,7 @@ export const LoginForm = (props) => {
                 <div className="login-form-div">
                 <div className='login-switches'>
 
-                    <button onClick={() => setAuthMode(false)} className="button">Sign up</button>
+                    <button onClick={() => setAuthMode(false)} style={{marginRight: '20px'}} className="button">Sign up</button>
                     <button onClick={() => setAuthMode(true)} className="button">Login</button>
                 </div>
                         <hr></hr>
