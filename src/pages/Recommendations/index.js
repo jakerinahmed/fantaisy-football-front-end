@@ -305,7 +305,6 @@ useEffect(() => {
       <div>
       <div className='login-div'>
         <div className='form-div'>
-
           <form onSubmit={handleSubmit}>
             <div className='user-id'>
               <input role="submit" type='submit' id="submit-button" value="Get my team!"></input>

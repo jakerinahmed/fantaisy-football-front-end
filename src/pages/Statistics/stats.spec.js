@@ -1,6 +1,6 @@
 import { default as Statistics } from '.';
 import { render, screen } from '@testing-library/react';
-import {MemoryRouter} from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 
 
@@ -8,24 +8,23 @@ describe('Statistics', () => {
     beforeEach(() => {
         render(<Statistics />, { wrapper: MemoryRouter })
     });
-    
+
     test('it renders two drop down menus', () => {
-        
+
         const dropDowns = screen.getAllByRole('combobox')
-        expect(dropDowns.length).toBe(2);
+        expect(dropDowns.length).toBe(4);
     });
     test('it renders a button that displays add second player', () => {
-        
+
         const buttons = screen.getAllByRole('button')
-        expect(buttons[0].textContent).toContain('Add second player')
-        expect(buttons[1].textContent).toContain('Compare to the rest of the league')
-        expect(buttons.length).toBe(2)
+        expect(buttons[0].textContent).toContain('Full league comparison')
+        expect(buttons.length).toBe(1)
     });
     test('it renders the all the teams in options', () => {
-        
+
         const options = screen.getAllByRole('option')
         options.pop()
-        expect(options.length).toBe(21)
+        expect(options.length).toBe(45)
         expect(options[0].textContent).toContain('Select Team')
         expect(options[1].textContent).toContain('Arsenal')
         expect(options[2].textContent).toContain('Aston Villa')
@@ -47,12 +46,6 @@ describe('Statistics', () => {
         expect(options[18].textContent).toContain('Tottenham Hotspur')
         expect(options[19].textContent).toContain('West Ham United')
         expect(options[20].textContent).toContain('Wolverhampton Wanderers')
-       
+
     });
-
-    
-    
-
-
-
 });

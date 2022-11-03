@@ -1,9 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
+// import { userEvent } from '@testing-library/user-event'
+import userEvent  from '@testing-library/user-event';
 import { default as StatsTable } from '.'
 
 describe('StatsTable', () => {
     beforeEach(() => {
+        const allData=[{"name": "Erling Haaland", "team": "Manchester City F.C.", "position": "FW", "predicted_points": 13, "cost": 12.8}]
         render(
             <Router>
                 <StatsTable allData={allData}/>
@@ -23,9 +26,8 @@ describe('StatsTable', () => {
 
     test('it renders the all the teams in options', () => {
         const options = screen.getAllByRole('option')
-        options.pop()
-        expect(options.length).toBe(21)
-        expect(options[0].textContent).toContain('jsdhjshjdh')
+        expect(options.length).toBe(29)
+        expect(options[0].textContent).toContain('All')
         expect(options[1].textContent).toContain('Arsenal')
         expect(options[2].textContent).toContain('Aston Villa')
         expect(options[3].textContent).toContain('Bournemouth')
@@ -46,6 +48,25 @@ describe('StatsTable', () => {
         expect(options[18].textContent).toContain('Tottenham Hotspur')
         expect(options[19].textContent).toContain('West Ham United')
         expect(options[20].textContent).toContain('Wolverhampton Wanderers')
-       
+        expect(options[21].textContent).toContain('Any')
+        expect(options[22].textContent).toContain('GK')
+        expect(options[23].textContent).toContain('DF')
+        expect(options[24].textContent).toContain('MF')
+        expect(options[25].textContent).toContain('FW')
+        expect(options[26].textContent).toContain('Predicted Points')
+        expect(options[27].textContent).toContain('Cost')
+        expect(options[28].textContent).toContain('PP per Cost')
     });
+
+    test("hello", () => {
+        const table = screen.getByRole("table")
+        userEvent.selectOptions(screen.getByRole("teamDropdown"), screen.getByRole("Manchester"))
+        // fireEvent.click(screen.getByText("All"))
+        // fireEvent.click(screen.getByText("Manchester United"))
+        const filters = screen.getByRole("filterSubmitBtn")
+        fireEvent.click(filters)
+        expect(table.childElementCount).toBe(1)
+
+
+    })
 })

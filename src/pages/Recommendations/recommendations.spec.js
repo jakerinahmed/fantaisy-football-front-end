@@ -20,15 +20,20 @@ describe('Recommendations', () => {
         const inputs = screen.getAllByRole('textbox')
         expect(inputs.length).toBe(2);
     });
-    test('there is a submit button', () => {
-        const submit = screen.getByRole('submit')
-        expect(submit.value).toBe("Get my team!");
+    test('there is a Signup and login button', () => {
+        const submit = screen.getAllByRole('button')
+        expect(submit[0].textContent).toBe("Sign up")
+        expect(submit[1].textContent).toBe("Login")
+        expect(submit[2].value).toBe("Submit")
     });
     // test('the view analysis button takes you to /recommendations', () => {
 
     //     const button = screen.getByText('View analysis')
     //     expect(button.href).toContain("/recommendations");
     // });
+    test("handleSubmit", () => {
+        
+    })
 
 
 
