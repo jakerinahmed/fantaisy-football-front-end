@@ -81,8 +81,8 @@ h2 {
 .user-team, .user-op-team{
     border: 5px solid var(--border);
     text-align: center;
-    min-height: 100vh;
-    max-height: 100vh;
+    min-height: 609.33px;
+    max-height: 609.33px;
     min-width: 522px;
     max-width: 522px;
     display: flex;
