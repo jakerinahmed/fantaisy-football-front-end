@@ -20,6 +20,7 @@ const Recommendations = () => {
   {name:"Moore",value: 5.4, points:9, position:"FW", team: "BOU"},
   {name:"Havertz",value: 7.7, points:9, position:"FW", team: "CHE"},
   ])
+  const [optimalTeam, setOptimalTeam] = useState([])
 
   useEffect(() => {
     localStorage.clear()
@@ -135,6 +136,7 @@ useEffect(() => {
 
   function teamOptimiser(){
     var newTransfers = []
+    var optimalTeamPlayers = []
     const bank = userPlayers.reduce((accumulator, userPlayer) => {
        return accumulator + userPlayer.value
     },0)
@@ -164,10 +166,12 @@ useEffect(() => {
           }
          
 
-          if(pointDiff > 0 && !currentPlayers.find(name => playerIn === name) && teams.filter(team => dreamPlayer.team === team) && teamCount <= 3){
-            
+          if(pointDiff > 2 && !currentPlayers.find(name => playerIn === name) && teams.filter(team => dreamPlayer.team === team) && teamCount <= 3){
             newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
-
+            
+            optimalTeamPlayers.push({name:dreamPlayer.name,value: dreamPlayer.value, points:dreamPlayer.points, position:dreamPlayer.position, team: dreamPlayer.team, pointDiff:pointDiff, playername: userPlayer.name})
+            
+            
           }
         }
       })
@@ -178,14 +182,41 @@ useEffect(() => {
     newTransfers.forEach(transfer => {
       maxPoints.push(transfer.points)
     })
+    let optTransfers = []
+    optimalTeamPlayers.forEach(optplayer => {
+
+      const checkPlayers = optimalTeamPlayers.filter(player => player.name === optplayer.name)
+      if(checkPlayers.length > 1){
+        console.log(checkPlayers)
+        let max = [] 
+        checkPlayers.forEach(player => {
+          max.push(player.pointDiff)
+        })
+        const opt = Math.max(...max)
+        const optChangeIndex = max.findIndex(num => num === opt)
+        optTransfers.push(checkPlayers[optChangeIndex])
+      } 
+    
+    })
+    console.log('unique values',... new Set(optTransfers))
+    const uniquePlayer = [... new Set(optTransfers)]
+    console.log(uniquePlayer)
+    let newUserTeam = userPlayers
+    uniquePlayer.forEach((player) => {
+      userPlayers.findIndex((userPlayer) => player.playername )
+    })
+    
     const newOptimal = Math.max(...maxPoints)
     const optIndex = maxPoints.findIndex(num => num === newOptimal)
     const optTransfer = newTransfers[optIndex]
     setOptimalTransfer(optTransfer)
     setOptimal(newOptimal)
+
     console.log(newTransfers)
     setSuggestion(false)
-    return setTransfers(newTransfers) 
+    console.log('optimal team', optimalTeamPlayers)
+    console.log('optimal', optTransfers)
+    return setTransfers(newTransfers), setOptimalTeam(optimalTeamPlayers)
   } 
   if(authorised){
 
