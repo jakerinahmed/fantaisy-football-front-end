@@ -564,7 +564,7 @@ function handleFilters (e) {
             <input type="submit" value="apply filters" id='submit' className='button'/>
             </div>
             </form>
-           </div> </div> :<div className='chartButton'><button onClick={renderChartDiv} hidden = {renderGraph} className="button">Full league comparision</button></div>}
+           </div> </div> :<div className='chartButton'><button onClick={renderChartDiv} hidden = {renderGraph} className="button">Full league comparison</button></div>}
             </div>
         
     )
