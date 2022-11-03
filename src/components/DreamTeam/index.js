@@ -27,27 +27,27 @@ const DreamTeam = ({ allData }) => {
       let i = 0
         while (dream_team.length < 11) {
           if ((byPredictedPoints[i].position == "MF") && midfielderCount < 5 && attOrMidCount < 7 && outfieldCount < 10){
-            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points})
+            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points, "code": byPredictedPoints[i].code})
             midfielderCount += 1
             outfieldCount +=1
             attOrMidCount +=1
             i += 1
           }
           else if ((byPredictedPoints[i].position == "FW") && attackerCount < 3 && attOrMidCount < 7 && outfieldCount < 10){
-            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points})
+            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points, "code": byPredictedPoints[i].code})
             attackerCount += 1
             outfieldCount +=1
             attOrMidCount +=1
             i += 1
           }
           else if ((byPredictedPoints[i].position == "DF") && defenderCount < 5 && outfieldCount < 10){
-            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points})
+            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points, "code": byPredictedPoints[i].code})
             defenderCount += 1
             outfieldCount +=1
             i += 1
           }
           else if ((byPredictedPoints[i].position == "GK") && goalkeeperCount < 1){
-            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points})
+            dream_team.push({"name": byPredictedPoints[i].name, "position": byPredictedPoints[i].position, "predicted_points": byPredictedPoints[i].predicted_points, "code": byPredictedPoints[i].code})
             goalkeeperCount += 1
             i += 1
           }
