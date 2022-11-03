@@ -80,6 +80,11 @@ h2 {
     background-position: left;
 }
 
+.intro-container > p{
+    font-size: 25px;
+    margin: 5px;
+    
+}
 div {
     border-radius: 10px;
     margin: 10px;
