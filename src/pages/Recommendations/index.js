@@ -195,16 +195,25 @@ useEffect(() => {
         const opt = Math.max(...max)
         const optChangeIndex = max.findIndex(num => num === opt)
         optTransfers.push(checkPlayers[optChangeIndex])
-      } 
+      } else {
+        optTransfers.push(optplayer)
+      }
     
     })
     console.log('unique values',... new Set(optTransfers))
     const uniquePlayer = [... new Set(optTransfers)]
     console.log(uniquePlayer)
-    let newUserTeam = userPlayers
-    uniquePlayer.forEach((player) => {
-      userPlayers.findIndex((userPlayer) => player.playername )
+    let newUserTeam = []
+    userPlayers.forEach((player) => {
+      newUserTeam.push(player)
     })
+    uniquePlayer.forEach((player) => {
+      const playerIndex = userPlayers.findIndex((userPlayer) => userPlayer.name === player.playername )
+      newUserTeam[playerIndex] = player
+    })
+    console.log("newuserteam", newUserTeam)
+    console.log("userplayers", userPlayers);
+    setDreamPlayers(newUserTeam)
     
     const newOptimal = Math.max(...maxPoints)
     const optIndex = maxPoints.findIndex(num => num === newOptimal)
