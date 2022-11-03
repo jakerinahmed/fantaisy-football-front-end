@@ -17,9 +17,7 @@ describe('About', () => {
     test('it renders the about header model', () => {
         
         const heading = screen.getAllByRole('heading')
-        expect(heading[1].textContent).toContain("About our model");
+        expect(heading[1].textContent).toContain("How to play");
     });
-
-
 
 });

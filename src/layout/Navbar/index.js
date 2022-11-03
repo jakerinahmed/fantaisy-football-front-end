@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
 
-        <div className='nav-div'>
+        <div role='nav' className='nav-div'>
             <NavLink style={{textDecoration: "none"}} to="/" end><h1>fant<span>AI</span>sy Football</h1></NavLink>
             <nav>
 

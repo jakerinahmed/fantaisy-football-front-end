@@ -9,7 +9,7 @@ const Home = () => {
 
       <div className='intro-container'>
         <h1 role="welcome">Welcome to fant<span>AI</span>sy football!</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi perspiciatis necessitatibus ratione fuga omnis ad numquam tempore consectetur reiciendis soluta. Asperiores sint nulla ipsum dignissimos, nobis dicta mollitia quam quis?</p>
+        <p>A toolset for all Fantasy Premier League managers that optimises your team on a week to week basis using a cutting-edge machine learning model and a host of advanced stats for users to make the best decision on who they think might take their team to the next level.</p>
       </div>
 
 
@@ -23,7 +23,7 @@ const Home = () => {
         <div className='recommend'>
           <h2>Want to see our recommendations?</h2>
           
-          <Link to="/recommendations"><button>View analysis</button></Link>
+          <Link role='redirect' to="/recommendations"><button>View analysis</button></Link>
           
         </div>
 
