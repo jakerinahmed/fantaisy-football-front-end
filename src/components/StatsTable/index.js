@@ -87,7 +87,9 @@ const StatsTable = ({ allData }) => {
                     return b.cost - a.cost;
                 }))
             } else {
-                setOrderedPlayers(allData)
+                setOrderedPlayers(allData.sort((a, b) => {
+                    return b.predicted_points - a.predicted_points;
+                }))
             }
         }
     }
