@@ -1,6 +1,41 @@
 import React from 'react'
+import { useState } from 'react'
 
 const PlayerStats = (props) => {
+    let takesFk = 0
+    let takesC = 0
+    let takesP = 0
+   
+    if (props.freeKicks === 1){
+        takesFk = "Often"
+    } else if (props.freeKicks === 2) {
+        takesFk = "Sometimes"
+    } else if (props.freeKicks === 3) {
+        takesFk = "Rarely"
+    } else {
+        takesFk = "Never"
+    }
+
+    if (props.corners === 1){
+         takesC = "Often"
+    } else if (props.corners === 2) {
+         takesC = "Sometimes"
+    } else if (props.corners === 3) {
+         takesC = "Rarely"
+    } else {
+         takesC = "Never"
+    }
+
+    if (props.pens === 1){
+         takesP = "Often"
+    } else if (props.pens === 2) {
+         takesP = "Sometimes"
+    } else if (props.pens === 3) {
+         takesP = "Rarely"
+    } else {
+         takesP = "Never"
+    }
+
     return (
         <div className='playerStats' role='playerStats'>
             <div className='player-stuff'>
@@ -60,15 +95,15 @@ const PlayerStats = (props) => {
                     </tr>
                     <tr>
                         <th>Takes Corners ?</th>
-                        <td>{props.corners}</td>
+                        <td>{takesC}</td>
                     </tr>
                     <tr>
                         <th> Takes Free Kicks ?</th>
-                        <td>{props.freeKicks}</td>
+                        <td>{takesFk}</td>
                     </tr>
                     <tr>
                         <th>Takes Penalties ?</th>
-                        <td>{props.pens}</td>
+                        <td>{takesP}</td>
                     </tr>
                 </table>
                 <table className='statistics'>
