@@ -213,6 +213,7 @@ useEffect(() => {
             const newTeams = teams.filter(team => allPlayer.team === team)
             console.log("newTeams", teamCount);
             var teamCount = newTeams.length + 1
+            console.log(teamCount)
 
           }
 
