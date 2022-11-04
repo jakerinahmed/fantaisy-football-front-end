@@ -1,13 +1,16 @@
 # Setup
 
 * First install all dependencies by running:
-''''
+
+````
   npm install 
- ''''
+ ````
 
 # To start the server on local host run:
   
+  ````
   npm run start
+  ````
 
 # To view the website use the url below:
   
