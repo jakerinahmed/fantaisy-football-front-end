@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-    height: 750px;
-    
 }
 .player-stuff{
    display: flex;
@@ -18,8 +16,8 @@
 }
 
 .playerOne, .playerTwo {
-    min-width: 45vw;
-    max-width: 45vw;
+    min-width: 40vw;
+    max-width: 40vw;
     border: solid 5px var(--border);
     display: flex;
     justify-content: center;
