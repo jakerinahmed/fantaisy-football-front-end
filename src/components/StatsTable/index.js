@@ -114,7 +114,7 @@ const StatsTable = ({ allData }) => {
                             <option value="Leeds United">Leeds United</option>
                             <option value="Liverpool F.C.">Liverpool</option>
                             <option value="Manchester City F.C.">Manchester City</option>
-                            <option role='Manchester' value="Manchester United F.C.">Manchester United</option>
+                            <option  value="Manchester United F.C.">Manchester United</option>
                             <option value="Newcastle United F.C.">Newcastle United</option>
                             <option value="Nottingham Forest F.C.">Nottingham Forest</option>
                             <option value="Southampton F.C.">Southampton</option>
@@ -126,7 +126,7 @@ const StatsTable = ({ allData }) => {
 
                     <div role='position'>
                         <label className='filter-padding' for="position">Position</label>
-                        <select className='filter-drop-down' name="positionFilter" id="position">
+                        <select role ="positions" className='filter-drop-down' name="positionFilter" id="position">
                             <option value="Any">Any</option>
                             <option value="GK">GK</option>
                             <option value="DF">DF</option>
@@ -137,7 +137,7 @@ const StatsTable = ({ allData }) => {
 
                     <div role='table-headers'>
                         <label className='filter-padding' for='table-headers'>Sort by</label>
-                        <select className='filter-drop-down' name="tableFilter" id="tableFilter">
+                        <select role="tablefilter" className='filter-drop-down' name="tableFilter" id="tableFilter">
                             <option value="PP">Predicted Points</option>
                             <option value="Cost">Cost</option>
                             <option value="PP per Cost">PP per Cost</option>

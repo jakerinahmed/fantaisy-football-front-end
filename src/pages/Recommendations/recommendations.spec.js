@@ -1,6 +1,9 @@
 import { default as Recommendations } from '.';
 import { render, screen } from '@testing-library/react';
-import {MemoryRouter} from 'react-router-dom';
+
+import { MemoryRouter } from 'react-router-dom';
+
+
 
 
 
@@ -31,10 +34,12 @@ describe('Recommendations', () => {
     //     const button = screen.getByText('View analysis')
     //     expect(button.href).toContain("/recommendations");
     // });
-    test("handleSubmit", () => {
-        
-    })
+    
 
 
 
 });
+
+
+
+

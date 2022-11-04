@@ -1,0 +1,13 @@
+#instructions > ul {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color:#41EAD4 ;
+}
+
+#instructions > ul > li > a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color:#41EAD4 ;
+}

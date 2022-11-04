@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode"
 import ReactDOM from "react-dom";
 import axios from 'axios';
+import './style.css'
 
 
 export const LoginForm = (props) => {
@@ -125,7 +126,15 @@ export const LoginForm = (props) => {
                             <input name="userID" id="userID" type="text" className='form-inputs' required></input>
                             <input type="submit" value="Submit" id="submit-signup"></input>
                         </form>
-                        
+                        <div id="instructions">
+                        <p>Finding your userID:</p>
+                        <ul>
+                            <li>To find your user id, please go to <a href='https://fantasy.premierleague.com/'>Fantasy premier league official website</a></li>
+                            <li>Sign in and select the Points option</li>
+                            <li>your user id is in the url  for example https://fantasy.premierleague.com/entry/<span style={{color:'#F71735'}}>UserID</span>/event/14, For example a url of https://fantasy.premierleague.com/entry/8102622/event/14 has a userID of 8102622.</li>
+                        </ul>
+                       
+                        </div>
                     </div>
 
                     

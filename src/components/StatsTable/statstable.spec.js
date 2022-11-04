@@ -59,13 +59,20 @@ describe('StatsTable', () => {
     });
 
     test("hello", () => {
-        const table = screen.getByRole("table")
-        userEvent.selectOptions(screen.getByRole("teamDropdown"), screen.getByRole("Manchester"))
+        userEvent.selectOptions(screen.getByRole("teamDropdown"),['All'])
+        
+        userEvent.selectOptions(screen.getByRole("positions"),['Any'])
+        userEvent.selectOptions(screen.getByRole("tablefilter"),['PP'])
+        const table = screen.getAllByRole("columnheader")
         // fireEvent.click(screen.getByText("All"))
         // fireEvent.click(screen.getByText("Manchester United"))
-        const filters = screen.getByRole("filterSubmitBtn")
-        fireEvent.click(filters)
-        expect(table.childElementCount).toBe(1)
+        expect(screen.getByRole('option', {name: 'All'}).selected).toBe(true)
+        expect(screen.getByRole('option', {name: 'Any'}).selected).toBe(true)
+        expect(screen.getByRole('option', {name: 'Arsenal'}).selected).toBe(false)
+        expect(screen.getByRole('option', {name: 'Aston Villa'}).selected).toBe(false)
+        expect(screen.getByRole('option', {name: 'Bournemouth'}).selected).toBe(false)
+        expect(screen.getByRole('option', {name: 'Brentford'}).selected).toBe(false)
+        expect(table.length).toBe(6)
 
 
     })

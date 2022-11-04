@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 describe("PlayerStats", () => {
     beforeEach(() => {
+        
         render(<PlayerStats  />, { wrapper: MemoryRouter })
     })
 

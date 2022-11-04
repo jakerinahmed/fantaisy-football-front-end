@@ -6,7 +6,10 @@ import fetchMock from "jest-fetch-mock"
 
 
 
+
 fetchMock.enableMocks()
 global.React = React;
 global.render = render;
 global.userEvent = userEvent;
+
+// react-scripts test --setupFilesAfterEnv --maxWorkers=1 ./src/test/setupTests.js
