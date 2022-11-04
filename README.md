@@ -1,7 +1,9 @@
 # Setup
 
 * First install all dependencies by running:
+''''
   npm install 
+ ''''
 
 # To start the server on local host run:
   
