@@ -81,16 +81,14 @@ h2 {
 .user-team, .user-op-team{
     border: 5px solid var(--border);
     text-align: center;
-    min-height: 609.33px;
-    max-height: 609.33px;
-    min-width: 522px;
-    max-width: 522px;
+    height: 800px;
+    width: 650px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     background-image: url('../../../public/imgs/cropped_football_pitch.jpg');
-    background-size:512px 600px ;
+    background-size: cover;
     background-repeat: no-repeat;
     font-size: 15px;
     

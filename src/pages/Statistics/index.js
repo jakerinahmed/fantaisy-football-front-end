@@ -32,7 +32,6 @@ const Stats = () => {
     
     const handleTeamChoice = async (e) => {
         const team = e.target.value
-        console.log(allData)
         const playerNames = allData.filter(p => p.team === team)
         const options = []
         for (let i = 0; i < playerNames.length; i++) {
@@ -56,7 +55,6 @@ const Stats = () => {
         const data = data_array[0]
         setPlayerData(data)
         setPlayersArray([data, playersArray[1]])
-        console.log(playersArray)
     }
 
     const handlePlayerChoiceTwo = (e) => {

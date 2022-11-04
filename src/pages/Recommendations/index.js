@@ -137,35 +137,35 @@ let handleSubmit = async (e) => {
   )
 }
 
-function sortBenchPlayers(players){
-  let benchPlayers = []
-  let goalkeeperCount = 0
-  let defenderCount = 0
-  let midfielderCount = 0
-  let attackerCount = 0
-  players.sort((a, b) => {
-    return a.predicted_points - b.predicted_points
-  })
-  players.forEach(p => {
-    if (p.position === "GK" && goalkeeperCount < 1 && benchPlayers.length < 4){
-      benchPlayers.push(p)
-      goalkeeperCount += 1
-    } else if (p.position === "DF" && defenderCount < 2 && benchPlayers.length < 4){
-      benchPlayers.push(p)
-      defenderCount +=1
-    } else if (p.position === "MF" && midfielderCount < 2 && benchPlayers.length < 4){
-      benchPlayers.push(p)
-      midfielderCount +=1
-    } else if (p.position === "FW" && attackerCount < 2 && benchPlayers.length < 4){
-      benchPlayers.push(p)
-      attackerCount +=1
-    }
-  }
-  )
-  sortBenchPlayers(benchPlayers)
-  console.log("benchplayers", benchPlayers);
+// function sortBenchPlayers(players){
+//   let benchPlayers = []
+//   let goalkeeperCount = 0
+//   let defenderCount = 0
+//   let midfielderCount = 0
+//   let attackerCount = 0
+//   players.sort((a, b) => {
+//     return a.predicted_points - b.predicted_points
+//   })
+//   players.forEach(p => {
+//     if (p.position === "GK" && goalkeeperCount < 1 && benchPlayers.length < 4){
+//       benchPlayers.push(p)
+//       goalkeeperCount += 1
+//     } else if (p.position === "DF" && defenderCount < 2 && benchPlayers.length < 4){
+//       benchPlayers.push(p)
+//       defenderCount +=1
+//     } else if (p.position === "MF" && midfielderCount < 2 && benchPlayers.length < 4){
+//       benchPlayers.push(p)
+//       midfielderCount +=1
+//     } else if (p.position === "FW" && attackerCount < 2 && benchPlayers.length < 4){
+//       benchPlayers.push(p)
+//       attackerCount +=1
+//     }
+//   }
+//   )
+//   sortBenchPlayers(benchPlayers)
+//   console.log("benchplayers", benchPlayers);
 
-}
+// }
 
 
 
@@ -208,10 +208,10 @@ useEffect(() => {
           const playerIn = allPlayer.name
           const playerOut = userPlayer.name
           const costDiff = userPlayer.value - allPlayer.value
-          console.log(bank, "bank");
           
           if(allPlayer.team !== userPlayer.team){
             const newTeams = teams.filter(team => allPlayer.team === team)
+            console.log("newTeams", teamCount);
             var teamCount = newTeams.length + 1
             console.log(teamCount)
 
@@ -223,6 +223,8 @@ useEffect(() => {
             let dupeOut = newTransfers.filter(player => playerOut === player.out)
             
             if(dupe.length === 1 && dupe.points < pointDiff && dupeOut.length === 1){
+              teams.push(allPlayer.team)
+              teams.splice(teams.indexOf(userPlayer.team), 1)
               bank = bank - costDiff
               optimalTeamPlayers = optimalTeamPlayers.filter(player => playerIn !== player.name)
               optimalTeamPlayers = optimalTeamPlayers.filter(player => playerOut !== player.playername)
@@ -231,6 +233,8 @@ useEffect(() => {
               newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
               optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name, code: allPlayer.code})
             }else if(dupeOut.length === 1 && dupeOut.points < pointDiff){
+              teams.push(allPlayer.team)
+              teams.splice(teams.indexOf(userPlayer.team), 1)
               bank = bank - costDiff
               optimalTeamPlayers = optimalTeamPlayers.filter(player => playerOut !== player.playername)
               newTransfers = newTransfers.filter(player => playerOut !== player.out)
@@ -238,6 +242,8 @@ useEffect(() => {
               optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name, code: allPlayer.code})
               
             }else if (dupe.length === 0 && dupeOut.length === 0){
+              teams.push(allPlayer.team)
+              teams.splice(teams.indexOf(userPlayer.team), 1)
               bank = bank - costDiff
               newTransfers.push({in:playerIn,out:playerOut, points:pointDiff})
               optimalTeamPlayers.push({name:allPlayer.name,value: allPlayer.value, points:allPlayer.points, position:allPlayer.position, team: allPlayer.team, pointDiff:pointDiff, playername: userPlayer.name, code: allPlayer.code})
@@ -276,6 +282,9 @@ useEffect(() => {
     const uniquePlayer = [... new Set(optTransfers)]
     console.log("uniqueplayers", uniquePlayer)
     let newUserTeam = []
+    userPlayers.sort((a, b) => {
+      return a.predicted_points - b.predicted_points
+    })
     userPlayers.forEach((player) => {
       newUserTeam.push(player)
     })
